@@ -1,0 +1,11 @@
+{
+  "name": "pugtrailwishlist",
+  "version": "1.0.0",
+  "description": "Wishlist for trails you want to visit using pugjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bikerstevewebdev",
+  "license": "ISC"
+}
