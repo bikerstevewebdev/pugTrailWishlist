@@ -1,0 +1,8 @@
+extends layout
+
+block content
+    form.contact(action="/contact")
+        h2 Reach Out to Us
+        input.name(type="text" placeholder="Enter your full name.")
+        input.email(type="text" placeholder="Enter your email.")
+        button(type="submit") Send It
