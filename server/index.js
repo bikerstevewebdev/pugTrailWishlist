@@ -2,9 +2,17 @@ const express = require('express')
 const path = require('path')
 const router = express.Router()
 const users = require('./users')
+const pgp = require('pg-promise')()
+require('dotenv').config()
 // const pug = require('pug')
 
 const app = express()
+const db = pgp(process.env.DB_STRING)
+
+db.connect()
+    .then(obj => {
+        console.log('DB Connection Object: ', obj)
+    })
 
 router.use('/users', users)
 
