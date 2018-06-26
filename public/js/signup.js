@@ -8,15 +8,22 @@ $(document).ready( function(){
         let email = $('.email.signup').val()
         let password = $('.password.signup').val()
         console.log('Username', username, 'Email', email, 'Password', password, 'Fullname', fullname)
-        $.post('/users',
-            {
+        $.ajax({
+            method: "POST"
+            , url: '/users'
+            , processData: false
+            , data: {
                 "fullname": fullname
                 , "username": username
                 , "email": email
                 , "password": password
             }
-            , function(data, status) {
+            , success: function(data, status) {
                 alert("Data: " + data + "\nStatus: " + status)
-            })
+            }
+            , error: function(err){
+                console.log(err)
+            }
+        })
     })
 })

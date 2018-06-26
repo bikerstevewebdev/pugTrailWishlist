@@ -48,7 +48,7 @@ app.use((req, res, next) => {
     //     })
     
     
-router.use('/users', auth.authenticate)
+// router.use('/users', auth.authenticate)
 
 app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'pug')
@@ -78,6 +78,9 @@ app.get('/faq', (req, res) => {
 })
 app.get('/users/dashboard', (req, res) => {
     res.render('dashboard')
+})
+app.get('/suggestions/form', (req, res) => {
+    res.render('suggestion')
 })
 app.get('/trails', (req, res) => {
     res.render('trails')

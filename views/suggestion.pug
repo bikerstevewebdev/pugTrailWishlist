@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    section.suggestion_container
+    a(href="/suggestions?random=true"): button Give Me a Random One!
+    form.suggestion(action="/suggestions")
+        h3 Let's be More Specific
+        #form_group
+            label Location
+            input(type="text", name="location")
+        #form_group
+            label Max Distance From Location (miles)
+            input(name="max-distance", type="number")
+        #form_group
+            label Difficulty Level
+            input(name="difficulty", type="text")
