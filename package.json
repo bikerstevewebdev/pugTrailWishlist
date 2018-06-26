@@ -9,6 +9,7 @@
   "author": "bikerstevewebdev",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcrypt": "^2.0.1",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",

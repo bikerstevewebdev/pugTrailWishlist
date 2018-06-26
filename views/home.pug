@@ -1,14 +1,25 @@
 extends layout
 
-mixin trails
-    ul
-        li Y Mountain to the Y
-        li Squaw Peak Back Trail
-        li Stuart Falls
+//- mixin traillist
+//-     ul
+//-         each trail, i in trails
+//-             li= trail.name
 
 block content
+    - console.log('From home.pug data: ', trails, 'User: ', user) 
     - const name = 'Steve'
     h1 Welcome Back #{name}
     p Your trails await!
-    +trails
+    section.trails-list
+        each trail in trails
+            .trail
+                img.trail-img(src=trail.imgSqSmall, alt=trail.name)
+                .trail-info
+                    p= trail.name
+                    p= 'Difficulty: ' + trail.difficulty
+    //- +traillist
 
+
+        //- li Y Mountain to the Y
+        //- li Squaw Peak Back Trail
+        //- li Stuart Falls

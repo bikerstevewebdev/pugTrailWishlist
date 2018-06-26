@@ -6,8 +6,13 @@ html *{
     color: #eee;
 }
 
+body{
+    position: relative;
+}
+
 button{
     cursor: pointer;
+    color: black;
 }
 
 .heads{
@@ -26,6 +31,7 @@ button{
 }
 
 .heads button{
+    color: #eee;
     background-color: transparent;
     border: none;
 }
@@ -38,11 +44,30 @@ button{
 .main{
     width: 100%;
     margin-top: 85px;
+    padding-bottom: 120px;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+div.trail{
+    display: flex;
+    width: 400px;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #555;
+    margin: 1rem;
+    
+}
+
+div.trail-info{
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+    justify-content: space-around;
+    align-items: flex-end;
 }
 
 form{

@@ -3,12 +3,14 @@ const express = require('express')
     , path    = require('path')
     , router  = express.Router()
     , auth    = require('./authentication')
-    , pgp     = require('pg-promise')()
+    // , pgp     = require('pg-promise')()
+    , db      = require('./db')
     , bcrypt  = require('bcrypt')
     , uc      = require('./userController')
     , session = require('express-session')
     , tc      = require('./apis/trails')
     , cors    = require('cors')
+    , axios   = require('axios')
 // const pug = require('pug')
 
 const {
@@ -20,15 +22,11 @@ const {
 } = process.env
 
 const app = express()
+// const db = pgp(DB_STRING)
 app.use(express.json())
 app.use(cors())
 app.use('/static', express.static('public'))
-const db = pgp(DB_STRING)
 
-// db.connect()
-//     .then(obj => {
-//         console.log('DB Connection Object: ', obj)
-//     })
 
 app.use(session({
     secret: SESSION_SECRET || "ghvjhvjahbsdfuhalksdfbkhagd"
@@ -39,13 +37,29 @@ app.use(session({
     }
 }))
 
+app.use((req, res, next) => {
+    console.log('URL: ', req.url, 'Body: ', req.body, 'Session Obj: ', req.session, 'Session User: ', req.session.user)
+    next()
+})
+
+// db.connect()
+//     .then(obj => {
+    //         console.log('DB Connection Object: ', obj)
+    //     })
+    
+    
 router.use('/users', auth.authenticate)
 
 app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'pug')
 
 app.get('/', (req, res) => {
-    res.render('home')
+    axios.get(`https://www.hikingproject.com/data/get-trails?lat=40.7608&lon=-111.8910&maxDistance=10&key=${API_KEY}`).then(trailsResponse => {
+        res.render('home', {
+            user: req.session.user,
+            trails: trailsResponse.data.trails
+        })
+    })
 })
 app.get('/login', (req, res) => {
     res.render('login')

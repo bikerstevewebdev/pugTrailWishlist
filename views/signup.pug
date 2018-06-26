@@ -1,10 +1,11 @@
 extends layout
 
 block content
-    form#signup
+    form#signup(action="/users")
         h2 Signup to Keep Track of Your Trail Activity
         input.signup.username(type="text", placeholder="Username", name="username" required)
-        input.signup.email(type="text", placeholder="Email Address", name="email" required)
-        input.signup.password(type="text", placeholder="Password", name="password" required)
+        input.signup.fullname(type="text", placeholder="Username", name="fullname" required)
+        input.signup.email(type="email", placeholder="Email Address", name="email" required)
+        input.signup.password(type="password", placeholder="Password", name="password" required)
         input.signup(type="submit")
     script(src="/static/js/signup.js", type="text/javascript")
