@@ -69,3 +69,7 @@ input, select {
 button {
   outline: none;
 }
+
+h1{
+    font-size: 3rem;
+}

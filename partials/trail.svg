@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>Trail Buddy</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/styles/reset.css">
-    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
-  </head>
-  <body>
-    <nav class="heads">
-      <button class="suggest">
+
 <svg class="suggest" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="485.211px" height="485.21px" viewBox="0 0 485.211 485.21" style="enable-background:new 0 0 485.211 485.21;"
 	 space="preserve">
@@ -60,23 +49,3 @@
 <g>
 </g>
 </svg>
-      </button><a href="/">
-        <h2 class="logo">Trail Buddy</h2></a>
-      <section class="login"><a href="/login">
-          <button class="login">Login</button></a><a href="/signup">
-          <button class="signup">Signup</button></a>
-      </section>
-    </nav>
-    <section class="main">
-    </section>
-    <nav class="tails">
-      <p class="copy">Copyright &copy; 2018</p>
-      <ul>
-        <li class="foot_link"> <a href="/about">About the Creator</a></li>
-        <li class="foot_link"><a href="/contact">Contact Us</a></li>
-        <li class="foot_link"><a href="/faq">FAQ</a></li>
-      </ul>
-    </nav>
-  </body>
-  <script type="text/javascript" src="/static/js/main.js"></script>
-</html>

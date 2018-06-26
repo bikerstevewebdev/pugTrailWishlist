@@ -1,0 +1,14 @@
+- const user = {is_logged_in: false, username: ""}
+nav.heads
+    - let loggedIn = user.is_logged_in ? true : false
+    button.suggest
+        include ./trail.svg
+        //- img.suggest_icon(src="/static/images/trail.svg", alt="Trail Icon")
+    a(href="/")
+        h2.logo Trail Buddy
+    section.login
+        if loggedIn 
+            #{user.username}
+        else
+            a(href="/login"): button.login Login
+            a(href="/signup"): button.signup Signup

@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>Trail Buddy</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/styles/reset.css">
-    <link rel="stylesheet" type="text/css" href="/static/styles/main.css">
-  </head>
-  <body>
-    <nav class="heads">
-      <button class="suggest">
-<svg class="suggest" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="485.211px" height="485.21px" viewBox="0 0 485.211 485.21" style="enable-background:new 0 0 485.211 485.21;"
-	 space="preserve">
+	 xml:space="preserve">
 <g>
 	<path fill="white" d="M198.008,313.767l11.252,28.138c-10.897,4.354-21.765,7.672-32.368,9.89l-6.191-29.669
 		C179.587,320.253,188.767,317.444,198.008,313.767z M107.77,350.109c11.105,3.197,22.806,4.915,34.768,5.092l0.476-30.322
@@ -60,23 +51,3 @@
 <g>
 </g>
 </svg>
-      </button><a href="/">
-        <h2 class="logo">Trail Buddy</h2></a>
-      <section class="login"><a href="/login">
-          <button class="login">Login</button></a><a href="/signup">
-          <button class="signup">Signup</button></a>
-      </section>
-    </nav>
-    <section class="main">
-    </section>
-    <nav class="tails">
-      <p class="copy">Copyright &copy; 2018</p>
-      <ul>
-        <li class="foot_link"> <a href="/about">About the Creator</a></li>
-        <li class="foot_link"><a href="/contact">Contact Us</a></li>
-        <li class="foot_link"><a href="/faq">FAQ</a></li>
-      </ul>
-    </nav>
-  </body>
-  <script type="text/javascript" src="/static/js/main.js"></script>
-</html>
