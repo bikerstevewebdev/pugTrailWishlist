@@ -1,9 +1,9 @@
 extends layout
 
 block content
-    form.login(action="/users/login")
+    form#login(action="/users/login")
         h2 Signup to Keep Track of Your Trail Activity
-        input(type="text", placeholder="Username", name="username" required)
-        input(type="text", placeholder="Password", name="email" required)
+        input.username.login(type="text", placeholder="Username", name="username" required)
+        input.password.login(type="password", placeholder="Password", name="password" required)
         input(type="submit")
     script(src="/static/js/login.js")

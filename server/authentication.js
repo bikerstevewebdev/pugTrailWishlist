@@ -1,13 +1,14 @@
 module.exports = {
     authenticate: (req, res, next) => {
-        req.session.user = !req.session.user ? { username: '', trailsWishlist: [], trailscompleted: [] } : req.session.user 
-        if(req.session.user.is_logged_in){
-            return next()
-        }else{
-            req.flash('user', "Please Login")
-            res.redirect('/')
-        }
-        next()
+        db.any('SELECT * FROM users where user_id = $1', [req.user.user_id]).then(user => {
+            if(user.is_admin){
+                return next()
+            }else{
+                req.flash('user', "Unauthorized User Request: You must be an administrator to do that.")
+                res.redirect(403, '/login')
+            }
+            next()
+        })
     }
 }
     

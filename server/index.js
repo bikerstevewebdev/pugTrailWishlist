@@ -1,18 +1,30 @@
 require('dotenv').config()
-const express = require('express')
-    , path    = require('path')
-    , router  = express.Router()
-    , auth    = require('./authentication')
-    // , pgp     = require('pg-promise')()
-    , db      = require('./db')
-    , bcrypt  = require('bcrypt')
-    , uc      = require('./userController')
-    , session = require('express-session')
-    , tc      = require('./apis/trails')
-    , cors    = require('cors')
-    , axios   = require('axios')
+const express       = require('express')
+    , path          = require('path')
+    , router        = express.Router()
+    , auth          = require('./authentication')
+    , db            = require('./db')
+    , bcrypt        = require('bcrypt')
+    , uc            = require('./userController')
+    , session       = require('express-session')
+    , tc            = require('./apis/trails')
+    , cors          = require('cors')
+    , axios         = require('axios')
+    , passport      = require('passport')
+    , routes        = require('./routes')
+    , flash         = require('express-flash')
+    , LocalStrategy = require('passport-local').Strategy
+    // moved pgp to another file to maintain one db object but have access in multiple files
+    // , pgp      = require('pg-promise')()
+
+// comented the next line out because the view-engine set up in express takes care of this;
+//   this style is used for other use-cases of pug
 // const pug = require('pug')
 
+// Here begin the seemingly redundent notes for anyone interested in the use for things in the server file.
+// Advanced devs, plz excuse the sometimes pointless/obvious notes
+
+// destructuring the environment variables for use in file without repetitive process.env
 const {
     DB_STRING
     , SALT_ROUNDS
@@ -23,11 +35,17 @@ const {
 
 const app = express()
 // const db = pgp(DB_STRING)
-app.use(express.json())
-app.use(cors())
+
+// setting the static files (for references to the static folder) to point to the public folder
 app.use('/static', express.static('public'))
+// express' version of body-parser to parse the data from post's and place onto req.body 
+app.use(express.json())
+// cors middleware for ...... cors. Duh
+app.use(cors())
+// using flash for flash messaging user with req.flash, mainly for errors
+app.use(flash())
 
-
+// setting up session
 app.use(session({
     secret: SESSION_SECRET || "ghvjhvjahbsdfuhalksdfbkhagd"
     , resave: false
@@ -37,58 +55,63 @@ app.use(session({
     }
 }))
 
+// setting up passport to.... 
+app.use(passport.initialize())
+// .... handle sessions:
+app.use(passport.session())
+
+// using local strategy for custom login handling
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        db.any('SELECT * from users WHERE username = $1', [username]).then(user => {
+            if(!user[0])return done()
+            bcrypt.compare(password, user[0].password).then(valid => {
+                if(valid){
+                    return done(null, user[0])
+                }else{
+                    return done(null, false)
+                }
+            })
+        })
+    }
+))
+
+// custom top level middleware to see what is arriving on the req.body
+// logging url helps debug which route has the underlying issue
+// also checking the session object to see what is available
 app.use((req, res, next) => {
     console.log('URL: ', req.url, 'Body: ', req.body, 'Session Obj: ', req.session, 'Session User: ', req.session.user)
     next()
 })
+app.set('views', path.join(__dirname, '../views'))
+app.set('view engine', 'pug')
 
+
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/dashboard'
+    , failureRedirect: '/login'
+    , failureFlash: 'Invalid login credentials. Please try again.'
+}))
 // db.connect()
 //     .then(obj => {
     //         console.log('DB Connection Object: ', obj)
     //     })
-    
-    
-// router.use('/users', auth.authenticate)
+// will hookup later for /admin routes using route splitting
+// router.use('/admin', auth.authenticate)
 
-app.set('views', path.join(__dirname, '../views'))
-app.set('view engine', 'pug')
+// simple rendering routes
+app.get('/',                 routes.renderHome)
+app.get('/login',            routes.renderLogin)
+app.get('/signup',           routes.renderSignup)
+app.get('/contact',          routes.renderContact)
+app.get('/about',            routes.renderAbout)
+app.get('/faq',              routes.renderFAQ)
+app.get('/users/dashboard',  routes.renderDashboard)
+app.get('/suggestions/form', routes.renderSuggestion)
+app.get('/trails',           routes.renderTrails)
+app.get('/trails/:id',       routes.renderOneTrail)
 
-app.get('/', (req, res) => {
-    axios.get(`https://www.hikingproject.com/data/get-trails?lat=40.7608&lon=-111.8910&maxDistance=10&key=${API_KEY}`).then(trailsResponse => {
-        res.render('home', {
-            user: req.session.user,
-            trails: trailsResponse.data.trails
-        })
-    })
-})
-app.get('/login', (req, res) => {
-    res.render('login')
-})
-app.get('/signup', (req, res) => {
-    res.render('signup')
-})
-app.get('/contact', (req, res) => {
-    res.render('contact')
-})
-app.get('/about', (req, res) => {
-    res.render('about')
-})
-app.get('/faq', (req, res) => {
-    res.render('faq')
-})
-app.get('/users/dashboard', (req, res) => {
-    res.render('dashboard')
-})
-app.get('/suggestions/form', (req, res) => {
-    res.render('suggestion')
-})
-app.get('/trails', (req, res) => {
-    res.render('trails')
-})
-app.get('/trails/:id', (req, res) => {
-    res.render('trails')
-})
-
+// user routes
 app.post('/users', uc.createUser)
 app.post('/users/login', uc.login)
 

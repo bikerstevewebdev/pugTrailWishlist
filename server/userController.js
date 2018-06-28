@@ -12,20 +12,21 @@ module.exports = {
             }else{
                 bcrypt.hash(password, salt, (err, hash) => {
                     if(err){
+                        console.log(req.body)
                         console.log('Hash Error: ', err)
-                        db.any(`INSERT INTO users (username, fullname, email, password) values ($1, $2, $3, $4, $5)`, [username, fullname, email, hash]).then((data) => {
+                    }else{
+                        console.log('Hash: ', hash, 'Salt: ', salt)
+                        db.any(`INSERT INTO users (username, fullname, email, password) values ($1, $2, $3, $4)`, [username, fullname, email, hash]).then(data => {
                             req.session.user = {
                                 username: data.username,
                                 email: data.email,
                                 is_logged_in: true,
                                 max_age: 24*604*60*100
                             }
+                            res.redirect('/users/dashboard')
                         }).catch(err => {
                             console.log('DB Error: ', err)
                         })
-                    }else{
-                        console.log('Hash: ', hash, 'Salt: ', salt)
-                        res.redirect('/dashboard')
                     }
                 })
             }
@@ -33,12 +34,16 @@ module.exports = {
     },
 
     login: (req, res, next) => {
-        bcrypt.compare(PT_PASS, hash).then(valid => {
-            if(valid){
-                res.redirect('/dashboard')
-            }else{
-                req.flash('Incorrect Password')
-            }
+        const { password, username } = req.body
+        db.any('select * from users where username = $1', [username]).then(data => {
+            console.log('DB User Data from Login: ', data[0])
+            bcrypt.compare(password, data[0].password).then(valid => {
+                if(valid){
+                    res.render('dashboard', { user: req.session.user, userInfo: data })
+                }else{
+                    req.flash('Incorrect Password')
+                }
+            })
         })
     }
 }
