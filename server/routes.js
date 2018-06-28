@@ -1,5 +1,8 @@
 // this file exists to separate the renering routes from api routes that
 // require some action to be performed other than simply rendering a pug file
+require('dotenv').config()
+const axios       = require('axios')
+    , { API_KEY } = process.env
 
 module.exports = {
     renderLogin: (req, res) => {
@@ -26,7 +29,7 @@ module.exports = {
         res.render('faq')
     }
     , renderDashboard: (req, res) => {
-        res.render('dashboard')
+        res.render('dashboard', { user: req.user })
     }
     , renderSuggestion: (req, res) => {
         res.render('suggestion')

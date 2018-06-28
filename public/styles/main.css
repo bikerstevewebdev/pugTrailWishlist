@@ -27,7 +27,8 @@ button{
 }
 
 .heads h2{
-    margin-left: 3rem;
+    margin-left: calc(50% - 2.5rem);
+    width: 15rem;
     font-size: 2rem;
     justify-self: center;
 }
@@ -53,6 +54,7 @@ button{
     min-height: calc(100vh - 120px);
     width: 100%;
     margin-top: 85px;
+    padding: 10rem;
     padding-bottom: 120px;
     height: 100%;
     display: flex;
@@ -91,6 +93,24 @@ form{
 input{
     color: black;
     margin: 1rem;
+}
+
+#faq{
+    text-align: center;
+    max-width: 650px;
+}
+
+#faq h2{
+    width: 100%;
+    margin: 2rem 0;
+}
+
+.faq li{
+    list-style-type: circle;
+}
+
+.to_faq_form{
+    margin: 1.5rem;
 }
 
 .tails{

@@ -8,11 +8,11 @@ extends layout
 block content
     - console.log('From home.pug data: ', trails, 'User: ', user) 
     - const name = 'Steve'
-    h1 Welcome Back #{name}
+    h1 Check Out These Sick Trails Near Salt Lake
     p Your trails await!
     section.trails-list
         each trail in trails
-            .trail
+            a(href=trail.url, target="_blank"): .trail
                 img.trail-img(src=trail.imgSqSmall, alt=trail.name)
                 .trail-info
                     p= trail.name

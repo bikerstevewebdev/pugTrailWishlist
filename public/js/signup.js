@@ -10,7 +10,7 @@ $(document).ready( function(){
         console.log('Username', $username.val(), 'Email', $email.val(), 'Password', $password.val(), 'Fullname', $fullname.val())
         $.ajax({
             type: 'POST'
-            , url: '/users'
+            , url: '/login'
             // , processData: false
             , data: JSON.stringify({
                 fullname: $fullname.val()

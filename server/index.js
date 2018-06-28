@@ -14,6 +14,7 @@ const express       = require('express')
     , routes        = require('./routes')
     , flash         = require('express-flash')
     , LocalStrategy = require('passport-local').Strategy
+    , pgStore       = require('connect-pg-simple')(session)
     // moved pgp to another file to maintain one db object but have access in multiple files
     // , pgp      = require('pg-promise')()
 
@@ -48,6 +49,7 @@ app.use(flash())
 // setting up session
 app.use(session({
     secret: SESSION_SECRET || "ghvjhvjahbsdfuhalksdfbkhagd"
+    , store: new pgStore({ conString: DB_STRING})
     , resave: false
     , saveUninitialized: true
     , cookie: {
@@ -62,19 +64,43 @@ app.use(passport.session())
 
 // using local strategy for custom login handling
 passport.use(new LocalStrategy(
-    function(username, password, done) {
+    { passReqToCallback: true }
+    , function(req, username, password, done) {
+        console.log('INSIDE OF PASSPORT STRATEGY')
         db.any('SELECT * from users WHERE username = $1', [username]).then(user => {
-            if(!user[0])return done()
-            bcrypt.compare(password, user[0].password).then(valid => {
-                if(valid){
-                    return done(null, user[0])
-                }else{
-                    return done(null, false)
-                }
-            })
+            console.log(req.body)
+            if(!user[0] && req.body.email){
+                uc.createUser(req.body, username, password, done)
+            }else if(!user[0]){
+                console.log('INSIDE OF THE NO EMAIL FAIL')
+                return done(null, false)
+            }else{
+                bcrypt.compare(password, user[0].password).then(valid => {
+                    console.log('INSIDE OF THE COMPARE')
+                    if(valid){
+                        return done(null, user[0])
+                    }else{
+                        return done(null, false)
+                    }
+                })
+            }
         })
     }
 ))
+// Adds user obj from DB to req.session.user
+passport.serializeUser((user, done) => {
+    done(null, user);
+})
+// Adds created userObj w/trails wishlist to req.user, including DB user object properties
+passport.deserializeUser((user, done) => {
+    db.any('SELECT * FROM trails WHERE trail_id IN (SELECT trail_id FROM wishlist WHERE user_id = $1)', [user.user_id]).then(trails => {
+        let userObj = {
+            ...user
+            , wishlist: trails
+        }
+        done(null, userObj);
+    })
+})
 
 // custom top level middleware to see what is arriving on the req.body
 // logging url helps debug which route has the underlying issue
@@ -106,14 +132,14 @@ app.get('/signup',           routes.renderSignup)
 app.get('/contact',          routes.renderContact)
 app.get('/about',            routes.renderAbout)
 app.get('/faq',              routes.renderFAQ)
-app.get('/users/dashboard',  routes.renderDashboard)
+app.get('/dashboard',        routes.renderDashboard)
 app.get('/suggestions/form', routes.renderSuggestion)
 app.get('/trails',           routes.renderTrails)
 app.get('/trails/:id',       routes.renderOneTrail)
 
 // user routes
-app.post('/users', uc.createUser)
-app.post('/users/login', uc.login)
+// app.post('/users', uc.createUser)
+// app.post('/users/login', uc.login)
 
 app.listen(3123, () => {
     console.log(`Listening with pugs on port ${3123}`)
