@@ -1,8 +1,8 @@
 extends layout
 
 block content
-    form#login(action="/users/login")
-        h2 Signup to Keep Track of Your Trail Activity
+    form#login(method="post", action='/login')
+        h2 Login to Keep Track of Your Trail Activity
         input.username.login(type="text", placeholder="Username", name="username" required)
         input.password.login(type="password", placeholder="Password", name="password" required)
         input(type="submit")

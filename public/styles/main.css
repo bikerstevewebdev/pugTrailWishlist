@@ -26,12 +26,14 @@ button{
     padding: 1rem;
 }
 
-.heads h2{
-    margin-left: calc(50% - 2.5rem);
-    width: 15rem;
-    font-size: 2rem;
-    justify-self: center;
+.home_link{
+    font-size: 2.5rem;
+    position: absolute;
+    left: calc(50% - 5.75rem);
 }
+
+/* .heads h2{
+} */
 
 .heads .register{
     display: flex;
@@ -51,7 +53,7 @@ button{
 }
 
 .main{
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 85px);
     width: 100%;
     margin-top: 85px;
     padding: 10rem;

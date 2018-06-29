@@ -12,7 +12,7 @@ const express       = require('express')
     , axios         = require('axios')
     , passport      = require('passport')
     , routes        = require('./routes')
-    , flash         = require('express-flash')
+    // , flash         = require('express-flash')
     , LocalStrategy = require('passport-local').Strategy
     , pgStore       = require('connect-pg-simple')(session)
     // moved pgp to another file to maintain one db object but have access in multiple files
@@ -32,19 +32,25 @@ const {
     , PT_PASS
     , SESSION_SECRET
     , API_KEY
+    , NODE_ENV
+    , SERVER_PORT
 } = process.env
 
 const app = express()
 // const db = pgp(DB_STRING)
 
 // setting the static files (for references to the static folder) to point to the public folder
-app.use('/static', express.static('public'))
+app.use('/static', express.static('public', { redirect: true}))
 // express' version of body-parser to parse the data from post's and place onto req.body 
 app.use(express.json())
+
+app.set('views', path.join(__dirname, '../views'))
+app.set('view engine', 'pug')
+app.set('view cache', true)
 // cors middleware for ...... cors. Duh
 app.use(cors())
 // using flash for flash messaging user with req.flash, mainly for errors
-app.use(flash())
+// app.use(flash())
 
 // setting up session
 app.use(session({
@@ -66,7 +72,7 @@ app.use(passport.session())
 passport.use(new LocalStrategy(
     { passReqToCallback: true }
     , function(req, username, password, done) {
-        console.log('INSIDE OF PASSPORT STRATEGY')
+        console.log('INSIDE OF PASSPORT STRATEGY. username: ', username, ' and password: ', password)
         db.any('SELECT * from users WHERE username = $1', [username]).then(user => {
             console.log(req.body)
             if(!user[0] && req.body.email){
@@ -89,10 +95,12 @@ passport.use(new LocalStrategy(
 ))
 // Adds user obj from DB to req.session.user
 passport.serializeUser((user, done) => {
+    console.log('SERIALIZING')
     done(null, user);
 })
 // Adds created userObj w/trails wishlist to req.user, including DB user object properties
 passport.deserializeUser((user, done) => {
+    console.log('deSERIALIZING')
     db.any('SELECT * FROM trails WHERE trail_id IN (SELECT trail_id FROM wishlist WHERE user_id = $1)', [user.user_id]).then(trails => {
         let userObj = {
             ...user
@@ -109,15 +117,16 @@ app.use((req, res, next) => {
     console.log('URL: ', req.url, 'Body: ', req.body, 'Session Obj: ', req.session, 'Session User: ', req.session.user)
     next()
 })
-app.set('views', path.join(__dirname, '../views'))
-app.set('view engine', 'pug')
 
 
 app.post('/login', passport.authenticate('local', {
-    successRedirect: '/dashboard'
-    , failureRedirect: '/login'
-    , failureFlash: 'Invalid login credentials. Please try again.'
-}))
+            // successRedirect: '/dashboard',
+            failureRedirect: '/login'
+        }), (req, res) => {
+            console.log('Prepare for Success Redirect from Authenticate')
+            res.sendStatus(200)
+        }
+)
 // db.connect()
 //     .then(obj => {
     //         console.log('DB Connection Object: ', obj)
@@ -141,6 +150,6 @@ app.get('/trails/:id',       routes.renderOneTrail)
 // app.post('/users', uc.createUser)
 // app.post('/users/login', uc.login)
 
-app.listen(3123, () => {
-    console.log(`Listening with pugs on port ${3123}`)
+app.listen(SERVER_PORT, () => {
+    console.log(`Listening with pugs on port ${SERVER_PORT}`)
 })

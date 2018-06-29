@@ -8,7 +8,7 @@ $(document).ready( function(){
         console.log('Username', $username.val(), 'Password', $password.val())
         $.ajax({
             type: 'POST'
-            , url: '/users/login'
+            , url: '/login'
             // , processData: false
             , data: JSON.stringify({
                 username: $username.val()
@@ -16,7 +16,10 @@ $(document).ready( function(){
             })
             , contentType: 'application/json'
             , success: function(data, status) {
-                alert("Data: " + data + "\nStatus: " + status)
+                // alert("Data: " + data + "\nStatus: " + status)
+                // $.get('/dashboard')
+                console.log(data, status)
+                window.location.replace('/dashboard')
             }
             , error: function(err){
                 console.log(err)

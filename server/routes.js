@@ -29,7 +29,17 @@ module.exports = {
         res.render('faq')
     }
     , renderDashboard: (req, res) => {
-        res.render('dashboard', { user: req.user })
+        console.log('renderDash : ', req.user)
+        const { username, user_id, fullname, email, admin_id, wishlist } = req.user
+        let safeUser = {
+            username
+            , user_id
+            , fullname
+            , email
+            , admin_id
+            , wishlist
+        }
+        res.render('dashboard', { user: safeUser })
     }
     , renderSuggestion: (req, res) => {
         res.render('suggestion')
