@@ -48,6 +48,9 @@ module.exports = {
         res.render('trails')
     }
     , renderOneTrail: (req, res) => {
-        res.render('trails')
+        axios.get(`https://www.hikingproject.com/data/get-trails-by-id?ids=${req.params.id}&key=${API_KEY}`).then(trailData => {
+            let trail = trailData.data.trails[0]
+            res.render('trails', { trail })
+        })
     }
 }

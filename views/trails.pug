@@ -1,0 +1,57 @@
+extends layout
+block content
+    style
+        include ../public/styles/trails.css
+    section.trail
+        .trail-head
+            h2= trail.name
+            .head-details
+                p= 'Length: ' + trail.length + ' miles'
+                p= 'Difficulty: ' + trail.difficulty
+                - let elevationChange = trail.ascent/1 + trail.descent * (-1)
+                p= 'Total Elevation Change: ' + (elevationChange < 0 ? elevationChange * (-1) : elevationChange) + ' ft'
+        a.trail-img-md(href=trail.url, target="_blank"): img(src=trail.imgMedium, alt=trail.name)
+        .trail_info
+            .left_info
+                p= 'Location: ' + trail.location
+                p= 'Longitude: ' 
+                    span#lng= trail.longitude
+                p= 'Latitude: ' 
+                    span#lat= trail.latitude
+                p= 'Stars: ' + trail.stars + ' (based on ' + trail.starVotes + ' reviews)'
+            .right_info
+                p= 'Ascent: ' + trail.ascent
+                p= 'Descent: ' + trail.descent
+                p= 'Highest Point: ' + trail.high
+                p= 'Lowest Point: ' + trail.low
+                p= 'Trail\'s Condition: ' + trail.conditionStatus
+                - let condDate = new Date(trail.conditionDate)
+                - let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                - let month = months[condDate.getMonth()]
+                - let day = condDate.getDay()
+                - let year = condDate.getFullYear()
+                p= trail.conditionDetails + ' as of ' + month + ' ' + day + ' ' + year
+        #map
+            //- - var trailObj = Object.assign({}, trail)
+            //- -console.log(trailObj)
+            script.
+                function initMap(){
+                    let lat = document.getElementById('lat').firstChild.nodeValue/1
+                    console.log(lat)
+                    let lng = document.getElementById('lng').firstChild.nodeValue/1
+                    let options = {
+                        zoom: 10
+                        , center: { lat, lng }
+                    }
+                    let mapNode = document.getElementById('map')
+                    let map = new google.maps.Map(mapNode, options)
+                    let marker = new google.maps.Marker({
+                        position: { lat, lng }
+                        , map: map
+                        , icon: '../static/images/hiking2.png'
+                        , draggable: true
+                    })
+                }
+            script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.G_MAPS_KEY}&callback=initMap` async defer)
+        //- include ../public/js/trail.js
+        //- script(src="/static/js/trail.js", type="text/javascript")

@@ -54,7 +54,8 @@ button{
 
 .main{
     min-height: calc(100vh - 85px);
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     margin-top: 85px;
     padding: 10rem;
     padding-bottom: 120px;
@@ -63,6 +64,7 @@ button{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: #ffffff14;
 }
 
 div.trail{

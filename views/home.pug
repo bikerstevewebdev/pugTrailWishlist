@@ -12,7 +12,7 @@ block content
     p Your trails await!
     section.trails-list
         each trail in trails
-            a(href=trail.url, target="_blank"): .trail
+            a(href=`/trails/:${trail.id}`): .trail
                 img.trail-img(src=trail.imgSqSmall, alt=trail.name)
                 .trail-info
                     p= trail.name
