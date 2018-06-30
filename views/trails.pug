@@ -49,7 +49,7 @@ block content
                         position: { lat, lng }
                         , map: map
                         , icon: '../static/images/hiking2.png'
-                        , draggable: true
+                        , draggable: false
                     })
                 }
             script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.G_MAPS_KEY}&callback=initMap` async defer)

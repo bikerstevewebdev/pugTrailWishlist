@@ -12,9 +12,14 @@ const express       = require('express')
     , axios         = require('axios')
     , passport      = require('passport')
     , routes        = require('./routes')
-    // , flash         = require('express-flash')
     , LocalStrategy = require('passport-local').Strategy
-    , pgStore       = require('connect-pg-simple')(session)
+    , MySQLStore    = require('express-mysql-session')(session)
+
+    // , flash         = require('express-flash')
+    
+    // no longer using postgres, switched to mysql but keeping this for reference
+    // , pgStore       = require('connect-pg-simple')(session)
+    
     // moved pgp to another file to maintain one db object but have access in multiple files
     // , pgp      = require('pg-promise')()
 
@@ -27,12 +32,12 @@ const express       = require('express')
 
 // destructuring the environment variables for use in file without repetitive process.env
 const {
-    DB_STRING
-    , SALT_ROUNDS
-    , PT_PASS
+    DB_PASS
+    , DB_USER
+    , DB_HOST
     , SESSION_SECRET
-    , API_KEY
-    , NODE_ENV
+    , DB_PORT
+    , DB_NAME
     , SERVER_PORT
 } = process.env
 
@@ -43,6 +48,7 @@ const app = express()
 app.use('/static', express.static('public', { redirect: true}))
 // express' version of body-parser to parse the data from post's and place onto req.body 
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'pug')
@@ -52,14 +58,32 @@ app.use(cors())
 // using flash for flash messaging user with req.flash, mainly for errors
 // app.use(flash())
 
+// creating MySQL Session Store
+const sessionStore = new MySQLStore({
+    host: DB_HOST
+    , port: DB_PORT
+    , user: DB_USER
+    , password: DB_PASS
+    , database: DB_NAME
+    , createDatabaseTable: true
+    , schema: {
+        tableName: 'sessions',
+        columnNames: {
+            session_id: 'session_id',
+            expires: 'expires',
+            data: 'data'
+        }
+    }
+})
+
 // setting up session
 app.use(session({
     secret: SESSION_SECRET || "ghvjhvjahbsdfuhalksdfbkhagd"
-    , store: new pgStore({ conString: DB_STRING})
+    , store: sessionStore
     , resave: false
     , saveUninitialized: true
     , cookie: {
-        maxAge: 24*60*60*100
+        maxAge: 24*60*60*1000
     }
 }))
 
@@ -73,22 +97,26 @@ passport.use(new LocalStrategy(
     { passReqToCallback: true }
     , function(req, username, password, done) {
         console.log('INSIDE OF PASSPORT STRATEGY. username: ', username, ' and password: ', password)
-        db.any('SELECT * from users WHERE username = $1', [username]).then(user => {
-            console.log(req.body)
-            if(!user[0] && req.body.email){
-                uc.createUser(req.body, username, password, done)
-            }else if(!user[0]){
-                console.log('INSIDE OF THE NO EMAIL FAIL')
-                return done(null, false)
+        db.query(`SELECT * FROM users WHERE username = ?`, [username], (err, user) => {
+            if(err){
+                throw err
             }else{
-                bcrypt.compare(password, user[0].password).then(valid => {
-                    console.log('INSIDE OF THE COMPARE')
-                    if(valid){
-                        return done(null, user[0])
-                    }else{
-                        return done(null, false)
-                    }
-                })
+                console.log(req.body)
+                if(!user[0] && req.body.email){
+                    uc.createUser(req.body, username, password, done)
+                }else if(!user[0]){
+                    console.log('INSIDE OF THE NO EMAIL FAIL')
+                    return done(null, false)
+                }else{
+                    bcrypt.compare(password, user[0].password).then(valid => {
+                        console.log('INSIDE OF THE COMPARE')
+                        if(valid){
+                            return done(null, user[0])
+                        }else{
+                            return done(null, false)
+                        }
+                    })
+                }
             }
         })
     }
@@ -101,11 +129,12 @@ passport.serializeUser((user, done) => {
 // Adds created userObj w/trails wishlist to req.user, including DB user object properties
 passport.deserializeUser((user, done) => {
     console.log('deSERIALIZING')
-    db.any('SELECT * FROM trails WHERE trail_id IN (SELECT trail_id FROM wishlist WHERE user_id = $1)', [user.user_id]).then(trails => {
+    db.query('SELECT * FROM trails WHERE trail_id IN (SELECT trail_id FROM wishlist WHERE user_id = ?)', [user.user_id], (err, trails) => {
         let userObj = {
             ...user
             , wishlist: trails
         }
+        delete userObj.password
         done(null, userObj);
     })
 })
@@ -114,19 +143,31 @@ passport.deserializeUser((user, done) => {
 // logging url helps debug which route has the underlying issue
 // also checking the session object to see what is available
 app.use((req, res, next) => {
-    console.log('URL: ', req.url, 'Body: ', req.body, 'Session Obj: ', req.session, 'Session User: ', req.session.user)
+    console.log('URL: ', req.url, 'Method: ', req.method, 'Body: ', req.body, 'Session Obj: ', req.session, 'Session User: ', req.session.user)
     next()
 })
 
 
-app.post('/login', passport.authenticate('local', {
+app.post('/login', passport.authenticate('local'
+        , {
             // successRedirect: '/dashboard',
-            failureRedirect: '/login'
-        }), (req, res) => {
+            failureRedirect: '/login/fail?message=Incorrect login credentials. Please try again or signup if you do not have an account yet.'
+        }
+    ), (req, res) => {
             console.log('Prepare for Success Redirect from Authenticate')
             res.sendStatus(200)
         }
 )
+app.post('/signup', passport.authenticate('local', {
+            successRedirect: '/dashboard'
+            , failureRedirect: '/login/fail?message=Incorrect login credentials. Please try again or signup if you do not have an account yet.'
+        }
+    )
+)
+app.get('/logout', (req, res) => {
+    req.logout()
+    res.redirect('/')
+})
 // db.connect()
 //     .then(obj => {
     //         console.log('DB Connection Object: ', obj)
@@ -137,6 +178,7 @@ app.post('/login', passport.authenticate('local', {
 // simple rendering routes
 app.get('/',                 routes.renderHome)
 app.get('/login',            routes.renderLogin)
+app.get('/login/fail',       routes.sendFailStatus)
 app.get('/signup',           routes.renderSignup)
 app.get('/contact',          routes.renderContact)
 app.get('/about',            routes.renderAbout)

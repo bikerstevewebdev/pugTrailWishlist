@@ -18,11 +18,13 @@ $(document).ready( function(){
             , success: function(data, status) {
                 // alert("Data: " + data + "\nStatus: " + status)
                 // $.get('/dashboard')
-                console.log(data, status)
+                console.log('Login Success: ', data, status)
                 window.location.replace('/dashboard')
             }
             , error: function(err){
-                console.log(err)
+                console.log('Login Error: ', err.responseJSON.message)
+                alert(err.responseJSON.message)
+                
             }
         })
     })

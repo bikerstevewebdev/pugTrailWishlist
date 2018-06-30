@@ -8,7 +8,9 @@ nav.heads
         h2.logo Trail Buddy
     section.login
         if user
-            p #{user.username}
+            .register
+                a(href="/logout"): button.logout Logout 
+                p #{user.username}
         else
             .register
                 a(href="/login"): button.login Login

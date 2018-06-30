@@ -1,0 +1,19 @@
+// const gulp      = require('gulp')
+//     , pug       = require('gulp-pug')
+//     , less      = require('gulp-less')
+//     , minifyCSS = require('gulp-csso')
+
+// gulp.task('pug', function(){
+// return gulp.src('views/*.pug')
+//     .pipe(pug())
+//     .pipe(gulp.dest('build/html'))
+// })
+
+// gulp.task('less', function(){
+// return gulp.src('public/styles/*.less')
+//     .pipe(less())
+//     .pipe(minifyCSS())
+//     .pipe(gulp.dest('build/css'))
+// })
+
+// gulp.task('default', [ 'pug', 'less' ])
