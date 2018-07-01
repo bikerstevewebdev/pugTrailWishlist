@@ -1,0 +1,84 @@
+@import (reference) './variables';
+.search_container{
+    .form_group{
+        input{
+            width: 10rem;
+            &[name="location"]{
+                width: 20rem;
+            }
+        }
+        input#difficulty_slider[type="range"]{
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+            &:hover{
+                opacity: 1;
+            }
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 25px;
+                height: 25px;
+                background-image: url('static/images/randomTrail.svg');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center;
+                cursor: pointer;
+            }
+            &::-moz-range-thumb {
+                width: 25px;
+                height: 25px;
+                background: #4CAF50;
+                cursor: pointer;
+            }
+            &.green::-webkit-slider-thumb{
+                background-image: url('static/images/greenTrail.svg');
+            }
+            &.greenBlue::-webkit-slider-thumb{
+                background-image: url('static/images/greenBlueTrail.svg');
+            }
+            &.blue::-webkit-slider-thumb{
+                background-image: url('static/images/blueTrail.svg');
+            }
+            &.random::-webkit-slider-thumb{
+                background-image: url('static/images/randomTrail.svg');
+            }
+            &.blueBlack::-webkit-slider-thumb{
+                background-image: url('static/images/blueBlackTrail.svg');
+            }
+            &.black::-webkit-slider-thumb{
+                background-image: url('static/images/blackTrail.svg');
+            }
+            &.dblack::-webkit-slider-thumb{
+                background-image: url('static/images/dblackTrail.svg');
+            }
+        }
+    }
+    .form_group.advanced{
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        height: 60px;
+        &.visible{
+            display: flex;
+        }
+    }
+    #advanced_question{
+        .fake_div_btn();
+        &.hidden{
+            display: none;
+        }
+    }
+    #hide_advanced{
+        .fake_div_btn();
+        display: none;
+        &.visible{
+            display: inline-block;
+        }
+    }
+}

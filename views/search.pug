@@ -1,26 +1,25 @@
-extends layout
-
 block content
     script(src="/static/js/search.js", type="application/javascript", async, defer)
     section.search_container
-        a(href="/suggestions"): button Give Me a Random One!
         form.search
             h3 Search Trails
+            a(href="/suggestions"): button Give Me a Random One!
             .form_group
                 label Address
                 input(type="text", name="location")
             .form_group
                 label Max Distance From Location (miles)
                 input(name="max-distance", type="number")
-            .form_group_advanced
+            .form_group
                 label Difficulty Level
-                input(name="difficulty", type="text")
+                input(name="difficulty", type="range", min="0", max="6", value="3")#difficulty_slider
             #advanced_question Advanced Search
-            .form_group_advanced
+            .form_group.advanced
                 label Difficulty Level
                 input(name="difficulty", type="text")
-            .form_group_advanced
+            .form_group.advanced
                 label Difficulty Level
                 input(name="difficulty", type="text")
+            #hide_advanced Back to the Basics
 
             

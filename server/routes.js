@@ -12,8 +12,8 @@ module.exports = {
         res.render('profile', { user: req.user })
     }
     , renderHome: (req, res) => {
-        axios.get(`https://www.hikingproject.com/data/get-trails?lat=40.7608&lon=-111.8910&maxDistance=10&key=${API_KEY}`).then(trailsResponse => {
-            console.log('renderHome : ', req.user)
+        axios.get(`https://www.hikingproject.com/data/get-trails?lat=40.7608&lon=-111.8910&maxDistance=20&maxResults=50&key=${API_KEY}`).then(trailsResponse => {
+            console.log('renderHome User: ', req.user, 'Trails Difficulty: ', trailsResponse.data.trails.map(v => v.difficulty))
             res.render('home', {
                 user: req.user,
                 trails: trailsResponse.data.trails
