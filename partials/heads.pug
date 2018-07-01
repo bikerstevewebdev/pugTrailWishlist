@@ -11,35 +11,18 @@ nav.heads
         //- img.suggest_icon(src="/static/images/trail.svg", alt="Trail Icon")
     a(href="/").home_link
         h2.logo Trail Buddy
-    script.
-        let hamOpen = false
-        $('.ham').onClick(function() {
-            hamOpen = !hamOpen
-            if(hamOpen){
-                $('.ham').removeClass('open')
-                $('.ham-menu').removeClass('open')
-            }else{
-                $('.ham').addClass('open')
-                $('.ham-menu').addClass('open')
-            }
-            return
-        })
-    .ham
-        ul.ham-menu
-            if !user
-                a(href="/login"): li LOGIN
-                hr
-                a(href="/signup"): li SIGNUP
-                hr
-            else
-                a(href="/users/profile"): li PROFILE
-                hr
-            a(href="/suggestions"): li SEARCH
-            hr
-            a(href="/contact"): li CONTACT
-            hr
-            a(href="/invite"): li INVITE
-            hr
+        script(src="/static/js/heads.js", type="application/javascript", async, defer)
+    .ham-container
+        .ham
+            ul.ham-menu
+                if !user
+                    a(href="/login"): li LOGIN
+                    a(href="/signup"): li SIGNUP
+                else
+                    a(href="/users/profile"): li PROFILE
+                a(href="/suggestions"): li SEARCH
+                a(href="/contact"): li CONTACT
+                a(href="/invite").invite: li INVITE
     section.login
         if user
             .register

@@ -1,6 +1,6 @@
 @import (reference) '../imports/variables';
 html{
-    background-color: black;
+    background-color: #131010ed;
 }
 
 html *{
@@ -23,14 +23,16 @@ button{
     width: 80%;
     margin: 0 auto;
     margin-top: 85px;
-    padding: 10rem;
-    padding-bottom: 120px;
+    padding: 5rem 10rem 120px 10rem;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #ffffff14;
+    background-color: #d8dcd8bf;
+    *{
+        .black();
+    }
 }
 
 div.trail{
@@ -40,7 +42,6 @@ div.trail{
     justify-content: space-between;
     border: 1px solid #555;
     margin: 1rem;
-
 }
 
 div.trail-info{
@@ -54,9 +55,9 @@ div.trail-info{
         cursor: pointer;
         height: 1rem;
         transition: all 0.2s ease-in-out;
+        fill: #fff;
         &:hover{
             fill: gold;
-            color: gold;
         }
     }
 }

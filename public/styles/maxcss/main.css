@@ -1,5 +1,5 @@
 html {
-  background-color: black;
+  background-color: #131010ed;
 }
 html * {
   color: #eee;
@@ -22,9 +22,11 @@ button {
   padding: 1rem;
 }
 .heads .home_link {
-  font-size: 2.5rem;
   position: absolute;
-  left: calc(44.25%);
+  left: 37.5%;
+}
+.heads .home_link h2 {
+  font-size: 3rem;
 }
 .heads .register {
   display: flex;
@@ -37,10 +39,15 @@ button {
   border: none;
 }
 .heads .suggest {
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 2.75rem;
+  height: 2.75rem;
 }
-.heads .ham {
+.heads .ham-container {
+  cursor: pointer;
+  height: 1.5rem;
+  margin-right: 1.5rem;
+}
+.heads .ham-container .ham {
   position: relative;
   display: inline-block;
   height: 2px;
@@ -48,54 +55,91 @@ button {
   background-color: #7db817;
   border-radius: 0.5px;
 }
-.heads .ham::before {
+.heads .ham-container .ham::before {
   position: absolute;
   width: 100%;
   height: 100%;
   left: 0;
-  top: -0.35rem;
-  transition: all 0.25s ease-in-out;
+  transition: all 0.05s ease-in-out;
   background-color: #7db817;
   content: '';
+  top: -7px;
 }
-.heads .ham::after {
+.heads .ham-container .ham::after {
   position: absolute;
   width: 100%;
   height: 100%;
   left: 0;
-  top: 0.35rem;
-  transition: all 0.25s ease-in-out;
+  transition: all 0.05s ease-in-out;
   background-color: #7db817;
   content: '';
+  top: 7px;
 }
-.heads .ham:hover::before {
-  top: -0.45rem;
-}
-.heads .ham:hover::after {
-  top: 0.45rem;
-}
-.heads .ham ul.ham-menu {
+.heads .ham-container .ham ul.ham-menu {
   height: 0px;
   width: 0px;
   transition: all 0.25s ease-in-out;
   border: none;
   overflow: hidden;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 1.125rem;
+  padding-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #fff;
 }
-.heads .ham.open {
+.heads .ham-container .ham ul.ham-menu * {
+  color: #111;
+}
+.heads .ham-container .ham ul.ham-menu a {
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+.heads .ham-container .ham ul.ham-menu a::after {
+  height: 1px;
+  content: '';
+  background-color: #111;
+  width: 80%;
+  position: absolute;
+  bottom: -8px;
+  left: 10%;
+}
+.heads .ham-container .ham ul.ham-menu a.invite::after {
+  content: none;
+}
+.heads .ham-container .ham.open {
   border: 1px solid #fff;
 }
-.heads .ham.open ul.ham-menu {
+.heads .ham-container .ham.open ul.ham-menu {
   height: 12rem;
   width: 8rem;
+}
+.heads .ham-container:hover .ham::before {
+  top: -9px;
+}
+.heads .ham-container:hover .ham::after {
+  top: 9px;
 }
 .heads section.login {
   display: none;
 }
-@media only screen and (min-device-width: 415px) {
+@media only screen and (min-width: 769px) and (min-device-width: 769px) {
+  .heads .suggest {
+    width: 2rem;
+    height: 2rem;
+  }
+  .heads .home_link {
+    left: calc(44.25%);
+  }
   .heads section.login {
     display: inline-block;
   }
-  .heads .ham {
+  .heads .ham-container {
     display: none;
   }
 }
@@ -104,14 +148,16 @@ button {
   width: 80%;
   margin: 0 auto;
   margin-top: 85px;
-  padding: 10rem;
-  padding-bottom: 120px;
+  padding: 5rem 10rem 120px 10rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #ffffff14;
+  background-color: #d8dcd8bf;
+}
+.main * {
+  color: #111;
 }
 div.trail {
   display: flex;
@@ -133,10 +179,10 @@ div.trail-info svg.star {
   cursor: pointer;
   height: 1rem;
   transition: all 0.2s ease-in-out;
+  fill: #fff;
 }
 div.trail-info svg.star:hover {
   fill: gold;
-  color: gold;
 }
 form {
   text-align: center;

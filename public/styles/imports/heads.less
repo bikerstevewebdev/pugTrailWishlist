@@ -1,11 +1,10 @@
 @import (reference) 'variables';
-.ham-buns(@topNum){
+.ham-buns(){
     position: absolute;
     width: 100%;
     height: 100%;
     left: 0;
-    top: @topNum;
-    transition: all 0.25s ease-in-out;
+    .ease(@time: 0.05s);
     background-color: @lettuce; 
     content: '';
 }
@@ -19,9 +18,11 @@
     align-items: center;
     padding: 1rem;
     .home_link{
-        font-size: 2.5rem;
+        h2{
+            font-size: 3rem;
+        }
         position: absolute;
-        left: calc(50% - 5.75rem);
+        left: 37.5%;
     }
     .register{
         display: flex;
@@ -34,56 +35,99 @@
         border: none;
     }
     .suggest{
-        width: 1.75rem;
-        height: 1.75rem;
+        width: 2.75rem;
+        height: 2.75rem;
     }
-    .ham{
-        position: relative;
-        display: inline-block;
-        height: 2px;
-        width: 1.5rem;
-        background-color: @lettuce;
-        border-radius: 0.5px;
-        &::before{
-            .ham-buns(-0.35rem);
-        }
-        &::after{
-            .ham-buns(0.35rem);
-        }
-        &:hover{
+    .ham-container{
+        cursor: pointer;
+        height: 1.5rem;
+        margin-right: 1.5rem;
+        .ham{
+            position: relative;
+            display: inline-block;
+            height: 2px;
+            width: 1.5rem;
+            background-color: @lettuce;
+            border-radius: 0.5px;
             &::before{
-                top: -0.45rem;
+                .ham-buns();
+                top: -7px;
             }
             &::after{
-                top: 0.45rem;
+                .ham-buns();
+                top: 7px;
+            }
+            ul.ham-menu{
+                height: 0px;
+                width: 0px;
+                .ease();
+                border: none;
+                overflow: hidden;
+                position: absolute;
+                top: 2rem;
+                right: 2rem;
+                font-size: 1.125rem;
+                padding-top: 0.25rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-around;
+                background-color: #fff;
+                *{
+                    color: #111;
+                }
+                a{
+                    width: 100%;
+                    text-align: center;
+                    position: relative;
+                    &::after{
+                        height: 1px;
+                        content: '';
+                        background-color: #111;
+                        width: 80%;
+                        position: absolute;
+                        bottom: -8px;
+                        left: 10%;
+                    }
+                }
+                a.invite::after{
+                    content: none;
+                }
+            }
+            &.open{
+                border: 1px solid #fff;
+                ul.ham-menu{
+                    height: 12rem;
+                    width: 8rem;
+                }
             }
         }
-        ul.ham-menu{
-            height: 0px;
-            width: 0px;
-            transition: all 0.25s ease-in-out;
-            border: none;
-            overflow: hidden;
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
-        &.open{
-            border: 1px solid #fff;
-            ul.ham-menu{
-                height: 12rem;
-                width: 8rem;
+        &:hover{
+            .ham{
+                &::before{
+                    top: -9px;
+                }
+                &::after{
+                    top: 9px;
+                }
             }
         }
     }
     section.login{
         display: none;
     }
-    @media @iphone8plusMax{
+    @media @ipadMax{
+        .suggest{
+            width: 2rem;
+            height: 2rem;
+        }
+        .home_link{
+            left: calc(50% - 5.75rem);
+        }
         section.login{
             display: inline-block;
         }
-        .ham{
+        .ham-container{
             display: none;
         }
     }
