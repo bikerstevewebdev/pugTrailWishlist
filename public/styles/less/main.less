@@ -1,3 +1,4 @@
+@import (reference) '../imports/variables';
 html{
     background-color: black;
 }
@@ -15,42 +16,7 @@ button{
     color: black;
 }
 
-.heads{
-    position: fixed;
-    width: 100%;
-    top: 0;
-    height: 85px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-}
-
-.home_link{
-    font-size: 2.5rem;
-    position: absolute;
-    left: calc(50% - 5.75rem);
-}
-
-/* .heads h2{
-} */
-
-.heads .register{
-    display: flex;
-    justify-content: space-between;
-    width: 7rem;
-}
-
-.heads button{
-    color: #eee;
-    background-color: transparent;
-    border: none;
-}
-
-.suggest{
-    width: 1.75rem;
-    height: 1.75rem;
-}
+@import '../imports/heads';
 
 .main{
     min-height: calc(100vh - 85px);
@@ -83,6 +49,16 @@ div.trail-info{
     height: 100px;
     justify-content: space-around;
     align-items: flex-end;
+    svg.star{
+        width: 1rem;
+        cursor: pointer;
+        height: 1rem;
+        transition: all 0.2s ease-in-out;
+        &:hover{
+            fill: gold;
+            color: gold;
+        }
+    }
 }
 
 form{
@@ -92,41 +68,26 @@ form{
     display: flex;
     flex-direction: column;
     align-items: center;
+    input{
+        color: black;
+        margin: 1rem;
+    }
 }
 
-input{
-    color: black;
-    margin: 1rem;
-}
 
 #faq{
     text-align: center;
     max-width: 650px;
+    h2{
+        width: 100%;
+        margin: 2rem 0;
+    }
 }
-
-#faq h2{
-    width: 100%;
-    margin: 2rem 0;
-}
-
 .faq li{
     list-style-type: circle;
 }
-
 .to_faq_form{
     margin: 1.5rem;
 }
 
-.tails{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
-}
-.tails>ul{
-    margin-left: 2rem;
-}
+@import '../imports/tails';

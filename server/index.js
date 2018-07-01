@@ -143,7 +143,7 @@ passport.deserializeUser((user, done) => {
 // logging url helps debug which route has the underlying issue
 // also checking the session object to see what is available
 app.use((req, res, next) => {
-    console.log('URL: ', req.url, 'Method: ', req.method, 'Body: ', req.body, 'Session Obj: ', req.session, 'Session User: ', req.session.user)
+    console.log('URL: ', req.url, 'Method: ', req.method, 'Body: ', req.body, 'Session Obj: ', req.session, 'SessionPassport User: ', req.session.passport.user)
     next()
 })
 
@@ -180,11 +180,12 @@ app.get('/',                 routes.renderHome)
 app.get('/login',            routes.renderLogin)
 app.get('/login/fail',       routes.sendFailStatus)
 app.get('/signup',           routes.renderSignup)
+app.get('/users/profile',    routes.renderProfile)
 app.get('/contact',          routes.renderContact)
 app.get('/about',            routes.renderAbout)
 app.get('/faq',              routes.renderFAQ)
 app.get('/dashboard',        routes.renderDashboard)
-app.get('/suggestions/form', routes.renderSuggestion)
+app.get('/suggestions/form', routes.renderSearch)
 app.get('/trails',           routes.renderTrails)
 app.get('/trails/:id',       routes.renderOneTrail)
 

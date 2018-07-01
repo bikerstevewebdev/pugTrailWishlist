@@ -1,4 +1,9 @@
 //- - const user = {is_logged_in: false, username: ""}
+//- -
+//-         let user = {
+//-                 username: ""
+//-                 , wishlist: []
+//-             }
 nav.heads
     //- - let loggedIn = user.is_logged_in ? true : false
     a(href="/suggestions/form"): button.suggest
@@ -6,11 +11,40 @@ nav.heads
         //- img.suggest_icon(src="/static/images/trail.svg", alt="Trail Icon")
     a(href="/").home_link
         h2.logo Trail Buddy
+    script.
+        let hamOpen = false
+        $('.ham').onClick(function() {
+            hamOpen = !hamOpen
+            if(hamOpen){
+                $('.ham').removeClass('open')
+                $('.ham-menu').removeClass('open')
+            }else{
+                $('.ham').addClass('open')
+                $('.ham-menu').addClass('open')
+            }
+            return
+        })
+    .ham
+        ul.ham-menu
+            if !user
+                a(href="/login"): li LOGIN
+                hr
+                a(href="/signup"): li SIGNUP
+                hr
+            else
+                a(href="/users/profile"): li PROFILE
+                hr
+            a(href="/suggestions"): li SEARCH
+            hr
+            a(href="/contact"): li CONTACT
+            hr
+            a(href="/invite"): li INVITE
+            hr
     section.login
         if user
             .register
                 a(href="/logout"): button.logout Logout 
-                p #{user.username}
+                a(href='/users/profile'): p #{user.username}
         else
             .register
                 a(href="/login"): button.login Login

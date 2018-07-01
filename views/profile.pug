@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    section.profile
+        img(src=user.profile_pic, alt=`${user.username}'s profile avi'`)
+        h1!= user.username
+        section.user-info
+            p!= user.fullname
+            p!= user.email

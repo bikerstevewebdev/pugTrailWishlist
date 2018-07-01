@@ -1,0 +1,179 @@
+html {
+  background-color: black;
+}
+html * {
+  color: #eee;
+}
+body {
+  position: relative;
+}
+button {
+  cursor: pointer;
+  color: black;
+}
+.heads {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  height: 85px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+.heads .home_link {
+  font-size: 2.5rem;
+  position: absolute;
+  left: calc(44.25%);
+}
+.heads .register {
+  display: flex;
+  justify-content: space-between;
+  width: 7rem;
+}
+.heads button {
+  color: #eee;
+  background-color: transparent;
+  border: none;
+}
+.heads .suggest {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+.heads .ham {
+  position: relative;
+  display: inline-block;
+  height: 2px;
+  width: 1.5rem;
+  background-color: #7db817;
+  border-radius: 0.5px;
+}
+.heads .ham::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: -0.35rem;
+  transition: all 0.25s ease-in-out;
+  background-color: #7db817;
+  content: '';
+}
+.heads .ham::after {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0.35rem;
+  transition: all 0.25s ease-in-out;
+  background-color: #7db817;
+  content: '';
+}
+.heads .ham:hover::before {
+  top: -0.45rem;
+}
+.heads .ham:hover::after {
+  top: 0.45rem;
+}
+.heads .ham ul.ham-menu {
+  height: 0px;
+  width: 0px;
+  transition: all 0.25s ease-in-out;
+  border: none;
+  overflow: hidden;
+}
+.heads .ham.open {
+  border: 1px solid #fff;
+}
+.heads .ham.open ul.ham-menu {
+  height: 12rem;
+  width: 8rem;
+}
+.heads section.login {
+  display: none;
+}
+@media only screen and (min-device-width: 415px) {
+  .heads section.login {
+    display: inline-block;
+  }
+  .heads .ham {
+    display: none;
+  }
+}
+.main {
+  min-height: calc(15vh);
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 85px;
+  padding: 10rem;
+  padding-bottom: 120px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff14;
+}
+div.trail {
+  display: flex;
+  width: 400px;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #555;
+  margin: 1rem;
+}
+div.trail-info {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+div.trail-info svg.star {
+  width: 1rem;
+  cursor: pointer;
+  height: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+div.trail-info svg.star:hover {
+  fill: gold;
+  color: gold;
+}
+form {
+  text-align: center;
+  margin: auto;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form input {
+  color: black;
+  margin: 1rem;
+}
+#faq {
+  text-align: center;
+  max-width: 650px;
+}
+#faq h2 {
+  width: 100%;
+  margin: 2rem 0;
+}
+.faq li {
+  list-style-type: circle;
+}
+.to_faq_form {
+  margin: 1.5rem;
+}
+.tails {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+.tails > ul {
+  margin-left: 2rem;
+}
