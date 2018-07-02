@@ -17,11 +17,20 @@
   margin: 0.5rem 0;
 }
 .search_container form.search a > button {
-  padding: 0.5rem;
+  padding: .125rem .5rem 0.25rem;
   background-color: #fff;
   border: none;
   font-weight: 600;
   font-size: 0.88em;
+  background-color: #111;
+  color: #eee;
+  transition: all 0.2s ease-in-out;
+  border: 1px solid #111;
+}
+.search_container form.search a > button:hover {
+  background-color: #eee;
+  color: #111;
+  border: 1px solid #111;
 }
 .search_container h3 {
   font-size: 2em;
@@ -204,6 +213,7 @@
   transition: all 0.25s ease-in-out;
   line-height: 1rem;
   margin-top: 1.5rem;
+  padding-top: 0.5rem;
 }
 .search_container #advanced_question:hover {
   color: white;
@@ -232,6 +242,56 @@
 }
 .search_container #hide_advanced.visible {
   display: inline-block;
+}
+@media only screen and (min-width: 1025px) and (min-width: 1025px) {
+  .search_container {
+    font-size: 1.2em;
+  }
+  .search_container form.search a > button {
+    font-size: 0.8em;
+  }
+  .search_container .form_groupinput[type="text"] {
+    width: 45%;
+    align-self: flex-start;
+    margin-left: 6.25em;
+  }
+  .search_container .form_group.address {
+    width: 40%;
+    left: 12.5rem;
+    display: inline;
+    position: absolute;
+    top: 222px;
+    text-align: left;
+  }
+  .search_container .form_group.address label {
+    margin-right: 40px;
+  }
+  .search_container .form_group.address label::after {
+    content: ":";
+  }
+  .search_container .form_group.address input[type="text"] {
+    width: 65%;
+  }
+  .search_container .form_group.max_distance {
+    padding: 1.25rem 1rem 0 8rem;
+    width: 45%;
+    align-self: flex-end;
+    margin-right: 5rem;
+  }
+  .search_container .form_group.rating label {
+    margin-left: 3.35em;
+  }
+  .search_container .form_group input[type="range"]#difficulty_slider,
+  .search_container .form_group input[type="range"]#rating_slider {
+    height: 8px;
+    border-radius: 5px;
+  }
+  .search_container #advanced_question {
+    padding-top: 0.5rem;
+  }
+  .search_container #hide_advanced {
+    line-height: 0.75em;
+  }
 }
 section.home {
   text-align: center;
