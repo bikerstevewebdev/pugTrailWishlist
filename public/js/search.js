@@ -1,13 +1,13 @@
 console.log('search.js connected')
 $('#advanced_question').on('click', function() {
     console.log('Advamc===nced Search Clicked')
-    $('.form_group_advanced').addClass('visible')
+    $('.form_group.advanced').addClass('visible')
     $('#advanced_question').addClass('hidden')
     $('#hide_advanced').addClass('visible')
 })
 $('#hide_advanced').on('click', function() {
     console.log('Hide adva===nced Search Clicked')
-    $('.form_group_advanced').removeClass('visible')
+    $('.form_group.advanced').removeClass('visible')
     $('#advanced_question').removeClass('hidden')
     $('#hide_advanced').removeClass('visible')
 })
@@ -42,6 +42,34 @@ $(document).on('input', '#difficulty_slider', function(e) {
             default:
             $(this).removeClass()
             $(this).addClass('random')
+    }
+})
+$(document).on('input', '#rating_slider', function(e) {
+    e.preventDefault()
+    console.log(e.target.value)
+    switch(e.target.value/1){
+        case 1:
+            $('.two_stars svg, .three_stars svg, .four_stars svg, .five_stars svg').removeClass()
+            $('.one_star svg').addClass('gold')
+            break
+        case 2:
+            $('.three_stars svg, .four_stars svg, .five_stars svg').removeClass()
+            $('.two_stars svg').addClass('gold')
+            break
+        case 3:
+            $('.four_stars svg, .five_stars svg').removeClass()
+            $('.three_stars svg, .two_stars svg').removeClass().addClass('gold')
+            break
+        case 4:
+            $('.five_stars svg').removeClass()
+            $('.four_stars svg, .two_stars svg, .three_stars svg').removeClass().addClass('gold')
+            break
+        case 5:
+            $('.five_stars svg').addClass('gold')
+            $('.three_stars svg, .four_stars svg, .two_stars svg').removeClass().addClass('gold')
+            break
+        default:
+            return
     }
 })
 // function geocode(){

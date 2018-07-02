@@ -15,11 +15,17 @@ block content
                 input(name="difficulty", type="range", min="0", max="6", value="3")#difficulty_slider
             #advanced_question Advanced Search
             .form_group.advanced
-                label Difficulty Level
-                input(name="difficulty", type="text")
+                label Rating 
+                    span.rating_star.one_star: include ../public/images/one_star.svg
+                    span.rating_star.two_stars: include ../public/images/two_stars.svg
+                    span.rating_star.three_stars: include ../public/images/three_stars.svg
+                    span.rating_star.four_stars: include ../public/images/rating_star.svg
+                    span.rating_star.five_stars: include ../public/images/rating_star.svg
+                     
+                input(name="rating", type="range", min="1", max="5")#rating_slider
             .form_group.advanced
-                label Difficulty Level
-                input(name="difficulty", type="text")
+                label Total Elevation Change
+                input(name="elevation-change", type="text")
             #hide_advanced Back to the Basics
 
             
