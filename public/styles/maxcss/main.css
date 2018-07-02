@@ -11,6 +11,9 @@ button {
   cursor: pointer;
   color: black;
 }
+* {
+  font-family: 'Oswald', sans-serif;
+}
 .heads {
   position: fixed;
   width: 100%;
@@ -192,16 +195,16 @@ button {
 }
 .main {
   min-height: calc(15vh);
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
   margin-top: 85px;
-  padding: 2rem 10rem 120px 10rem;
+  padding: 2rem 6rem 120px 6rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #d8dcd8bf;
+  background-color: #f1f1f1;
   font-size: 1.25rem;
 }
 .main * {

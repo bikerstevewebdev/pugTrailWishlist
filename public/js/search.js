@@ -18,30 +18,41 @@ $(document).on('input', '#difficulty_slider', function(e) {
         case 0:
             $(this).removeClass()
             $(this).addClass('green')
+            $('span#diff').text('Family Friendly')
             break
-            case 1:
+        case 1:
             $(this).removeClass()
             $(this).addClass('greenBlue')
+            $('span#diff').text('Easy Going')
             break
-            case 2:
+        case 2:
             $(this).removeClass()
             $(this).addClass('blue')
+            $('span#diff').text('Moderate')
             break
-            case 4:
+        case 3:
+            $(this).removeClass()
+            $(this).addClass('any')
+            $('span#diff').text('Any')
+            break
+        case 4:
             $(this).removeClass()
             $(this).addClass('blueBlack')
+            $('span#diff').text('Somewhat Difficult')
             break
-            case 5:
+        case 5:
             $(this).removeClass()
             $(this).addClass('black')
+            $('span#diff').text('Advanced')
             break
-            case 6:
+        case 6:
             $(this).removeClass()
             $(this).addClass('dblack')
+            $('span#diff').text('Extremely Difficult')
             break
-            default:
-            $(this).removeClass()
-            $(this).addClass('random')
+        default:
+            console.log('Invalid value selected for Difficulty')
+            return
     }
 })
 $(document).on('input', '#rating_slider', function(e) {

@@ -11,7 +11,17 @@ html
         link(rel='stylesheet', type='text/css', href='/static/styles/css/reset.css')
         link(rel='stylesheet', type='text/css', href='/static/styles/css/main.css')
         link(rel="icon" href="/static/favicon.png")
+        link(href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet")
     body
+        -
+            const difficulties = {
+                            green: 'Family Friendly'
+                            , greenBlue: 'Easy Going'
+                            , blue: 'Moderate'
+                            , blueBlack: 'Somewhat Difficult'
+                            , black: 'Advanced'
+                            , dblack: 'Extremely Difficult'
+                        }
         block heads
             include ../partials/heads
         section.main

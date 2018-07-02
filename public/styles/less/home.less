@@ -1,18 +1,21 @@
 @import '../imports/search';
 section.home{
+    text-align: center;
     h1{
-        font-size: 2em;
+        font-size: 2.25em;
+        padding: 0 9rem;
     }
     
     div.trail{
         .flex(column);
-        width: 70vw;
+        width: 80vw;
         align-items: center;
         justify-content: space-between;
-        border: 1px solid #555;
-        margin: 1rem;
+        border-radius: 3px;
+        box-shadow: #555 0px 0px 10px;
+        margin: 2rem;
         .trail-img{
-            width: 70vw;
+            width: 80vw;
             height: 30rem;
             background-position: top center;
             background-size: cover;
@@ -21,9 +24,14 @@ section.home{
         div.trail-info{
             display: flex;
             flex-direction: column;
-            height: 100px;
+            padding: 0.5rem 1rem;
+            height: 160px;
+            width: 100%;
             justify-content: space-around;
             align-items: flex-end;
+            .location{
+                align-self: flex-start;
+            }
             svg.star{
                 width: 1rem;
                 cursor: pointer;
@@ -35,11 +43,12 @@ section.home{
                 }
             }
             h3{
-                margin: 0 auto;
+                margin-right: auto;
+                font-size: 1.4em;
             }
             font-size: 1.25em;
             .details{
-                .flex();
+                .flex(@jc: space-between);
             }
         }
     }

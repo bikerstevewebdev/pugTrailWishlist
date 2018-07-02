@@ -4,6 +4,7 @@
   padding: 1.5rem;
   border-radius: 3px;
   margin-bottom: 2rem;
+  font-size: 1.46em;
 }
 .search_container form.search {
   display: flex;
@@ -20,41 +21,69 @@
   background-color: #fff;
   border: none;
   font-weight: 600;
+  font-size: 0.88em;
 }
 .search_container h3 {
   font-size: 2em;
   color: #00380c;
 }
 .search_container .form_group {
+  padding: 0 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 60px;
+  height: 80px;
+}
+.search_container .form_group.address > label {
+  width: 90%;
+  text-align: left;
 }
 .search_container .form_group input {
   border: none;
   height: 1.5rem;
-  width: 10rem;
+  width: 5rem;
 }
 .search_container .form_group input[name="location"] {
-  width: 20rem;
+  width: 90%;
 }
 .search_container .form_group input[type="number"],
 .search_container .form_group input[type="text"] {
-  padding: 0.5rem;
+  padding: 1rem;
+}
+.search_container .form_group.max_distance {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  padding: 0 1rem;
+}
+.search_container .form_group.max_distance input[type="number"] {
+  width: 5rem;
+  margin-left: 0.5rem;
+  margin-top: 1rem;
+}
+.search_container .form_group label.diff {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 90%;
+}
+.search_container .form_group label.diff span {
+  margin-left: 1rem;
 }
 .search_container .form_group input#difficulty_slider[type="range"] {
   -webkit-appearance: none;
-  width: 100%;
+  width: 90%;
   height: 4px;
   background: #a3a3a3;
   outline: none;
   opacity: 0.7;
   -webkit-transition: .2s;
   transition: opacity .2s;
-  cursor: pointer;
 }
 .search_container .form_group input#difficulty_slider[type="range"]:hover {
   opacity: 1;
@@ -62,8 +91,8 @@
 .search_container .form_group input#difficulty_slider[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 32px;
+  height: 32px;
   background-image: url('static/images/randomTrail.svg');
   background-size: cover;
   background-repeat: no-repeat;
@@ -71,44 +100,52 @@
   cursor: pointer;
 }
 .search_container .form_group input#difficulty_slider[type="range"]::-moz-range-thumb {
-  background-image: url('static/images/randomTrail.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  width: 25px;
-  height: 25px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
 }
-.search_container .form_group.green::-webkit-slider-thumb {
+.search_container .form_group input#difficulty_slider[type="range"].green::-webkit-slider-thumb {
   background-image: url('static/images/greenTrail.svg');
 }
-.search_container .form_group.greenBlue::-webkit-slider-thumb {
+.search_container .form_group input#difficulty_slider[type="range"].greenBlue::-webkit-slider-thumb {
   background-image: url('static/images/greenBlueTrail.svg');
 }
-.search_container .form_group.blue::-webkit-slider-thumb {
+.search_container .form_group input#difficulty_slider[type="range"].blue::-webkit-slider-thumb {
   background-image: url('static/images/blueTrail.svg');
 }
-.search_container .form_group.random::-webkit-slider-thumb {
+.search_container .form_group input#difficulty_slider[type="range"].any::-webkit-slider-thumb {
   background-image: url('static/images/randomTrail.svg');
 }
-.search_container .form_group.blueBlack::-webkit-slider-thumb {
+.search_container .form_group input#difficulty_slider[type="range"].blueBlack::-webkit-slider-thumb {
   background-image: url('static/images/blueBlackTrail.svg');
 }
-.search_container .form_group.black::-webkit-slider-thumb {
+.search_container .form_group input#difficulty_slider[type="range"].black::-webkit-slider-thumb {
   background-image: url('static/images/blackTrail.svg');
 }
-.search_container .form_group.dblack::-webkit-slider-thumb {
+.search_container .form_group input#difficulty_slider[type="range"].dblack::-webkit-slider-thumb {
   background-image: url('static/images/dblackTrail.svg');
 }
-.search_container .rating_star > svg {
+.search_container .form_group.rating label {
+  align-self: flex-start;
+  margin-left: 1.25em;
+}
+.search_container .form_group .rating_star {
+  margin-left: 1.25rem;
+}
+.search_container .form_group .rating_star > svg {
   margin: 0 0 -2px 0;
   fill: #2222228c;
 }
-.search_container .rating_star > svg.gold {
+.search_container .form_group .rating_star > svg.gold {
   fill: goldenrod;
 }
-.search_container input#rating_slider[type="range"] {
+.search_container .form_group input#rating_slider[type="range"] {
+  margin-top: 1.25rem;
   -webkit-appearance: none;
-  width: 100%;
+  width: 90%;
   height: 4px;
   background: #a3a3a3;
   outline: none;
@@ -116,35 +153,43 @@
   -webkit-transition: .2s;
   transition: opacity .2s;
 }
-.search_container input#rating_slider[type="range"]:hover {
+.search_container .form_group input#rating_slider[type="range"]:hover {
   opacity: 1;
 }
-.search_container input#rating_slider[type="range"]::-webkit-slider-thumb {
+.search_container .form_group input#rating_slider[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 32px;
+  height: 32px;
   background-image: url('static/images/star_thumb.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
 }
-.search_container input#rating_slider[type="range"]::-moz-range-thumb {
+.search_container .form_group input#rating_slider[type="range"]::-moz-range-thumb {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   background-image: url('static/images/star_thumb.svg');
-  width: 25px;
-  height: 25px;
+  width: 32px;
+  height: 32px;
   cursor: pointer;
 }
 .search_container .form_group.advanced {
   display: none;
-  height: 60px;
+  height: 80px;
 }
 .search_container .form_group.advanced.visible {
   display: flex;
+}
+.search_container .form_group.advanced.elevation {
+  width: 90%;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.search_container .form_group.advanced.elevation input[name="elevation-change"] {
+  width: 5rem;
 }
 .search_container #advanced_question {
   border: 1px black solid;
@@ -152,11 +197,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2rem;
-  padding: 0.25rem;
+  height: 2em;
+  padding: 0.75rem;
   background-color: white;
   color: black;
   transition: all 0.25s ease-in-out;
+  line-height: 1rem;
+  margin-top: 1.5rem;
 }
 .search_container #advanced_question:hover {
   color: white;
@@ -171,11 +218,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 2rem;
-  padding: 0.25rem;
+  height: 2em;
+  padding: 0.75rem;
   background-color: white;
   color: black;
   transition: all 0.25s ease-in-out;
+  line-height: 1em;
   display: none;
 }
 .search_container #hide_advanced:hover {
@@ -185,22 +233,27 @@
 .search_container #hide_advanced.visible {
   display: inline-block;
 }
+section.home {
+  text-align: center;
+}
 section.home h1 {
-  font-size: 2em;
+  font-size: 2.25em;
+  padding: 0 9rem;
 }
 section.home div.trail {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  width: 70vw;
+  width: 80vw;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #555;
-  margin: 1rem;
+  border-radius: 3px;
+  box-shadow: #555 0px 0px 10px;
+  margin: 2rem;
 }
 section.home div.trail .trail-img {
-  width: 70vw;
+  width: 80vw;
   height: 30rem;
   background-position: top center;
   background-size: cover;
@@ -209,10 +262,15 @@ section.home div.trail .trail-img {
 section.home div.trail div.trail-info {
   display: flex;
   flex-direction: column;
-  height: 100px;
+  padding: 0.5rem 1rem;
+  height: 160px;
+  width: 100%;
   justify-content: space-around;
   align-items: flex-end;
   font-size: 1.25em;
+}
+section.home div.trail div.trail-info .location {
+  align-self: flex-start;
 }
 section.home div.trail div.trail-info svg.star {
   width: 1rem;
@@ -225,12 +283,13 @@ section.home div.trail div.trail-info svg.star:hover {
   fill: gold;
 }
 section.home div.trail div.trail-info h3 {
-  margin: 0 auto;
+  margin-right: auto;
+  font-size: 1.4em;
 }
 section.home div.trail div.trail-info .details {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
