@@ -3,4 +3,45 @@ section.home{
     h1{
         font-size: 2em;
     }
+    
+    div.trail{
+        .flex(column);
+        width: 70vw;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #555;
+        margin: 1rem;
+        .trail-img{
+            width: 70vw;
+            height: 30rem;
+            background-position: top center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        div.trail-info{
+            display: flex;
+            flex-direction: column;
+            height: 100px;
+            justify-content: space-around;
+            align-items: flex-end;
+            svg.star{
+                width: 1rem;
+                cursor: pointer;
+                height: 1rem;
+                transition: all 0.2s ease-in-out;
+                fill: #fff;
+                &:hover{
+                    fill: gold;
+                }
+            }
+            h3{
+                margin: 0 auto;
+            }
+            font-size: 1.25em;
+            .details{
+                .flex();
+            }
+        }
+    }
+
 }

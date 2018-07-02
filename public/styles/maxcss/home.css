@@ -188,3 +188,49 @@
 section.home h1 {
   font-size: 2em;
 }
+section.home div.trail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  width: 70vw;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #555;
+  margin: 1rem;
+}
+section.home div.trail .trail-img {
+  width: 70vw;
+  height: 30rem;
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+section.home div.trail div.trail-info {
+  display: flex;
+  flex-direction: column;
+  height: 100px;
+  justify-content: space-around;
+  align-items: flex-end;
+  font-size: 1.25em;
+}
+section.home div.trail div.trail-info svg.star {
+  width: 1rem;
+  cursor: pointer;
+  height: 1rem;
+  transition: all 0.2s ease-in-out;
+  fill: #fff;
+}
+section.home div.trail div.trail-info svg.star:hover {
+  fill: gold;
+}
+section.home div.trail div.trail-info h3 {
+  margin: 0 auto;
+}
+section.home div.trail div.trail-info .details {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
