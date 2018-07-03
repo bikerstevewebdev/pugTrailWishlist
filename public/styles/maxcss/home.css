@@ -36,6 +36,13 @@
   font-size: 2em;
   color: #00380c;
 }
+.search_container .input_boxes {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
 .search_container .form_group {
   padding: 0 1rem;
   display: flex;
@@ -200,9 +207,17 @@
 .search_container .form_group.advanced.elevation input[name="elevation-change"] {
   width: 5rem;
 }
+.search_container .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
 .search_container #advanced_question {
   border: 1px black solid;
   cursor: pointer;
+  width: 8em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -212,7 +227,6 @@
   color: black;
   transition: all 0.25s ease-in-out;
   line-height: 1rem;
-  margin-top: 1.5rem;
   padding-top: 0.5rem;
 }
 .search_container #advanced_question:hover {
@@ -222,9 +236,30 @@
 .search_container #advanced_question.hidden {
   display: none;
 }
+.search_container input#submit_search {
+  border: 1px black solid;
+  cursor: pointer;
+  width: 8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2em;
+  padding: 0.75rem;
+  background-color: white;
+  color: black;
+  transition: all 0.25s ease-in-out;
+  line-height: 1em;
+  font-size: 1em;
+  padding: .5rem .75rem .75rem;
+}
+.search_container input#submit_search:hover {
+  color: white;
+  background-color: black;
+}
 .search_container #hide_advanced {
   border: 1px black solid;
   cursor: pointer;
+  width: 8em;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -250,46 +285,61 @@
   .search_container form.search a > button {
     font-size: 0.8em;
   }
+  .search_container .input_boxes {
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 90%;
+  }
   .search_container .form_groupinput[type="text"] {
     width: 45%;
     align-self: flex-start;
     margin-left: 6.25em;
   }
   .search_container .form_group.address {
-    width: 40%;
-    left: 12.5rem;
-    display: inline;
-    position: absolute;
-    top: 222px;
-    text-align: left;
+    width: 60%;
+    flex-direction: row;
   }
   .search_container .form_group.address label {
-    margin-right: 40px;
+    width: 20%;
   }
   .search_container .form_group.address label::after {
     content: ":";
   }
   .search_container .form_group.address input[type="text"] {
-    width: 65%;
+    margin-left: 0.5rem;
+    font-size: 1rem;
   }
   .search_container .form_group.max_distance {
-    padding: 1.25rem 1rem 0 8rem;
-    width: 45%;
+    padding: 0;
+    width: 46%;
     align-self: flex-end;
-    margin-right: 5rem;
   }
-  .search_container .form_group.rating label {
-    margin-left: 3.35em;
+  .search_container .form_group.max_distance input[type="number"] {
+    margin-top: 0.5rem;
+  }
+  .search_container .form_group.advanced.elevation {
+    width: 43%;
+  }
+  .search_container .form_group.advanced.elevation input[type="number"] {
+    margin-top: 0.5rem;
+  }
+  .search_container .form_group.advanced.rating label {
+    margin-left: 3.35rem;
   }
   .search_container .form_group input[type="range"]#difficulty_slider,
   .search_container .form_group input[type="range"]#rating_slider {
     height: 8px;
     border-radius: 5px;
   }
+  .search_container .buttons {
+    justify-content: center;
+  }
   .search_container #advanced_question {
+    margin-right: 2rem;
     padding-top: 0.5rem;
   }
   .search_container #hide_advanced {
+    margin-right: 2rem;
     line-height: 0.75em;
   }
 }

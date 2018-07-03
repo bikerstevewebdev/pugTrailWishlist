@@ -32,6 +32,9 @@
         font-size: 2em;
         color: #00380c;
     }
+    .input_boxes{
+        .flex(@fd: column; @jc: space-around)
+    }
     .form_group{
         padding: 0 1rem;
         .flex(column);
@@ -186,14 +189,23 @@
             }
         }
     }
+    .buttons{
+        .flex(@jc: space-around; )
+    }
     #advanced_question{
         .fake_div_btn(@padding: 0.75rem; @ht: 2em);
         line-height: 1rem;
-        margin-top: 1.5rem;
+        // margin-top: 1.5rem;
         padding-top: 0.5rem;
         &.hidden{
             display: none;
         }
+    }
+    input#submit_search{
+        .fake_div_btn(@padding: 0.75rem; @ht: 2em);
+        line-height: 1em;
+        font-size: 1em;
+        padding: .5rem .75rem .75rem;
     }
     #hide_advanced{
         .fake_div_btn(@padding: 0.75rem; @ht: 2em);
@@ -210,6 +222,11 @@
                 font-size: 0.8em;
             }
         }
+        .input_boxes{
+            flex-direction: row;
+            justify-content: space-evenly;
+            width: 90%;
+        }
         .form_group{
             &input[type="text"]{
                 width: 45%;
@@ -217,34 +234,49 @@
                 margin-left: 6.25em;
             }
             &.address{
-                width: 40%;
-                left: 12.5rem;
-                display: inline;
-                position: absolute;
-                top: 222px;
-                text-align: left;
+                width: 60%;
+                flex-direction: row;
+                // left: 12.5rem;
+                // display: inline;
+                // position: absolute;
+                // top: 222px;
+                // text-align: left;
                 label{
-                    margin-right: 40px;
+                    width: 20%;
                     &::after{
                         content: ":";
                     }
                 }
                 input[type="text"]{
-                    width: 65%;
+                    // width: 65%;
+                    margin-left: 0.5rem;
+                    font-size: 1rem;
                 }
             }
             &.max_distance{
-                padding: 1.25rem 1rem 0 8rem;
-                width: 45%;
+                input[type="number"]{
+                    margin-top: 0.5rem;
+                }
+                // padding: 1.25rem 1rem 0 8rem;
+                padding: 0;
+                width: 46%;
                 align-self: flex-end;
-                margin-right: 5rem;
+                // margin-right: 5rem;
             }
-            &.rating{
-                label{
-                    margin-left: 3.35em;
+            &.advanced{
+                &.elevation{
+                    width: 43%;
+                    input[type="number"]{
+                        margin-top: 0.5rem;
+                    }
+                }
+                &.rating{
+                    label{
+                        margin-left: 3.35rem;
+                    }
                 }
             }
-            input{
+                    input{
                 &[type="range"]{
                     &#difficulty_slider, &#rating_slider{
                         height: 8px;
@@ -253,10 +285,15 @@
                 }
             }
         }
+        .buttons{
+            justify-content: center;
+        }
         #advanced_question{
+            margin-right: 2rem;
             padding-top: 0.5rem;
         }
         #hide_advanced{
+            margin-right: 2rem;
             line-height: 0.75em;
         }
     }

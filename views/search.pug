@@ -1,32 +1,33 @@
-block content
-    script(src="/static/js/search.js", type="application/javascript", async, defer)
-    section.search_container
-        form.search
-            h3 Search Trails
-            a(href="/suggestions"): button Give Me a Random One!
+
+script(src="/static/js/search.js", type="application/javascript", async, defer)
+section.search_container
+    form.search
+        h3 Search Trails
+        a(href="/suggestions"): button Give Me a Random One!
+        .input_boxes
             .form_group.address
                 label Address
                 input(type="text", name="location")
             .form_group.max_distance
                 label Max Distance From Location (miles):
                 input(name="max-distance", type="number")
-            .form_group
-                label.diff Difficulty Level: 
-                    span#diff Any
-                input(name="difficulty", type="range", min="0", max="6", value="3")#difficulty_slider
-            #advanced_question Advanced Search
-            .form_group.advanced.rating
-                label Rating:
-                    span.rating_star.one_star: include ../public/images/one_star.svg
-                    span.rating_star.two_stars: include ../public/images/two_stars.svg
-                    span.rating_star.three_stars: include ../public/images/three_stars.svg
-                    span.rating_star.four_stars: include ../public/images/rating_star.svg
-                    span.rating_star.five_stars: include ../public/images/rating_star.svg
-                     
-                input(name="rating", type="range", min="1", max="5")#rating_slider
             .form_group.advanced.elevation
                 label Total Elevation Change (feet):
                 input(name="elevation-change", type="text")
+        .form_group
+            label.diff Difficulty Level: 
+                span#diff Any
+            input(name="difficulty", type="range", min="0", max="6", value="3")#difficulty_slider
+        .form_group.advanced.rating
+            label Rating:
+                span.rating_star.one_star: include ../public/images/one_star.svg
+                span.rating_star.two_stars: include ../public/images/two_stars.svg
+                span.rating_star.three_stars: include ../public/images/three_stars.svg
+                span.rating_star.four_stars: include ../public/images/rating_star.svg
+                span.rating_star.five_stars: include ../public/images/rating_star.svg
+                    
+            input(name="rating", type="range", min="1", max="5")#rating_slider
+        .buttons
+            #advanced_question Advanced Search
             #hide_advanced Back to the Basics
-
-            
+            input#submit_search(type="submit", value="Search")

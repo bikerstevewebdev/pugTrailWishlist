@@ -15,9 +15,10 @@
     color: #111;
 }
 
-.fake_div_btn(@brdr-color: black; @brdr-width: 1px; @bg-color: white; @color: black; @hvr-color: white; @bg-hvr-color: black; @ht: 2rem; @padding: 0.5rem){
+.fake_div_btn(@width: 8em; @brdr-color: black; @brdr-width: 1px; @bg-color: white; @color: black; @hvr-color: white; @bg-hvr-color: black; @ht: 2rem; @padding: 0.5rem){
     border: @brdr-width @brdr-color solid;
     cursor: pointer;
+    width: @width;
     display: flex;
     align-items: center;
     justify-content: center;
