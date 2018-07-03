@@ -180,11 +180,11 @@
         &.visible{
             display: flex;
         }
-        &.elevation{
+        &.minimum_length{
             width: 90%;
             flex-direction: row;
             justify-content: space-between;
-            input[name="elevation-change"]{
+            input[name="minimum_length"]{
                 width: 5rem;
             }
         }
@@ -254,8 +254,10 @@
                 }
             }
             &.max_distance{
+                padding-right: 1rem;
                 input[type="number"]{
                     margin-top: 0.5rem;
+
                 }
                 // padding: 1.25rem 1rem 0 8rem;
                 padding: 0;
@@ -264,7 +266,7 @@
                 // margin-right: 5rem;
             }
             &.advanced{
-                &.elevation{
+                &.minimum_length{
                     width: 43%;
                     input[type="number"]{
                         margin-top: 0.5rem;

@@ -1,25 +1,27 @@
 
 script(src="/static/js/search.js", type="application/javascript", async, defer)
 section.search_container
-    form.search
+    form.search(method="post", action="/trails/search")
         h3 Search Trails
         a(href="/suggestions"): button Give Me a Random One!
         .input_boxes
             .form_group.address
                 label Address
-                input(type="text", name="location")
+                input(type="text", name="location", placeholder="Address, City, or State", required)
             .form_group.max_distance
                 label Max Distance From Location (miles):
-                input(name="max-distance", type="number")
-            .form_group.advanced.elevation
-                label Total Elevation Change (feet):
-                input(name="elevation-change", type="text")
+                input(name="max_distance", type="number", value="10", max="200", min="1")
+            .form_group.advanced.minimum_length
+                //- label Total Elevation Change (feet):
+                //- input(name="elevation_change", type="text", min="1", value="100", max="10000")
+                label Minimum Trail Length (miles):
+                input(name="minimum_length", type="text", min="1", value="1", max="10000")
         .form_group
             label.diff Difficulty Level: 
                 span#diff Any
             input(name="difficulty", type="range", min="0", max="6", value="3")#difficulty_slider
         .form_group.advanced.rating
-            label Rating:
+            label Rating (minimum):
                 span.rating_star.one_star: include ../public/images/one_star.svg
                 span.rating_star.two_stars: include ../public/images/two_stars.svg
                 span.rating_star.three_stars: include ../public/images/three_stars.svg

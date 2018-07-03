@@ -199,12 +199,12 @@
 .search_container .form_group.advanced.visible {
   display: flex;
 }
-.search_container .form_group.advanced.elevation {
+.search_container .form_group.advanced.minimum_length {
   width: 90%;
   flex-direction: row;
   justify-content: space-between;
 }
-.search_container .form_group.advanced.elevation input[name="elevation-change"] {
+.search_container .form_group.advanced.minimum_length input[name="minimum_length"] {
   width: 5rem;
 }
 .search_container .buttons {
@@ -310,6 +310,7 @@
     font-size: 1rem;
   }
   .search_container .form_group.max_distance {
+    padding-right: 1rem;
     padding: 0;
     width: 46%;
     align-self: flex-end;
@@ -317,10 +318,10 @@
   .search_container .form_group.max_distance input[type="number"] {
     margin-top: 0.5rem;
   }
-  .search_container .form_group.advanced.elevation {
+  .search_container .form_group.advanced.minimum_length {
     width: 43%;
   }
-  .search_container .form_group.advanced.elevation input[type="number"] {
+  .search_container .form_group.advanced.minimum_length input[type="number"] {
     margin-top: 0.5rem;
   }
   .search_container .form_group.advanced.rating label {
@@ -402,4 +403,34 @@ section.home div.trail div.trail-info .details {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+@media only screen and (min-width: 1025px) and (min-width: 1025px) {
+  section.home div.trail {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+  section.home div.trail > a {
+    width: 30%;
+  }
+  section.home div.trail > a .trail-img {
+    height: 15rem;
+  }
+  section.home div.trail div.trail-info {
+    color: #000;
+    position: relative;
+    width: 70%;
+  }
+  section.home div.trail div.trail-info * {
+    z-index: 1;
+  }
+  section.home div.trail div.trail-info::before {
+    width: 100%;
+    height: 100%;
+    background-color: #eeeeee3d;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 5px;
+  }
 }

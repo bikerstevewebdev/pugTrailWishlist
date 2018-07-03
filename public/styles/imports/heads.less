@@ -17,6 +17,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    background-color: #111;
+    z-index: 2;
     .home_link{
         h2{
             font-size: 3rem;
@@ -168,5 +170,11 @@
         .ham-container{
             display: none;
         }
+    }
+    @media @max1365{
+        .home_link{
+            left: 41.75%;
+        }
+        
     }
 }

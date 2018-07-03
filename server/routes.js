@@ -2,7 +2,7 @@
 // require some action to be performed other than simply rendering a pug file
 require('dotenv').config()
 const axios       = require('axios')
-    , { API_KEY } = process.env
+    , { API_KEY, G_MAPS_KEY } = process.env
 
 module.exports = {
     renderLogin: (req, res) => {
@@ -49,8 +49,43 @@ module.exports = {
             res.status(403).redirect('/')
         }
     }
-    , renderSearch: (req, res) => {
-        res.render('search', { user: req.user })
+    , renderSearchResults: (req, res) => {
+        const { location, difficulty, rating, max_distance, minimun_length } = req.body
+        let difficulties = ['green', 'greenBlue', 'blue', 'any', 'blueBlack', 'black', 'dblack']
+        let diffString = difficulties[difficulty/1]
+        axios.get(`https://maps.googleapis.com/maps/api/geocode/json`, {
+            params:{
+                address: location
+                , key: G_MAPS_KEY
+            }
+        }).then(googleRes => {
+            console.log(googleRes.data.results[0].address_components)
+            let userLat = googleRes.data.results[0].geometry.location.lat
+            let userLng = googleRes.data.results[0].geometry.location.lng
+            let cityObj = googleRes.data.results[0].address_components.find(v => v.types.includes('locality' || 'political'))
+            let city = cityObj ? cityObj.long_name : null
+            let state = googleRes.data.results[0].address_components.find(v => v.types.includes('administrative_area_level_1')).long_name
+
+            // Don't need the following data for now, but just for reference:
+            
+            // let foundLocation = googleRes.data.results[0].formatted_address
+            // let stNum = googleRes.data.results[0].address_components.find(v => v.types.includes('street_number')).long_name
+            // let stName = googleRes.data.results[0].address_components.find(v => v.types.includes('route')).long_name
+            // let country = googleRes.data.results[0].address_components.find(v => v.types.includes('country')).long_name
+            // let zipCode = googleRes.data.results[0].address_components.find(v => v.types.includes('postal_code')).long_name
+
+
+            axios.get(`https://www.hikingproject.com/data/get-trails?lat=${userLat}&lon=${userLng}&maxDistance=${max_distance/1}&maxResults=20&minLength=${minimun_length || 1}&minStars=${rating/1 || 1}&key=${API_KEY}`).then(trailsResponse => {
+                let qualifiedTrails = diffString !== 'any' ? trailsResponse.data.trails.filter(v=> v.difficulty === diffString) : trailsResponse.data.trails
+                console.log(qualifiedTrails)
+                res.render('search_results', { user: req.user, searchResults: qualifiedTrails, city, state })
+            }).catch(err => {
+                console.log('Trail Search API Results Error: ', err)
+            })
+
+        }).catch(err => {
+            console.log('google Geolocation API Error: ', err)
+        })
     }
     , renderTrails: (req, res) => {
         res.render('trails', { user: req.user })

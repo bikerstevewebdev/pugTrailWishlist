@@ -53,6 +53,45 @@ section.home{
         }
     }
     @media @ipadProMax{
+        div.trail{
+            flex-direction: row;
+            align-items: flex-end;
+            &>a{
+                width: 30%;
+                .trail-img{
+                    height: 15rem;
+                }
+            }
+            div.trail-info{
+                *{
+                    z-index: 1;
+                }
+                color: #000;
+                position: relative;
+                &::before{
+                    width: 100%;
+                    height: 100%;
+                    background-color: #eeeeee3d;
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    border-radius: 5px;
+                }
+                width: 70%;
+                .location{
+                    
+                }
+                svg.star{
+                    &:hover{
+                    }
+                }
+                h3{
+                }
+                .details{
+                }
+            }
+        }
         
     }
 }

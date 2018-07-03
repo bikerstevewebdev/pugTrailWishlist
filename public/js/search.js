@@ -83,8 +83,8 @@ $(document).on('input', '#rating_slider', function(e) {
             return
     }
 })
-// function geocode(){
-//     let location = $('input[name="location"]').val()
-//     let location = $('input[name="max-distance"]').val()
-//     let location = $('input[name="difficulty"]')
-// }
+
+$('form.search').on('submit', e => {
+    // e.preventDefault()
+    console.log('Search e.target Obj', e.target)
+})

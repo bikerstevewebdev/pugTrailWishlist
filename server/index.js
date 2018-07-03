@@ -185,9 +185,9 @@ app.get('/contact',          routes.renderContact)
 app.get('/about',            routes.renderAbout)
 app.get('/faq',              routes.renderFAQ)
 app.get('/dashboard',        routes.renderDashboard)
-app.get('/suggestions/form', routes.renderSearch)
 app.get('/trails',           routes.renderTrails)
 app.get('/trails/:id',       routes.renderOneTrail)
+app.post('/trails/search',   routes.renderSearchResults)
 
 // user routes
 // app.post('/users', uc.createUser)

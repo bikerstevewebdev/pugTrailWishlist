@@ -23,6 +23,8 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  background-color: #111;
+  z-index: 2;
 }
 .heads .home_link {
   position: absolute;
@@ -191,6 +193,11 @@ button {
   }
   .heads .ham-container {
     display: none;
+  }
+}
+@media only screen and (min-width: 1365px) {
+  .heads .home_link {
+    left: 41.75%;
   }
 }
 .main {
