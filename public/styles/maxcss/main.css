@@ -32,20 +32,57 @@ button {
 }
 .heads .home_link h2 {
   font-size: 3rem;
+  transition: all 0.2s ease-in-out;
+}
+.heads .home_link:hover h2 {
+  color: #967635;
 }
 .heads .register {
   display: flex;
   justify-content: space-between;
   width: 7rem;
 }
+.heads .register * {
+  transition: all 0.2s ease-in-out;
+}
+.heads .register .profile_pic {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: auto;
+  margin: 0 0.25rem;
+}
+.heads .register .profile_pic svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.heads .register .profile_pic:hover button {
+  color: #967635;
+}
+.heads .register .profile_pic:hover path {
+  fill: #967635;
+}
+.heads .register button:hover {
+  color: #967635;
+}
+.heads .register button:hover svg path {
+  fill: #967635;
+}
 .heads button {
   color: #eee;
   background-color: transparent;
   border: none;
+  font-size: unset;
 }
 .heads .suggest {
   width: 2.75rem;
   height: 2.75rem;
+  fill: #eee;
+  transition: all 0.2s ease-in-out;
+}
+.heads .suggest:hover {
+  fill: #967635;
 }
 .heads .ham-container {
   cursor: pointer;
@@ -201,12 +238,9 @@ button {
   }
 }
 .main {
-  min-height: calc(15vh);
+  min-height: 100vh;
   width: 100%;
-  margin: 0 auto;
-  margin-top: 85px;
-  padding: 2rem 6rem 120px 6rem;
-  height: 100%;
+  padding: 120px 6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -252,6 +286,9 @@ form input {
   display: flex;
   justify-content: center;
   padding: 2rem;
+}
+.tails * {
+  color: #111;
 }
 .tails > ul {
   margin-left: 2rem;

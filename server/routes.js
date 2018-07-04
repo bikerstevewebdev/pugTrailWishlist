@@ -91,7 +91,10 @@ module.exports = {
         res.render('trails', { user: req.user })
     }
     , renderWishlist: (req, res) => {
-        res.render('user_wishlist', { user: req.user })
+        res.render('wishlist', { user: req.user })
+    }
+    , renderSuggestionsForm: (req, res) => {
+        res.render('suggestion', { user: req.user })
     }
     , renderOneTrail: (req, res) => {
         console.log('renderOneTrail : ', req.user)

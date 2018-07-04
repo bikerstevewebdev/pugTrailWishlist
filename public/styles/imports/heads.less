@@ -22,6 +22,12 @@
     .home_link{
         h2{
             font-size: 3rem;
+            .ease(@time: 0.2s);
+        }
+        &:hover{
+            h2{
+                color: #967635;
+            }
         }
         position: absolute;
         left: 37.5%;
@@ -30,15 +36,48 @@
         display: flex;
         justify-content: space-between;
         width: 7rem;
+        *{
+            .ease(@time: 0.2s);
+        }
+        .profile_pic{
+            .flex(@jc: space-around; @width: auto);
+            margin: 0 0.25rem;
+            svg{
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+            &:hover{
+                button{
+                    color: #967635;
+                }
+                path{
+                    fill: #967635;
+                }
+            }   
+        }
+        button{
+            &:hover{
+                color: #967635;
+                svg path{
+                    fill: #967635;
+                }
+            }
+        }
     }
     button{
         color: #eee;
         background-color: transparent;
         border: none;
+        font-size: unset;
     }
     .suggest{
         width: 2.75rem;
         height: 2.75rem;
+        fill: #eee;
+        .ease(@time: 0.2s);
+        &:hover{
+            fill: #967635;
+        }
     }
     .ham-container{
         cursor: pointer;

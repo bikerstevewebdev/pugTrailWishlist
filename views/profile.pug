@@ -1,9 +1,41 @@
 extends layout
 
 block content
+    style
+        include ../public/styles/css/profile.css
     section.profile
-        img(src=user.profile_pic, alt=`${user.username}'s profile avi'`)
+        if user.profile_pic
+            #profile_pic(style={"background-image": `url(${user.profile_pic})`, "background-position": "center", "background-size"
+            : "cover"} alt=`${user.username}'s profile avi'`)
+        else
+            #profile_pic: include ../public/images/profile_icon.svg
         h1!= user.username
         section.user-info
             p!= user.fullname
             p!= user.email
+        button#begin_edit Edit Profile
+        form#edit_profile
+            .form_group.username
+                label Username
+                input(type="text", name="username", value=user.username)
+            .form_group.fullname
+                label Fullname
+                input(type="text", name="fullname", value=user.fullname)
+            .form_group.email
+                label Email
+                input(type="email", name="email", value=user.email)
+            .form_group.email
+                label Email
+                input(type="email", name="email", value=user.email)
+            .form_group.profile_pic
+                label Profile Picture URL
+                input(type="text", name="profile_pic", value=user.profile_pic, placeholder="http://www.example.pic.com/some_cool_pic_of_you")
+            button#form_pic_edit Upload From Computer
+        section#upload_pic
+            .s3_upload
+                .input_container
+                    label Upload File
+                    input(type="file")
+                button#close_s3 Cancel Upload
+
+        script(src="/static/js/profile.js", type="application/javascript", async, defer)

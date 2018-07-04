@@ -177,7 +177,7 @@ app.get('/logout', (req, res) => {
 //     .then(obj => {
     //         console.log('DB Connection Object: ', obj)
     //     })
-// will hookup later for /admin routes using route splitting
+// will hookup later for /admin routes using route splitting:
 // router.use('/admin', auth.authenticate)
 
 // simple rendering routes
@@ -187,6 +187,7 @@ app.get('/login/fail',               routes.sendFailStatus)
 app.get('/signup',                   routes.renderSignup)
 app.get('/users/profile',            routes.renderProfile)
 app.get('/users/wishlist',           routes.renderWishlist)
+app.get('/suggestions/form',         routes.renderSuggestionsForm)
 app.get('/contact',                  routes.renderContact)
 app.get('/about',                    routes.renderAbout)
 app.get('/faq',                      routes.renderFAQ)

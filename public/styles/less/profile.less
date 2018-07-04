@@ -1,0 +1,67 @@
+@import (reference) '../imports/variables';
+
+section.profile{
+    .flex(@width: 300px; @fd: column);
+    #profile_pic{
+        width: 100px;
+        height: 100px;
+        background-position: center;
+        background-size: cover;
+        
+    }
+    form#edit_profile{
+        .flex(@fd: column);
+        z-index: -1;
+        margin-top: -400px;
+        opacity: 0;
+        .ease();
+        &.visible{
+            opacity: 1;
+            margin-top: 0;
+            z-index: 1;
+        }
+        .form_group{
+            &.profile_pic{
+                .flex(@fd: column);
+            }
+        }
+    }
+    section#upload_pic{
+        z-index: -1;
+        opacity: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #676161a6;
+        .ease();
+        .s3_upload{
+            opacity: 0;
+            position: absolute;
+            top: -100px;
+            right: ~"calc(50vw - 150px)";
+            background-color: black;
+            border-radius: 3px;
+            .flex(@fd: column);
+            .input_container{
+                .flex(@fd: column; @jc: space-around);
+                *{
+                    width: 100%;
+                    color: #fff;
+                }
+            }
+            width: 300px;
+            height: 300px;
+            .ease();
+        }
+        &.visible{
+            opacity: 1;
+            z-index: 3;
+            .s3_upload{
+                top: ~"calc(50vh - 150px)";
+                opacity: 1;
+            }
+        }
+    }
+}

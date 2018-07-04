@@ -79,6 +79,10 @@ body {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+}
+html {
+  min-height: calc(100vh);
 }
 article,
 aside,
@@ -141,6 +145,10 @@ select {
 }
 button {
   outline: none;
+  cursor: pointer;
+}
+input[type="submit"] {
+  cursor: pointer;
 }
 h1 {
   font-size: 3rem;

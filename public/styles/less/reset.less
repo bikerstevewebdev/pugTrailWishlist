@@ -22,7 +22,13 @@ body {
     line-height:1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    height: 100%;
 }
+
+html{
+    min-height: calc(100vh);
+}
+
 article,aside,details,figcaption,figure,
 footer,header,hgroup,menu,nav,section { 
     display:block;
@@ -68,6 +74,11 @@ input, select {
 }
 button {
   outline: none;
+  cursor: pointer;
+}
+
+input[type="submit"]{
+    cursor: pointer;
 }
 
 h1{
