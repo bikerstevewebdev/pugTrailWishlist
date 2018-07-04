@@ -1,8 +1,9 @@
 require('dotenv').config()
 const bcrypt          = require('bcrypt')
-    , { SALT_ROUNDS } = process.env
+    , { SALT_ROUNDS, API_KEY } = process.env
     , db              = require('./db')
     , mysql           = require('mysql')
+    , axios           = require('axios')
 
 
 module.exports = {
@@ -77,6 +78,46 @@ module.exports = {
                     res.render('dashboard', { user: req.session.user, userInfo: data })
                 }else{
                     req.flash('Incorrect Password')
+                }
+            })
+        })
+    }
+
+    , addTrailToWishlist: (req, res) => {
+        const { id } = req.body
+            , { user_id } = req.user
+        axios.get(`https://www.hikingproject.com/data/get-trails-by-id?ids=${id}&key=${API_KEY}`).then(trailData => {
+            let trail = trailData.data.trails[0]
+            db.query(`SELECT * FROM trails WHERE api_id = ${id};`, (err, existingTrail) => {
+                if(err){
+                    console.log('DB search for existing trail Error: ', err)
+                }else if(JSON.parse(JSON.stringify(existingTrail))[0]){
+                    console.log("Existing Trail Found: ", existingTrail)
+                    db.query(`INSERT INTO wishlist (user_id, trail_id, api_trail_id) VALUES (${mysql.escape(user_id)}, ${mysql.escape(existingTrail[0].trail_id)}, ${mysql.escape(id/1)});`, (err, sqlRes) => {
+                        if(err){
+                            console.log('ADD To Wishlist SQL Error: ', err)
+                            res.sendStatus(500)
+                        }else{
+                            console.log('New User Wishlist:', sqlRes)
+                            res.status(200).send()
+                        }
+                    })
+                }else{
+                    db.query(`INSERT INTO trails (api_id, name, description, location, stars, star_votes, difficulty, length, img_sq_small, img_medium, url, ascent, descent, highest, lowest, longitude, latitude) VALUES (${mysql.escape(trail.id)}, ${mysql.escape(trail.name)}, ${mysql.escape(trail.summary)}, ${mysql.escape(trail.location)}, ${mysql.escape(trail.stars)}, ${mysql.escape(trail.starVotes)}, ${mysql.escape(trail.difficulty)}, ${mysql.escape(trail.length)}, ${mysql.escape(trail.imgSqSmall)}, ${mysql.escape(trail.imgMedium)}, ${mysql.escape(trail.url)}, ${mysql.escape(trail.ascent)}, ${mysql.escape(trail.descent)}, ${mysql.escape(trail.high)}, ${mysql.escape(trail.low)}, ${mysql.escape(trail.longitude)}, ${mysql.escape(trail.latitude)}); SELECT * FROM trails WHERE api_id = ${mysql.escape(id)};`, (err, createdTrail) => {
+                        if(err){
+                            console.log('DB Created Trail Error: ', err)
+                        }else{
+                            console.log('DB Created Trail Success Response: ', createdTrail)
+                            db.query(`INSERT INTO wishlist (user_id, trail_id, api_trail_id) VALUES (${mysql.escape(user_id)}, ${mysql.escape(JSON.parse(JSON.stringify(createdTrail))[1][0].trail_id)}, ${mysql.escape(id/1)});`, (err, wishlistAddResponse) => {
+                                if(err){
+                                    console.log('Insert new Wishlist Error: ', err)
+                                }else{
+                                    console.log('SUCCESS! WE HAVE A NEW WISHLIST TRAIL:', wishlistAddResponse)
+                                    res.sendStatus(200)
+                                }
+                            })
+                        }
+                    })
                 }
             })
         })

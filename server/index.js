@@ -130,12 +130,17 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
     console.log('deSERIALIZING')
     db.query('SELECT * FROM trails WHERE trail_id IN (SELECT trail_id FROM wishlist WHERE user_id = ?)', [user.user_id], (err, trails) => {
-        let userObj = {
-            ...user
-            , wishlist: trails
+        if(err){
+            console.log('Error inside the DESERIALIZE DB Call: ', err)
+            done(null, false);
+        }else{
+            let userObj = {
+                ...user
+                , wishlist: JSON.parse(JSON.stringify(trails))
+            }
+            delete userObj.password
+            done(null, userObj);
         }
-        delete userObj.password
-        done(null, userObj);
     })
 })
 
@@ -176,18 +181,21 @@ app.get('/logout', (req, res) => {
 // router.use('/admin', auth.authenticate)
 
 // simple rendering routes
-app.get('/',                 routes.renderHome)
-app.get('/login',            routes.renderLogin)
-app.get('/login/fail',       routes.sendFailStatus)
-app.get('/signup',           routes.renderSignup)
-app.get('/users/profile',    routes.renderProfile)
-app.get('/contact',          routes.renderContact)
-app.get('/about',            routes.renderAbout)
-app.get('/faq',              routes.renderFAQ)
-app.get('/dashboard',        routes.renderDashboard)
-app.get('/trails',           routes.renderTrails)
-app.get('/trails/:id',       routes.renderOneTrail)
-app.post('/trails/search',   routes.renderSearchResults)
+app.get('/',                         routes.renderHome)
+app.get('/login',                    routes.renderLogin)
+app.get('/login/fail',               routes.sendFailStatus)
+app.get('/signup',                   routes.renderSignup)
+app.get('/users/profile',            routes.renderProfile)
+app.get('/users/wishlist',           routes.renderWishlist)
+app.get('/contact',                  routes.renderContact)
+app.get('/about',                    routes.renderAbout)
+app.get('/faq',                      routes.renderFAQ)
+app.get('/dashboard',                routes.renderDashboard)
+app.get('/trails',                   routes.renderTrails)
+app.get('/trails/:id',               routes.renderOneTrail)
+app.post('/trails/search',           routes.renderSearchResults)
+
+app.post('/users/wishlist/add/:id',   uc.addTrailToWishlist)
 
 // user routes
 // app.post('/users', uc.createUser)

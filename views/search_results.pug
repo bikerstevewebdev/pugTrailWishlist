@@ -2,9 +2,9 @@ extends layout
 
 block content
     section.search_results
-    style
-        include ../public/styles/css/home.css
-    h1 Top Trails Near #{state} #{city ? `, ${city}` : ""}
+        style
+            include ../public/styles/css/home.css
+        h1 Top Trails Near #{city ? `${city}, ` : ""} #{state} 
         section.trails_list
             each trail in searchResults
                 .trail
@@ -22,4 +22,4 @@ block content
                             p.length= trail.length + ' miles'
 
                         if user 
-                            include ../public/images/star.svg
+                             svg(id=trail.id, class="star", xmlns="http://www.w3.org/2000/svg", xmlnsXlink="http://www.w3.org/1999/xlink", version="1.1", x="0px", y="0px", viewBox="0 0 512.001 512.001", width="1.75rem", height="1.75rem"): include ../public/images/star.svg

@@ -59,9 +59,9 @@ module.exports = {
                 , key: G_MAPS_KEY
             }
         }).then(googleRes => {
-            console.log(googleRes.data.results[0].address_components)
-            let userLat = googleRes.data.results[0].geometry.location.lat
-            let userLng = googleRes.data.results[0].geometry.location.lng
+            console.log(googleRes.data.results[0], googleRes.data.results[0].address_components)
+            let userLat = googleRes.data.results[0].geometry.location.lat/1
+            let userLng = googleRes.data.results[0].geometry.location.lng/1
             let cityObj = googleRes.data.results[0].address_components.find(v => v.types.includes('locality' || 'political'))
             let city = cityObj ? cityObj.long_name : null
             let state = googleRes.data.results[0].address_components.find(v => v.types.includes('administrative_area_level_1')).long_name
@@ -75,9 +75,9 @@ module.exports = {
             // let zipCode = googleRes.data.results[0].address_components.find(v => v.types.includes('postal_code')).long_name
 
 
-            axios.get(`https://www.hikingproject.com/data/get-trails?lat=${userLat}&lon=${userLng}&maxDistance=${max_distance/1}&maxResults=20&minLength=${minimun_length || 1}&minStars=${rating/1 || 1}&key=${API_KEY}`).then(trailsResponse => {
+            axios.get(`https://www.hikingproject.com/data/get-trails?lat=${userLat}&lon=${userLng}&maxDistance=${max_distance/1}&maxResults=20&minLength=${minimun_length/1 || 1}&minStars=${rating/1 || 1}&key=${API_KEY}`).then(trailsResponse => {
                 let qualifiedTrails = diffString !== 'any' ? trailsResponse.data.trails.filter(v=> v.difficulty === diffString) : trailsResponse.data.trails
-                console.log(qualifiedTrails)
+                console.log(trailsResponse.data.trails, qualifiedTrails)
                 res.render('search_results', { user: req.user, searchResults: qualifiedTrails, city, state })
             }).catch(err => {
                 console.log('Trail Search API Results Error: ', err)
@@ -89,6 +89,9 @@ module.exports = {
     }
     , renderTrails: (req, res) => {
         res.render('trails', { user: req.user })
+    }
+    , renderWishlist: (req, res) => {
+        res.render('user_wishlist', { user: req.user })
     }
     , renderOneTrail: (req, res) => {
         console.log('renderOneTrail : ', req.user)

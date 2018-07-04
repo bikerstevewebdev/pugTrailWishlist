@@ -310,9 +310,9 @@
     font-size: 1rem;
   }
   .search_container .form_group.max_distance {
-    padding-right: 1rem;
     padding: 0;
     width: 46%;
+    padding-right: 1rem;
     align-self: flex-end;
   }
   .search_container .form_group.max_distance input[type="number"] {
@@ -344,14 +344,20 @@
     line-height: 0.75em;
   }
 }
-section.home {
+section.home,
+section.search_results,
+.user_wishlist {
   text-align: center;
 }
-section.home h1 {
+section.home h1,
+section.search_results h1,
+.user_wishlist h1 {
   font-size: 2.25em;
   padding: 0 9rem;
 }
-section.home div.trail {
+section.home div.trail,
+section.search_results div.trail,
+.user_wishlist div.trail {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -363,14 +369,18 @@ section.home div.trail {
   box-shadow: #555 0px 0px 10px;
   margin: 2rem;
 }
-section.home div.trail .trail-img {
+section.home div.trail .trail-img,
+section.search_results div.trail .trail-img,
+.user_wishlist div.trail .trail-img {
   width: 80vw;
   height: 30rem;
   background-position: top center;
   background-size: cover;
   background-repeat: no-repeat;
 }
-section.home div.trail div.trail-info {
+section.home div.trail div.trail-info,
+section.search_results div.trail div.trail-info,
+.user_wishlist div.trail div.trail-info {
   display: flex;
   flex-direction: column;
   padding: 0.5rem 1rem;
@@ -380,24 +390,34 @@ section.home div.trail div.trail-info {
   align-items: flex-end;
   font-size: 1.25em;
 }
-section.home div.trail div.trail-info .location {
+section.home div.trail div.trail-info .location,
+section.search_results div.trail div.trail-info .location,
+.user_wishlist div.trail div.trail-info .location {
   align-self: flex-start;
 }
-section.home div.trail div.trail-info svg.star {
-  width: 1rem;
+section.home div.trail div.trail-info svg.star,
+section.search_results div.trail div.trail-info svg.star,
+.user_wishlist div.trail div.trail-info svg.star {
+  width: 1.75rem;
   cursor: pointer;
-  height: 1rem;
+  height: 1.75rem;
   transition: all 0.2s ease-in-out;
-  fill: #fff;
+  fill: #111;
 }
-section.home div.trail div.trail-info svg.star:hover {
+section.home div.trail div.trail-info svg.star:hover,
+section.search_results div.trail div.trail-info svg.star:hover,
+.user_wishlist div.trail div.trail-info svg.star:hover {
   fill: gold;
 }
-section.home div.trail div.trail-info h3 {
+section.home div.trail div.trail-info h3,
+section.search_results div.trail div.trail-info h3,
+.user_wishlist div.trail div.trail-info h3 {
   margin-right: auto;
   font-size: 1.4em;
 }
-section.home div.trail div.trail-info .details {
+section.home div.trail div.trail-info .details,
+section.search_results div.trail div.trail-info .details,
+.user_wishlist div.trail div.trail-info .details {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -405,25 +425,40 @@ section.home div.trail div.trail-info .details {
   width: 100%;
 }
 @media only screen and (min-width: 1025px) and (min-width: 1025px) {
-  section.home div.trail {
+  section.home div.trail,
+  section.search_results div.trail,
+  .user_wishlist div.trail {
     flex-direction: row;
     align-items: flex-end;
+    justify-content: unset;
   }
-  section.home div.trail > a {
-    width: 30%;
+  section.home div.trail > a,
+  section.search_results div.trail > a,
+  .user_wishlist div.trail > a {
+    width: 20rem;
   }
-  section.home div.trail > a .trail-img {
+  section.home div.trail > a .trail-img,
+  section.search_results div.trail > a .trail-img,
+  .user_wishlist div.trail > a .trail-img {
     height: 15rem;
+    width: inherit;
   }
-  section.home div.trail div.trail-info {
+  section.home div.trail div.trail-info,
+  section.search_results div.trail div.trail-info,
+  .user_wishlist div.trail div.trail-info {
+    height: 15rem;
     color: #000;
     position: relative;
     width: 70%;
   }
-  section.home div.trail div.trail-info * {
+  section.home div.trail div.trail-info *,
+  section.search_results div.trail div.trail-info *,
+  .user_wishlist div.trail div.trail-info * {
     z-index: 1;
   }
-  section.home div.trail div.trail-info::before {
+  section.home div.trail div.trail-info::before,
+  section.search_results div.trail div.trail-info::before,
+  .user_wishlist div.trail div.trail-info::before {
     width: 100%;
     height: 100%;
     background-color: #eeeeee3d;
@@ -432,5 +467,24 @@ section.home div.trail div.trail-info .details {
     top: 0;
     left: 0;
     border-radius: 5px;
+  }
+  section.home div.trail div.trail-info .location,
+  section.search_results div.trail div.trail-info .location,
+  .user_wishlist div.trail div.trail-info .location {
+    margin-top: 2rem;
+  }
+  section.home div.trail div.trail-info .details,
+  section.search_results div.trail div.trail-info .details,
+  .user_wishlist div.trail div.trail-info .details {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 3rem;
+    justify-content: space-around;
+    height: 50%;
+  }
+  section.home div.trail div.trail-info .details .rating svg,
+  section.search_results div.trail div.trail-info .details .rating svg,
+  .user_wishlist div.trail div.trail-info .details .rating svg {
+    fill: goldenrod;
   }
 }

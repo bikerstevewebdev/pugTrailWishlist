@@ -1,5 +1,5 @@
 @import '../imports/search';
-section.home{
+section.home, section.search_results, .user_wishlist {
     text-align: center;
     h1{
         font-size: 2.25em;
@@ -33,11 +33,11 @@ section.home{
                 align-self: flex-start;
             }
             svg.star{
-                width: 1rem;
+                width: 1.75rem;
                 cursor: pointer;
-                height: 1rem;
+                height: 1.75rem;
                 transition: all 0.2s ease-in-out;
-                fill: #fff;
+                fill: #111;
                 &:hover{
                     fill: gold;
                 }
@@ -56,13 +56,16 @@ section.home{
         div.trail{
             flex-direction: row;
             align-items: flex-end;
+            justify-content: unset;
             &>a{
-                width: 30%;
+                width: 20rem;
                 .trail-img{
                     height: 15rem;
+                    width: inherit;
                 }
             }
             div.trail-info{
+                height: 15rem;
                 *{
                     z-index: 1;
                 }
@@ -80,7 +83,7 @@ section.home{
                 }
                 width: 70%;
                 .location{
-                    
+                    margin-top: 2rem;
                 }
                 svg.star{
                     &:hover{
@@ -89,6 +92,16 @@ section.home{
                 h3{
                 }
                 .details{
+                    flex-direction: column;
+                    align-items: flex-start;
+                    margin-top: 3rem;
+                    justify-content: space-around;
+                    height: 50%;
+                    .rating{
+                        svg{
+                            fill: goldenrod;
+                        }
+                    }
                 }
             }
         }

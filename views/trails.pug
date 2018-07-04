@@ -7,7 +7,7 @@ block content
             h2= trail.name
             .head-details
                 p= 'Length: ' + trail.length + ' miles'
-                p= 'Difficulty: ' + trail.difficulty
+                p= 'Difficulty: ' + difficulties[trail.difficulty]
                 - let elevationChange = trail.ascent/1 + trail.descent * (-1)
                 p= 'Total Elevation Change: ' + (elevationChange < 0 ? elevationChange * (-1) : elevationChange) + ' ft'
         a.trail-img-md(href=trail.url, target="_blank"): img(src=trail.imgMedium, alt=trail.name)
@@ -19,6 +19,9 @@ block content
                 p= 'Latitude: ' 
                     span#lat= trail.latitude
                 p= 'Stars: ' + trail.stars + ' (based on ' + trail.starVotes + ' reviews)'
+                p Traffic Rating
+                    span
+                p= `Kid Friendly? ${trail.summary.split(' ').includes('steep') ? 'No' : 'Yes' }`
             .right_info
                 p= 'Ascent: ' + trail.ascent
                 p= 'Descent: ' + trail.descent

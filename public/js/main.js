@@ -63,3 +63,25 @@ $(document).ready(() => {
         console.log('Location Not Supported')
     }
 })
+
+$('.star').on('click', e => {
+    let $starId = e.target.id/1
+    console.log($starId)
+    $.ajax({
+        type: 'post'
+        , url: `/users/wishlist/add/${$starId}`
+        , data: JSON.stringify({
+            id: $starId
+        })
+        , contentType: 'application/json'
+        , success: function(data, status) {
+            console.log('Login Success: ', data, status)
+            alert(`Trail Added to Wishlist!`)
+            window.location.reload(true)
+        }
+        , error: function(err){
+            console.log('Login Error: ', err.responseJSON.message)
+            alert(err.responseJSON.message)
+        }
+    })
+})
