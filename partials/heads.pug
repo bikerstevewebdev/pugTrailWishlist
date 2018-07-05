@@ -11,29 +11,38 @@ nav.heads
     a(href="/").home_link
         h2.logo Trail Buddy
         script(src="/static/js/heads.js", type="application/javascript", async, defer)
-    .ham-container
+    .ham_container
         .ham
-            ul.ham-menu
-                if !user
-                    a(href="/login"): li LOGIN
-                    a(href="/signup"): li SIGNUP
-                else
-                    a(href="/users/profile"): li PROFILE
-                    a(href='/users/wishlist'): li TRAIL TO DOS
-                a(href="/suggestions"): li SEARCH
-                a(href="/contact"): li CONTACT
-                a(href="/invite").invite: li INVITE
+            ul.ham_menu
+                a(href=user ? '/users/profile' : '/login')
+                    li #{user ? 'PROFILE' : 'LOGIN'}
+                a(href=user ? '/users/wishlist' : '/signup')
+                    li #{user ? 'TRAIL TO DOS' : 'LOGIN'}
+                a(href='/suggestions/form'): li SEARCH
+                a(href='/contact'): li CONTACT
+                a(href='/invite').invite: li INVITE
     section.login
         if user
             .register
-                a(href="/logout"): button.logout Logout 
+                a(href='/logout'): button.logout Logout 
                 a(href='/users/profile').profile_pic
                     if user.profile_pic
-                        .user_pic(style={"background-image": `url(${user.profile_pic})`, "background-position": "center", "background-size": "cover"})
+                        .user_pic(style={'background-image': `url(${user.profile_pic})`, "background-position": "center", "background-size": "cover"})
                     else
                         include ../public/images/profile_icon.svg
                     button #{user.username}
         else
             .register
-                a(href="/login"): button.login Login
-                a(href="/signup"): button.signup Signup
+                a(href='/login'): button.login Login
+                a(href='/signup'): button.signup Signup
+        .burger_container
+            svg#menu_trigger.real_hamburger( xmlns="http://www.w3.org/2000/svg", xlink="http://www.w3.org/1999/xlink", version="1.1", x="0px", y="0px", viewBox="0 0 462.994 462.994" )
+                include ../public/images/hamburger.svg
+            ul.burger_menu
+                a(href=user ? '/users/profile' : '/login')
+                    li #{user ? 'PROFILE' : 'LOGIN'}
+                a(href=user ? '/users/wishlist' : '/signup')
+                    li #{user ? 'TRAIL TO DOS' : 'LOGIN'}
+                a(href='/suggestions/form'): li SEARCH
+                a(href='/contact'): li CONTACT
+                a(href='/invite').invite: li INVITE

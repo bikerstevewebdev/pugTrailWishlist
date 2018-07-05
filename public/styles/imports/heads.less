@@ -1,5 +1,5 @@
 @import (reference) 'variables';
-.ham-buns(){
+.ham_buns(){
     position: absolute;
     width: 100%;
     height: 100%;
@@ -79,7 +79,7 @@
             fill: #967635;
         }
     }
-    .ham-container{
+    .ham_container{
         cursor: pointer;
         height: 1.5rem;
         margin-right: 1.5rem;
@@ -92,56 +92,15 @@
             background-color: @lettuce;
             border-radius: 0.5px;
             &::before{
-                .ham-buns();
+                .ham_buns();
                 top: -7px;
             }
             &::after{
-                .ham-buns();
+                .ham_buns();
                 top: 7px;
             }
-            ul.ham-menu{
-                height: 0px;
-                width: 0px;
-                .ease();
-                border: none;
-                overflow: hidden;
-                position: absolute;
-                top: 2rem;
-                right: 2rem;
-                font-size: 1.125rem;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-around;
-                border: none;
-                background-color: #1111118f;
-                *{
-                    color: #EEE;
-                }
-                a{
-                    width: 100%;
-                    height: 30px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    position: relative;
-                    &::after{
-                        height: 1px;
-                        content: '';
-                        background-color: #111;
-                        width: 80%;
-                        position: absolute;
-                        bottom: -1px;
-                        left: 10%;
-                    }
-                }
-                a.invite{
-                    height: 31px;
-                    &::after{
-                        content: none;
-                        height: 0;
-                    }
-                }
+            ul.ham_menu{
+                .ham_rules();
             }
         }
         &:hover{
@@ -156,27 +115,17 @@
         }
         .ham.open{
             background-color: transparent;
-            ul.ham-menu{
-                border: 1px solid #eee;
-                a:hover{
-                    background-color: #eee;
-                    li{
-                        color: #111;
-                    }
-                    .ease();
-                    &::after{
-                        background-color: transparent;
-                    }
-                }
+            ul.ham_menu{
+                .ham_rules_open();
             }
             &::before{
-                .ham-buns();
+                .ham_buns();
                 transform: rotate(45deg);
                 top: 0;
                 .ease(@time: 0.175s);
             }
             &::after{
-                .ham-buns();
+                .ham_buns();
                 transform: rotate(-45deg);
                 top: 0;
                 .ease(@time: 0.175s);
@@ -185,10 +134,6 @@
                 &::after, &::before{
                 top: 0;
                 }
-            }
-            ul.ham-menu{
-                height: 10rem;
-                width: 8rem;
             }
         }
     }
@@ -204,9 +149,35 @@
             left: calc(50% - 5.75rem);
         }
         section.login{
-            display: inline-block;
+            // display: inline-block;
+            .flex(@width: auto);
+            .burger_container{
+                position: relative;
+                .real_hamburger{
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    fill: #eee;
+                    .ease();
+                    cursor: pointer;
+                    &:hover{
+                        fill: #967635;
+                    }
+                }
+                ul.burger_menu{
+                    .ham_rules();
+                    top: 3rem;
+                }
+                &.open{
+                    ul.burger_menu{
+                        .ham_rules_open();
+                    }
+                }
+            }
+            .register{
+                .flex();
+            }
         }
-        .ham-container{
+        .ham_container{
             display: none;
         }
     }

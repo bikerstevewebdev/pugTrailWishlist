@@ -109,7 +109,7 @@
   appearance: none;
   width: 32px;
   height: 32px;
-  background-image: url('static/images/randomTrail.svg');
+  background-image: url('/static/images/randomTrail.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -124,25 +124,25 @@
   cursor: pointer;
 }
 .search_container .form_group input#difficulty_slider[type="range"].green::-webkit-slider-thumb {
-  background-image: url('static/images/greenTrail.svg');
+  background-image: url('/static/images/greenTrail.svg');
 }
 .search_container .form_group input#difficulty_slider[type="range"].greenBlue::-webkit-slider-thumb {
-  background-image: url('static/images/greenBlueTrail.svg');
+  background-image: url('/static/images/greenBlueTrail.svg');
 }
 .search_container .form_group input#difficulty_slider[type="range"].blue::-webkit-slider-thumb {
-  background-image: url('static/images/blueTrail.svg');
+  background-image: url('/static/images/blueTrail.svg');
 }
 .search_container .form_group input#difficulty_slider[type="range"].any::-webkit-slider-thumb {
-  background-image: url('static/images/randomTrail.svg');
+  background-image: url('/static/images/randomTrail.svg');
 }
 .search_container .form_group input#difficulty_slider[type="range"].blueBlack::-webkit-slider-thumb {
-  background-image: url('static/images/blueBlackTrail.svg');
+  background-image: url('/static/images/blueBlackTrail.svg');
 }
 .search_container .form_group input#difficulty_slider[type="range"].black::-webkit-slider-thumb {
-  background-image: url('static/images/blackTrail.svg');
+  background-image: url('/static/images/blackTrail.svg');
 }
 .search_container .form_group input#difficulty_slider[type="range"].dblack::-webkit-slider-thumb {
-  background-image: url('static/images/dblackTrail.svg');
+  background-image: url('/static/images/dblackTrail.svg');
 }
 .search_container .form_group.rating label {
   align-self: flex-start;
@@ -177,7 +177,7 @@
   appearance: none;
   width: 32px;
   height: 32px;
-  background-image: url('static/images/star_thumb.svg');
+  background-image: url('/static/images/star_thumb.svg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -187,7 +187,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-image: url('static/images/star_thumb.svg');
+  background-image: url('/static/images/star_thumb.svg');
   width: 32px;
   height: 32px;
   cursor: pointer;
@@ -389,6 +389,7 @@ section.search_results div.trail div.trail-info,
   justify-content: space-around;
   align-items: flex-end;
   font-size: 1.25em;
+  position: relative;
 }
 section.home div.trail div.trail-info .location,
 section.search_results div.trail div.trail-info .location,
@@ -403,6 +404,8 @@ section.search_results div.trail div.trail-info svg.star,
   height: 1.75rem;
   transition: all 0.2s ease-in-out;
   fill: #111;
+  position: absolute;
+  top: 24px;
 }
 section.home div.trail div.trail-info svg.star:hover,
 section.search_results div.trail div.trail-info svg.star:hover,
@@ -450,6 +453,7 @@ section.search_results div.trail div.trail-info .details,
     color: #000;
     position: relative;
     width: 70%;
+    display: inline-block;
   }
   section.home div.trail div.trail-info *,
   section.search_results div.trail div.trail-info *,
@@ -468,19 +472,36 @@ section.search_results div.trail div.trail-info .details,
     left: 0;
     border-radius: 5px;
   }
+  section.home div.trail div.trail-info h3,
+  section.search_results div.trail div.trail-info h3,
+  .user_wishlist div.trail div.trail-info h3 {
+    display: inline;
+    float: left;
+  }
   section.home div.trail div.trail-info .location,
   section.search_results div.trail div.trail-info .location,
   .user_wishlist div.trail div.trail-info .location {
-    margin-top: 2rem;
+    display: inline;
+    margin-top: 0.75rem;
+    float: right;
+  }
+  section.home div.trail div.trail-info svg.star,
+  section.search_results div.trail div.trail-info svg.star,
+  .user_wishlist div.trail div.trail-info svg.star {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    top: unset;
   }
   section.home div.trail div.trail-info .details,
   section.search_results div.trail div.trail-info .details,
   .user_wishlist div.trail div.trail-info .details {
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 3rem;
     justify-content: space-around;
     height: 50%;
+    position: absolute;
+    bottom: 0.5rem;
   }
   section.home div.trail div.trail-info .details .rating svg,
   section.search_results div.trail div.trail-info .details .rating svg,

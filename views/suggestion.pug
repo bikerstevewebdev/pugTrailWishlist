@@ -1,6 +1,7 @@
 extends layout
 
 block content
-    include ./search
     style
         include ../public/styles/css/home.css
+    script(src="/static/js/search.js", type="application/javascript", async, defer)
+    include ./search

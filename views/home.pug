@@ -16,7 +16,7 @@ block content
             }else{
                 alert('Location Services Disabled. Please enable to see nearby Trails.')
             }
-        }, 0.00000000000000001)
+        }, 500)
 
     section.home
         if !navigator || !navigator.geolocation
@@ -42,7 +42,7 @@ block content
                                         include ../public/images/rating_star.svg 
 
                             if user && !user.wishlist.find(v => v.api_id === trail.id)
-                                svg(id=trail.id, class="star", xmlns="http://www.w3.org/2000/svg", xmlnsXlink="http://www.w3.org/1999/xlink", version="1.1", x="0px", y="0px", viewBox="0 0 512.001 512.001", width="1.75rem", height="1.75rem"): include ../public/images/star.svg
+                                svg(id=trail.id, class="star", xmlns="http://www.w3.org/2000/svg", xmlnsXlink="http://www.w3.org/1999/xlink", version="1.1", x="0px", y="0px", viewBox="0 0 512.001 512.001", width="1.75rem", height="1.75rem"): include ../public/images/shooting-star.svg
         else
             h1 Check Out These Sick Trails Nearby
             p Your trails await!

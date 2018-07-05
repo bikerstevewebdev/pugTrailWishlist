@@ -38,6 +38,8 @@ section.home, section.search_results, .user_wishlist {
                 height: 1.75rem;
                 transition: all 0.2s ease-in-out;
                 fill: #111;
+                position: absolute;
+                top: 24px;
                 &:hover{
                     fill: gold;
                 }
@@ -50,6 +52,7 @@ section.home, section.search_results, .user_wishlist {
             .details{
                 .flex(@jc: space-between);
             }
+            position: relative;
         }
     }
     @media @ipadProMax{
@@ -81,22 +84,33 @@ section.home, section.search_results, .user_wishlist {
                     left: 0;
                     border-radius: 5px;
                 }
-                width: 70%;
-                .location{
-                    margin-top: 2rem;
+                h3{
+                    display: inline;
+                    float: left;
                 }
-                // svg.star{
-                    // &:hover{
-                    // }
-                // }
+                width: 70%;
+                display: inline-block;
+                .location{
+                    display: inline;
+                    margin-top: 0.75rem;
+                    float: right;
+                }
+                svg.star{
+                    position: absolute;
+                    right: 1rem;
+                    bottom: 1rem;
+                    top: unset;
+                }
                 // h3{
                 // }
                 .details{
                     flex-direction: column;
                     align-items: flex-start;
-                    margin-top: 3rem;
+                    // margin-top: 3rem;
                     justify-content: space-around;
                     height: 50%;
+                    position: absolute;
+                    bottom: 0.5rem;
                     .rating{
                         svg{
                             fill: goldenrod;

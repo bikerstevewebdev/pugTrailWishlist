@@ -13,8 +13,8 @@ block content
                     each trail in user.wishlist
                         .trail
                             -
-                                let noImg = !trail.imgMedium.length
-                                let img = noImg ?  '/static/images/no-image.jpg' : trail.imgMedium
+                                let noImg = !trail.img_medium.length
+                                let img = noImg ?  '/static/images/no-image.jpg' : trail.img_medium
                                 let bgPosition = noImg ? 'center' : 'top center'
                                 let bgSize = noImg ? "contain" : "cover"
                             a(href=`/trails/${trail.id}`): .trail-img(style={"background-image": "url(" + img + ")", "background-position": bgPosition, "background-size": bgSize}, alt=trail.name)
@@ -25,5 +25,5 @@ block content
                                     p= 'Difficulty: ' + difficulties[trail.difficulty]
                                     p.length= trail.length + ' miles'
 
-                                if user && wishlist.includes(v => v.id === trail.id).length < 1
-                                     svg(id=trail.id, class="star", xmlns="http://www.w3.org/2000/svg", xmlnsXlink="http://www.w3.org/1999/xlink", version="1.1", x="0px", y="0px", viewBox="0 0 512.001 512.001", width="1.75rem", height="1.75rem"): include ../public/images/star.svg
+                                if user && user.wishlist.includes(v => v.api_id === trail.id).length < 1
+                                     svg(id=trail.id, class="star", xmlns="http://www.w3.org/2000/svg", xmlnsXlink="http://www.w3.org/1999/xlink", version="1.1", x="0px", y="0px", viewBox="0 0 512.001 512.001", width="1.75rem", height="1.75rem"): include ../public/images/shooting-star.svg
