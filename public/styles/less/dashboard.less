@@ -1,0 +1,36 @@
+@import (reference) '../imports/variables';
+@import './home.less';
+
+section.dashboard{
+    text-align: center;
+    section.user_wishlist{
+        .wishlist_trail{
+            svg.mark_completed{
+                width: 2rem;
+                height: 2rem;
+                position: absolute;
+                top: 2rem;
+                right: 2rem;
+                cursor: pointer;
+                .ease();
+                &:hover{
+                    fill: forestgreen;
+                }
+            }
+        }
+    }
+    @media @ipadMax{
+        section.user_wishlist{
+            .wishlist_trail{
+                svg.mark_completed{
+                    position: absolute;
+                    bottom: 2rem;
+                    top: unset;
+                    // right: 2rem;
+                    // cursor: pointer;
+                }
+            }
+        }
+
+    }
+}

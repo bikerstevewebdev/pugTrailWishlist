@@ -65,6 +65,7 @@ $(document).ready(() => {
 })
 
 $('.star').on('click', e => {
+    e.preventDefault()
     let $starId = e.target.id/1
     console.log($starId)
     $.ajax({
@@ -84,4 +85,42 @@ $('.star').on('click', e => {
             alert(err.responseJSON.message)
         }
     })
+})
+$('.mark_completed').on('click', e => {
+    e.preventDefault()
+    let $markId = e.target.id/1
+    console.log($markId)
+    $('#completed_form_container').addClass('visible')
+})
+$('#cancel_completed_form').on('click', e => {
+    e.preventDefault()
+    console.log(e.target.id, 'has been hit')
+    $('#completed_form_container').addClass('visible')
+})
+
+$('#completed_form').on('submit', e => {
+    e.preventDefault()
+    // $.ajax({
+        //     type: 'post'
+        //     , url: `/users/wishlist/completed/${$markId}`
+        //     , data: JSON.stringify({
+            //         id: $starId
+            //         , date_completed: $dateCompleted
+            //         , company: $company
+            //         , rating: $user_rating
+            //         , time_completed_in: $time
+            //         , notes: $trip_notes
+            //     })
+            //     , contentType: 'application/json'
+            //     , success: function(data, status) {
+                //         console.log('Login Success: ', data, status)
+                //         alert(`Trail Added to Wishlist!`)
+    //         window.location.reload(true)
+    //     }
+    //     , error: function(err){
+        //         console.log('Login Error: ', err.responseJSON.message)
+        //         alert(err.responseJSON.message)
+        //     }
+        // })
+    
 })

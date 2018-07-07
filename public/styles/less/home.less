@@ -1,12 +1,12 @@
 @import '../imports/search';
-section.home, section.search_results, .user_wishlist {
+section.home, section.search_results, section.user_wishlist{
     text-align: center;
     h1{
         font-size: 2.25em;
         padding: 0 9rem;
     }
     
-    div.trail{
+    div.trail, .wishlist_trail{
         .flex(column);
         width: 80vw;
         align-items: center;
@@ -51,12 +51,17 @@ section.home, section.search_results, .user_wishlist {
             font-size: 1.25em;
             .details{
                 .flex(@jc: space-between);
+                .rating{
+                    svg{
+                        fill: goldenrod;
+                    }
+                }
             }
             position: relative;
         }
     }
     @media @ipadProMax{
-        div.trail{
+        div.trail, .wishlist_trail{
             flex-direction: row;
             align-items: flex-end;
             justify-content: unset;
@@ -88,7 +93,7 @@ section.home, section.search_results, .user_wishlist {
                     display: inline;
                     float: left;
                 }
-                width: 70%;
+                width: 75%;
                 display: inline-block;
                 .location{
                     display: inline;

@@ -4,16 +4,18 @@ block content
     style
         include ../public/styles/css/profile.css
     section.profile
-        if user.profile_pic
-            #profile_pic(style={"background-image": `url(${user.profile_pic})`, "background-position": "center", "background-size"
-            : "cover"} alt=`${user.username}'s profile avi'`)
-        else
-            #profile_pic: include ../public/images/profile_icon.svg
-        h1!= user.username
-        section.user-info
-            p!= user.fullname
-            p!= user.email
-        button#begin_edit Edit Profile
+        .main_user_info
+            if user.profile_pic
+                #profile_pic(style={"background-image": `url(${user.profile_pic})`, "background-position": "center", "background-size"
+                : "cover"} alt=`${user.username}'s profile avi'`)
+            else
+                #profile_pic: include ../public/images/profile_icon.svg
+            h1!= user.username
+            section.user-info
+                p!= user.fullname
+                p!= user.email
+                button#begin_edit Edit Profile
+                a(href="/dashboard"): button Dashboard
         form#edit_profile
             .form_group.username
                 label Username

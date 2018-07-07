@@ -574,3 +574,25 @@ section.user_wishlist .wishlist_trail div.trail-info .details .rating svg {
     fill: goldenrod;
   }
 }
+section.dashboard {
+  text-align: center;
+}
+section.dashboard section.user_wishlist .wishlist_trail svg.mark_completed {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+section.dashboard section.user_wishlist .wishlist_trail svg.mark_completed:hover {
+  fill: forestgreen;
+}
+@media only screen and (min-width: 769px) and (min-device-width: 769px) {
+  section.dashboard section.user_wishlist .wishlist_trail svg.mark_completed {
+    position: absolute;
+    bottom: 2rem;
+    top: unset;
+  }
+}

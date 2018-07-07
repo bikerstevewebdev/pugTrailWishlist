@@ -1,25 +1,9 @@
 extends layout
 
-mixin wishlist
-    ul.wishlist
-        each trail in user.wishlist
-            .wishlist_trail
-                img(src=trail.imgSqSmall, alt=trail.name)
-                h4= trail.name
-                p= 'Location: ', + trail.location
-                p= 'Stars: ' + trail.stars + '(from ' + trail.starVotes + ' votes)'
-                p= trail.summary
-                p= 'Difficulty: ' + trail.difficulty
-                p= 'Length: ' + trail.length + 'miles'
-
 block content
+    style
+        include ../public/styles/css/dashboard.css
     section.dashboard
-        h2 Welcome Back #{user.username}
-        .trail_wishlist
-            if user.wishlist.length < 1
-                h3 Looks like you don't have any trails saved yet.
-                    br
-                    | Let's get you some trails to hike!
-            else 
-                h3 Your Wishlist
-                +wishlist
+        h1 Welcome Back #{user.username}
+        include ./search
+        include ./wishlist

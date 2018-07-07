@@ -1,29 +1,27 @@
-extends layout
-
-block content
-    section.user_wishlist
-        style
-            include ../public/styles/css/home.css
-        if user.wishlist.length < 1
-            h1 No Trails Yet? Search for some new goals!
-            a(href='/searchPage'): button Search for Trails
-        else
-            h1 Your Trails #{user.username}
-            section.trails_list
-                    each trail in user.wishlist
-                        .trail
-                            -
-                                let noImg = !trail.img_medium.length
-                                let img = noImg ?  '/static/images/no-image.jpg' : trail.img_medium
-                                let bgPosition = noImg ? 'center' : 'top center'
-                                let bgSize = noImg ? "contain" : "cover"
-                            a(href=`/trails/${trail.id}`): .trail-img(style={"background-image": "url(" + img + ")", "background-position": bgPosition, "background-size": bgSize}, alt=trail.name)
-                            .trail-info
-                                h3= trail.name
-                                p.location= trail.location
-                                .details
-                                    p= 'Difficulty: ' + difficulties[trail.difficulty]
-                                    p.length= trail.length + ' miles'
-
-                                if user && user.wishlist.includes(v => v.api_id === trail.id).length < 1
-                                     svg(id=trail.id, class="star", xmlns="http://www.w3.org/2000/svg", xmlnsXlink="http://www.w3.org/1999/xlink", version="1.1", x="0px", y="0px", viewBox="0 0 512.001 512.001", width="1.75rem", height="1.75rem"): include ../public/images/shooting-star.svg
+section.user_wishlist
+    if user.wishlist.length < 1
+        h1 No Trails Yet? Search for some new goals!
+        a(href='/searchPage'): button Search for Trails
+    else
+        h1 Your Trails #{user.username}
+        section.trails_list
+            each trail in user.wishlist
+                .wishlist_trail
+                    -
+                        let noImg = !trail.img_medium.length
+                        let img = noImg ?  '/static/images/no-image.jpg' : trail.img_medium
+                        let bgPosition = noImg ? 'center' : 'top center'
+                        let bgSize = noImg ? "contain" : "cover"
+                    a(href=`/trails/${trail.id}`): .trail-img(style={"background-image": "url(" + img + ")", "background-position": bgPosition, "background-size": bgSize}, alt=trail.name)
+                    .trail-info
+                        h3= trail.name
+                        p.location= trail.location
+                        .details
+                            p= 'Difficulty: ' + difficulties[trail.difficulty]
+                            p.length= trail.length + ' miles'
+                            - let stars = new Array(~~(trail.stars/1)).fill(1)
+                            .rating Rating: 
+                                each star in stars
+                                    include ../public/images/rating_star.svg
+                        svg(id=trail.id, xmlns="http://www.w3.org/2000/svg", xlink="http://www.w3.org/1999/xlink", version="1.1", class="mark_completed", x="0px", y="0px", viewBox="0 0 47 47" )
+                            include ../public/images/completed-tasks.svg

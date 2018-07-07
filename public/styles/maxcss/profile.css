@@ -4,12 +4,28 @@ section.profile {
   justify-content: center;
   align-items: center;
   width: 300px;
+  min-height: 75vh;
 }
 section.profile #profile_pic {
   width: 100px;
   height: 100px;
   background-position: center;
   background-size: cover;
+}
+section.profile .main_user_info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 20vh;
+}
+section.profile .main_user_info .user_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 section.profile form#edit_profile {
   display: flex;

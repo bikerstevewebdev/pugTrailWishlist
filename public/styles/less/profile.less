@@ -2,12 +2,19 @@
 
 section.profile{
     .flex(@width: 300px; @fd: column);
+    min-height: 75vh;
     #profile_pic{
         width: 100px;
         height: 100px;
         background-position: center;
         background-size: cover;
-        
+    }
+    .main_user_info{
+        .flex(@jc: space-between);
+        min-height: 20vh;
+        .user_info{
+            .flex(@fd: column);
+        }
     }
     form#edit_profile{
         .flex(@fd: column);
