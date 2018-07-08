@@ -86,17 +86,17 @@ $('.star').on('click', e => {
         }
     })
 })
-$('.mark_completed').on('click', e => {
-    e.preventDefault()
-    let $markId = e.target.id/1
-    console.log($markId)
-    $('#completed_form_container').addClass('visible')
-})
-$('#cancel_completed_form').on('click', e => {
-    e.preventDefault()
-    console.log(e.target.id, 'has been hit')
-    $('#completed_form_container').addClass('visible')
-})
+// $('.mark_completed').on('click', e => {
+//     e.preventDefault()
+//     let $markId = e.target.id/1
+//     console.log($markId)
+//     $('#completed_form_container').addClass('visible')
+// })
+// $('#cancel_completed_form').on('click', e => {
+//     e.preventDefault()
+//     console.log(e.target.id, 'has been hit')
+//     $('#completed_form_container').addClass('visible')
+// })
 
 $('#completed_form').on('submit', e => {
     e.preventDefault()

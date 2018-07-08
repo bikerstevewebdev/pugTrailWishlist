@@ -3,6 +3,8 @@
 require('dotenv').config()
 const axios       = require('axios')
     , { API_KEY, G_MAPS_KEY } = process.env
+    , db = require('./db')
+    , mysql = require('mysql')
 
 module.exports = {
     renderLogin: (req, res) => {
@@ -91,10 +93,21 @@ module.exports = {
         res.render('trails', { user: req.user })
     }
     , renderWishlist: (req, res) => {
-        res.render('wishlist', { user: req.user })
+        res.render('wishlist_page', { user: req.user })
     }
     , renderSuggestionsForm: (req, res) => {
         res.render('suggestion', { user: req.user })
+    }
+    , renderCompletedForm: (req, res) => {
+        console.log('Rendering Completed Form, req.params: ', req.params)
+        const { trailID} = req.params
+        db.query(`SELECT * FROM trails WHERE trail_id = ${mysql.escape(trailID)}`, (err, completedTrail) => {
+            if(err) {
+                console.log('Error getting Completed Trail from Trails db Table: ', err)
+            }else{
+                res.render('completed_form', { completedTrail: JSON.parse(JSON.stringify(completedTrail))[0] })
+            }
+        })
     }
     , renderOneTrail: (req, res) => {
         console.log('renderOneTrail : ', req.user)
