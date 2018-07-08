@@ -104,12 +104,16 @@ $('#completed_form').on('submit', e => {
         //     type: 'post'
         //     , url: `/users/wishlist/completed/${$markId}`
         //     , data: JSON.stringify({
-            //         id: $starId
-            //         , date_completed: $dateCompleted
-            //         , company: $company
-            //         , rating: $user_rating
-            //         , time_completed_in: $time
-            //         , notes: $trip_notes
+
+        // FIX THIS VALUE TRACKING FROM CLICK TO ----- use ROUTING to take to a whole new page
+        
+            //         id: $('#mark_completed').val()
+            //         , date_completed: $('#date_completed').val()
+            //         , company: $('#company').val()
+            //         , rating: $('#user_rating').val()
+            //         , time_completed_in: $('#time').val()
+            //         , notes: $('#trip_notes').val()
+            //         , famil_friendly: $('#family_friendly').val()
             //     })
             //     , contentType: 'application/json'
             //     , success: function(data, status) {

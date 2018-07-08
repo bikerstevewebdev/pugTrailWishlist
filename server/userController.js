@@ -40,34 +40,6 @@ module.exports = {
             }
         })
     },
-    // createUser: (req, res, next) => {
-    //     const { username, fullname, password, email } = req.body
-    //     bcrypt.genSalt(SALT_ROUNDS/1, (err, salt) => {
-    //         if(err){
-    //             console.log('Salt Error: ', err)
-    //         }else{
-    //             bcrypt.hash(password, salt, (err, hash) => {
-    //                 if(err){
-    //                     console.log(req.body)
-    //                     console.log('Hash Error: ', err)
-    //                 }else{
-    //                     console.log('Hash: ', hash, 'Salt: ', salt)
-    //                     db.query(`INSERT INTO users (username, fullname, email, password) values (?, ?, ?, ?)`, [username, fullname, email, hash], data => {
-    //                         req.session.user = {
-    //                             username: data.username,
-    //                             email: data.email,
-    //                             is_logged_in: true,
-    //                             max_age: 24*604*60*100
-    //                         }
-    //                         res.redirect('/users/dashboard')
-    //                     }).catch(err => {
-    //                         console.log('DB Error: ', err)
-    //                     })
-    //                 }
-    //             })
-    //         }
-    //     })
-    // },
 
     login: (req, res, next) => {
         const { password, username } = req.body
@@ -121,5 +93,12 @@ module.exports = {
                 }
             })
         })
+    }
+    , documentCompletedTrail: (req, res) => {
+        console.log('Inside the top of the DocumentCompleted route, req.body: ', req.body)
+        const { date_completed, company, rating, time_completed_in, notes } = req.body
+            , { id } = req.params
+            , { user_id } = req.user
+        db.query(`INSERT INTO completed () VALUES (${mysql.escape})`)
     }
 }
