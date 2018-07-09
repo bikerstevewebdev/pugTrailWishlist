@@ -100,31 +100,30 @@ $('.star').on('click', e => {
 
 $('#completed_form').on('submit', e => {
     e.preventDefault()
-    // $.ajax({
-        //     type: 'post'
-        //     , url: `/users/wishlist/completed/${$markId}`
-        //     , data: JSON.stringify({
-
-        // FIX THIS VALUE TRACKING FROM CLICK TO ----- use ROUTING to take to a whole new page
-        
-            //         id: $('#mark_completed').val()
-            //         , date_completed: $('#date_completed').val()
-            //         , company: $('#company').val()
-            //         , rating: $('#user_rating').val()
-            //         , time_completed_in: $('#time').val()
-            //         , notes: $('#trip_notes').val()
-            //         , famil_friendly: $('#family_friendly').val()
-            //     })
-            //     , contentType: 'application/json'
-            //     , success: function(data, status) {
-                //         console.log('Login Success: ', data, status)
-                //         alert(`Trail Added to Wishlist!`)
-    //         window.location.reload(true)
-    //     }
-    //     , error: function(err){
-        //         console.log('Login Error: ', err.responseJSON.message)
-        //         alert(err.responseJSON.message)
-        //     }
-        // })
+    let completion_time = ($('#hours').val()/60/60/1000) + ($('#hours').val()/60/1000)
+    let familyFriendly = $('input[name="FFYes"]').attr('checked') ? true : false
+    $.ajax({
+            type: 'post'
+            , url: `/users/wishlist/completed/${$markId}`
+            , data: JSON.stringify({
+                    id: $('#completed_form>h1').attr('id')/1
+                    , date_completed: $('#date_completed').val()
+                    , company: $('#company').val()
+                    , rating: $('#user_rating').val()
+                    , time_completed_in: completion_time
+                    , notes: $('#trip_notes').val()
+                    , family_friendly: familyFriendly
+                })
+            , contentType: 'application/json'
+            , success: function(data, status) {
+                    console.log('Login Success: ', data, status)
+                    alert(`Your Journey Has Been Recorded!`)
+                    window.location = '/dashboard'
+                }
+            , error: function(err){
+                    console.log('Login Error: ', err.responseJSON.message)
+                    alert(err.responseJSON.message)
+                }
+        })
     
 })

@@ -194,7 +194,7 @@ app.get('/faq',                                             routes.renderFAQ)
 app.get('/dashboard',                                       routes.renderDashboard)
 app.get('/trails',                                          routes.renderTrails)
 app.get('/trails/:id',                                      routes.renderOneTrail)
-app.get('/trails/completed/:trailID',  routes.renderCompletedForm)
+app.get('/trails/completed/:trailID',                       routes.renderCompletedForm)
 app.post('/trails/search',                                  routes.renderSearchResults)
 
 app.post('/users/wishlist/add/:id',   uc.addTrailToWishlist)

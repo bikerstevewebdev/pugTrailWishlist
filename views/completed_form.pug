@@ -3,7 +3,7 @@ extends layout
 block content
     section.completed_form
         form#completed_form
-            h1(id=trailID) How Was Your Journey at #{trailName}?
+            h1(id=trailID) How Was Your Journey at #{completedTrail.name}?
             img(src=completedTrail.img_medium, alt=completedTrail.name)
             .form_group
                 label Date of Journey:
@@ -14,6 +14,22 @@ block content
                     span.rating_star.two_stars: include ../public/images/two_stars.svg
                     span.rating_star.three_stars: include ../public/images/three_stars.svg
                     span.rating_star.four_stars: include ../public/images/rating_star.svg
-                    span.rating_star.five_stars: include ../public/images/rating_star.svg
-                        
+                    span.rating_star.five_stars: include ../public/images/rating_star.svg        
                 input(name="rating", type="range", min="1", max="5")#user_rating
+            .form_group
+                label Who You Went With
+                input(type="text", value="Separate Fullnames with Commas")#company
+            .form_group
+                label Time Completed In
+                    input(type="number" min="0", max="10000")#hours :
+                    input(type="number", min="0", max="59")#minutes
+            .form_group
+                p Was it Family Friendly
+                    label(for="FFYes")
+                    input(type="radio", name="FFYes")
+                    label(for="FFNo")
+                    input(type="radio", name="FFNo")
+            .form_group
+                label Memorable Notes/Useful Tips
+                textarea(maxlength="500", placeholder="Notes about the journey...", rows="5", columns="40")#trip_notes
+            input(type="submit", value="Document Journey")
