@@ -70,7 +70,7 @@ $('.star').on('click', e => {
     console.log($starId)
     $.ajax({
         type: 'post'
-        , url: `/users/wishlist/add/${$starId}`
+        , url: `/users/wishlist/${$starId}`
         , data: JSON.stringify({
             id: $starId
         })
@@ -97,33 +97,3 @@ $('.star').on('click', e => {
 //     console.log(e.target.id, 'has been hit')
 //     $('#completed_form_container').addClass('visible')
 // })
-
-$('#completed_form').on('submit', e => {
-    e.preventDefault()
-    let completion_time = ($('#hours').val()/60/60/1000) + ($('#hours').val()/60/1000)
-    let familyFriendly = $('input[name="FFYes"]').attr('checked') ? true : false
-    $.ajax({
-            type: 'post'
-            , url: `/users/wishlist/completed/${$markId}`
-            , data: JSON.stringify({
-                    id: $('#completed_form>h1').attr('id')/1
-                    , date_completed: $('#date_completed').val()
-                    , company: $('#company').val()
-                    , rating: $('#user_rating').val()
-                    , time_completed_in: completion_time
-                    , notes: $('#trip_notes').val()
-                    , family_friendly: familyFriendly
-                })
-            , contentType: 'application/json'
-            , success: function(data, status) {
-                    console.log('Login Success: ', data, status)
-                    alert(`Your Journey Has Been Recorded!`)
-                    window.location = '/dashboard'
-                }
-            , error: function(err){
-                    console.log('Login Error: ', err.responseJSON.message)
-                    alert(err.responseJSON.message)
-                }
-        })
-    
-})

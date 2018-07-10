@@ -1,0 +1,97 @@
+@import (reference) '../imports/variables';
+
+ section.completed_form{
+    background-color: #d3d3d3;
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 3px;
+    margin-bottom: 2rem;
+    font-size: 1.46em;
+    form{
+        .flex(@fd: column; @jc: space-around);
+        input, select, textarea{
+            font-size: 1.25rem;
+        }
+        label, input{
+            width: 100%;
+        }
+        input{
+            &[type="number"]{
+                width: 5rem;
+            }
+            &[type="radio"]{
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+            &[type="date"]{
+                width: 10rem;
+            }
+        }
+        input, label, textarea, p{
+            margin: 1rem 0.5rem;
+        }
+        .form_group{
+            margin: 1rem 0;
+            width: 80%;
+            &.family_friendly, &.notes, &.time_completed{
+                .flex(@fd: column; @width: 80%;);
+            }
+        }
+        textarea{
+            width: 100%;
+        }
+        input[type="submit"]{
+            .fake_div_btn();
+            height: 3rem;
+        }
+    }
+    img{
+        width: 50%;
+        max-height: 500px;
+        margin: 1rem;
+    }
+    .rating_star{
+        margin-left: 1.25rem;
+        &>svg{
+            margin: 0 0 -2px 0;
+            fill: #2222228c;
+            &.gold{
+                fill: goldenrod;
+            }
+        }
+    }
+    input#user_rating[type="range"]{
+        margin-top: 1.25rem;
+        -webkit-appearance: none;
+        width: 90%;
+        height: 4px;
+        background: #a3a3a3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+        &:hover{
+            opacity: 1;
+        }
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 32px;
+            height: 32px;
+            background-image: url('/static/images/star_thumb.svg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+        }
+        &::-moz-range-thumb {
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url('/static/images/star_thumb.svg');
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+        }
+    }
+ }

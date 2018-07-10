@@ -197,7 +197,8 @@ app.get('/trails/:id',                                      routes.renderOneTrai
 app.get('/trails/completed/:trailID',                       routes.renderCompletedForm)
 app.post('/trails/search',                                  routes.renderSearchResults)
 
-app.post('/users/wishlist/add/:id',   uc.addTrailToWishlist)
+app.post('/users/wishlist/completed/:id',   uc.markTrailCompleted)
+app.post('/users/wishlist/:id',   uc.addTrailToWishlist)
 
 // user routes
 // app.post('/users', uc.createUser)

@@ -94,11 +94,11 @@ module.exports = {
             })
         })
     }
-    , documentCompletedTrail: (req, res) => {
+    , markTrailCompleted: (req, res) => {
         console.log('Inside the top of the DocumentCompleted route, req.body: ', req.body)
-        const { date_completed, company, rating, time_completed_in, notes } = req.body
+        const { date_completed, company, rating, time_completed_in, notes, dog_friendly, family_friendly, traffic } = req.body
             , { id } = req.params
             , { user_id } = req.user
-        db.query(`INSERT INTO completed () VALUES (${mysql.escape})`)
+        db.query(`INSERT INTO completed (trail_id, notes, company, date_completed, hiker_rating, seconds_taken, family_friendly, dog_friendly, traffic) VALUES (${mysql.escape(id)}, ${mysql.escape(notes)}, ${mysql.escape(company)}, ${mysql.escape(date_completed)}, ${mysql.escape(rating)}, ${mysql.escape(time_completed_in)}, ${mysql.escape(family_friendly)}, ${mysql.escape(dog_friendly)}, ${mysql.escape(traffic)})`)
     }
 }

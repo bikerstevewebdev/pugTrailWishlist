@@ -100,7 +100,7 @@ module.exports = {
     }
     , renderCompletedForm: (req, res) => {
         console.log('Rendering Completed Form, req.params: ', req.params)
-        const { trailID} = req.params
+        const { trailID } = req.params
         db.query(`SELECT * FROM trails WHERE trail_id = ${mysql.escape(trailID)}`, (err, completedTrail) => {
             if(err) {
                 console.log('Error getting Completed Trail from Trails db Table: ', err)
