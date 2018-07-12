@@ -44,6 +44,18 @@ section.home, section.search_results, section.user_wishlist{
                     fill: gold;
                 }
             }
+            svg.mark_completed{
+                width: 1.75rem;
+                height: 1.75rem;
+                position: absolute;
+                top: 1.625rem;
+                right: 4rem;
+                cursor: pointer;
+                .ease();
+                &:hover{
+                    fill: forestgreen;
+                }
+            }
             h3{
                 margin-right: auto;
                 font-size: 1.4em;
@@ -106,12 +118,14 @@ section.home, section.search_results, section.user_wishlist{
                     bottom: 1rem;
                     top: unset;
                 }
-                // h3{
-                // }
+                svg.mark_completed{
+                    position: absolute;
+                    bottom: 1rem;
+                    top: unset;
+                }
                 .details{
                     flex-direction: column;
                     align-items: flex-start;
-                    // margin-top: 3rem;
                     justify-content: space-around;
                     height: 50%;
                     position: absolute;

@@ -4,6 +4,7 @@ $('#completed_form').on('submit', e => {
     let familyFriendly = $('#ff_yes').prop('checked') ? true : false
     let dogFriendly = $('#df_yes').prop('checked') ? true : false
     let date_completed = new Date($('#date_completed').val()).getTime()
+    let $markId = $('#completed_form>h1').attr('id')/1
     console.log(JSON.stringify({
                         id: $('#completed_form>h1').attr('id')/1
                         , date_completed: date_completed
@@ -15,32 +16,31 @@ $('#completed_form').on('submit', e => {
                         , dog_friendly: dogFriendly
                         , traffic: $('#traffic').val()
                     }))
-    // $.ajax({
-    //         type: 'post'
-    //         , url: `/users/wishlist/completed/${$markId}`
-    //         , data: JSON.stringify({
-    //                 id: $('#completed_form>h1').attr('id')/1
-    //                 , date_completed: $('#date_completed').val()
-    //                 , company: $('#company').val()
-    //                 , rating: $('#user_rating').val()
-    //                 , time_completed_in: completion_time
-    //                 , notes: $('#trip_notes').val()
-    //                 , family_friendly: familyFriendly
-    //                 , dog_friendly: dogFriendly
-    //                 , traffic: $('#traffic').val()
-    //             })
-    //         , contentType: 'application/json'
-    //         , success: function(data, status) {
-    //                 console.log('Login Success: ', data, status)
-    //                 alert(`Your Journey Has Been Recorded!`)
-    //                 window.location.replace('/dashboard')
-    //             }
-    //         , error: function(err){
-    //                 console.log('Login Error: ', err.responseJSON.message)
-    //                 alert(err.responseJSON.message)
-    //             }
-    //     })
-    
+    $.ajax({
+            type: 'post'
+            , url: `/users/wishlist/completed/${$markId}`
+            , data: JSON.stringify({
+                    id: $('#completed_form>h1').attr('id')/1
+                    , date_completed: date_completed
+                    , company: $('#company').val()
+                    , rating: $('#user_rating').val()
+                    , time_completed_in: completion_time
+                    , notes: $('#trip_notes').val()
+                    , family_friendly: familyFriendly
+                    , dog_friendly: dogFriendly
+                    , traffic: $('#traffic').val()
+                })
+            , contentType: 'application/json'
+            , success: function(data, status) {
+                    console.log('Login Success: ', data, status)
+                    alert(`Your Journey Has Been Recorded!`)
+                    window.location.replace('/users/dashboard')
+                }
+            , error: function(err){
+                    console.log('Login Error: ', err.responseJSON.message)
+                    alert(err.responseJSON.message)
+                }
+        })
 })
 
 

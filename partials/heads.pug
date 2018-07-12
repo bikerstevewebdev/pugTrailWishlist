@@ -17,10 +17,15 @@ nav.heads
                 a(href=user ? '/users/profile' : '/login')
                     li #{user ? 'PROFILE' : 'LOGIN'}
                 a(href=user ? '/users/wishlist' : '/signup')
-                    li #{user ? 'TRAIL TO DOS' : 'LOGIN'}
-                a(href='/suggestions/form'): li SEARCH
-                a(href='/contact'): li CONTACT
-                a(href='/invite').invite: li INVITE
+                    li #{user ? 'TRAIL TO DOS' : 'SIGNUP'}
+                a(href='/suggestions/form')
+                    li SEARCH
+                a(href='/contact')
+                    li CONTACT
+                a(href=user ? '/logout' : '/invite').invite
+                    li= user ? 'LOGOUT' : 'INVITE'
+                //- a(href='/logout').logout
+                //-     li= user ? 'LOGOUT' : 'INVITE'
     section.login
         if user
             .register
@@ -43,6 +48,11 @@ nav.heads
                     li #{user ? 'PROFILE' : 'LOGIN'}
                 a(href=user ? '/users/wishlist' : '/signup')
                     li #{user ? 'TRAIL TO DOS' : 'LOGIN'}
-                a(href='/suggestions/form'): li SEARCH
-                a(href='/contact'): li CONTACT
-                a(href='/invite').invite: li INVITE
+                a(href='/suggestions/form')
+                    li SEARCH
+                a(href='/contact')
+                    li CONTACT
+                //- a(href='/LOGOUT').invite
+                //-     li INVITE
+                a(href='/logout').logout
+                    li LOGOUT

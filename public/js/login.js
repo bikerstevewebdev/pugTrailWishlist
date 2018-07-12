@@ -17,9 +17,9 @@ $(document).ready( function(){
             , contentType: 'application/json'
             , success: function(data, status) {
                 // alert("Data: " + data + "\nStatus: " + status)
-                // $.get('/dashboard')
+                // $.get('/users/dashboard')
                 console.log('Login Success: ', data, status)
-                window.location.replace('/dashboard')
+                window.location.replace('/users/dashboard')
             }
             , error: function(err){
                 console.log('Login Error: ', err.responseJSON.message)

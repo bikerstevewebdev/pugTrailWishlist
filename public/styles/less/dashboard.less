@@ -4,6 +4,12 @@
 section.dashboard, section.wishlist_page{
     text-align: center;
     section.user_wishlist{
+        .no_wishlist button{
+            .fake_div_btn();
+            display: inline;
+            margin-top: 1rem;
+            line-height: 1em;
+        }
         .wishlist_trail{
             svg.mark_completed{
                 width: 2rem;
@@ -26,8 +32,6 @@ section.dashboard, section.wishlist_page{
                     position: absolute;
                     bottom: 2rem;
                     top: unset;
-                    // right: 2rem;
-                    // cursor: pointer;
                 }
             }
         }

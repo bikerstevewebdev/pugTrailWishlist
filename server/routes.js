@@ -1,3 +1,37 @@
+// Preparing for Route Splitting
+
+//     CREATE ROUTES FOLDER AND MAKE THIS index.js IN THAT DIRECTORY
+
+// SETTING UP MAIN ROUTER
+
+// const routes = require('express').Router()
+
+//    USING userController FILE FOR ROUTES WITH /users
+// const users = require('./userController)
+
+// routes.use('/users', users)
+
+// app.get('/',                                routes.renderHome)
+// app.get('/login',                           routes.renderLogin)
+// app.get('/login/fail',                      routes.sendFailStatus)
+// app.get('/signup',                          routes.renderSignup)
+// app.get('/users/wishlist',                  routes.renderWishlist)
+// app.get('/users/profile',                   routes.renderProfile)
+// app.get('/suggestions/form',                routes.renderSuggestionsForm)
+// app.get('/contact',                         routes.renderContact)
+// app.get('/about',                           routes.renderAbout)
+// app.get('/faq',                             routes.renderFAQ)
+// app.get('/trails',                          routes.renderTrails)
+// app.get('/trails/:id',                      routes.renderOneTrail)
+// app.post('/trails/search',                  routes.renderSearchResults)
+
+// app.get('/users/dashboard',                 uc.renderDashboard)
+// app.get('/users/trails/completed/:trailID', uc.renderCompletedForm)
+// app.post('/users/wishlist/completed/:id',   uc.markTrailCompleted)
+// app.post('/users/wishlist/:id',             uc.addTrailToWishlist)
+
+
+
 // this file exists to separate the renering routes from api routes that
 // require some action to be performed other than simply rendering a pug file
 require('dotenv').config()
@@ -34,23 +68,7 @@ module.exports = {
     , renderFAQ: (req, res) => {
         res.render('faq', { user: req.user })
     }
-    , renderDashboard: (req, res) => {
-        if(req.user){
-            console.log('renderDash : ', req.user)
-            const { username, user_id, fullname, email, admin_id, wishlist } = req.user
-            let safeUser = {
-                username
-                , user_id
-                , fullname
-                , email
-                , admin_id
-                , wishlist
-            }
-            res.render('dashboard', { user: safeUser })
-        }else{
-            res.status(403).redirect('/')
-        }
-    }
+    
     , renderSearchResults: (req, res) => {
         const { location, difficulty, rating, max_distance, minimun_length } = req.body
         let difficulties = ['green', 'greenBlue', 'blue', 'any', 'blueBlack', 'black', 'dblack']
@@ -97,17 +115,6 @@ module.exports = {
     }
     , renderSuggestionsForm: (req, res) => {
         res.render('suggestion', { user: req.user })
-    }
-    , renderCompletedForm: (req, res) => {
-        console.log('Rendering Completed Form, req.params: ', req.params)
-        const { trailID } = req.params
-        db.query(`SELECT * FROM trails WHERE trail_id = ${mysql.escape(trailID)}`, (err, completedTrail) => {
-            if(err) {
-                console.log('Error getting Completed Trail from Trails db Table: ', err)
-            }else{
-                res.render('completed_form', { completedTrail: JSON.parse(JSON.stringify(completedTrail))[0] })
-            }
-        })
     }
     , renderOneTrail: (req, res) => {
         console.log('renderOneTrail : ', req.user)

@@ -155,7 +155,7 @@ app.use((req, res, next) => {
 
 app.post('/login', passport.authenticate('local'
         , {
-            // successRedirect: '/dashboard',
+            // successRedirect: '/users/dashboard',
             failureRedirect: '/login/fail?message=Incorrect login credentials. Please try again or signup if you do not have an account yet.'
         }
     ), (req, res) => {
@@ -164,7 +164,7 @@ app.post('/login', passport.authenticate('local'
         }
 )
 app.post('/signup', passport.authenticate('local', {
-            successRedirect: '/dashboard'
+            successRedirect: '/users/dashboard'
             , failureRedirect: '/login/fail?message=Incorrect login credentials. Please try again or signup if you do not have an account yet.'
         }
     )
@@ -181,24 +181,24 @@ app.get('/logout', (req, res) => {
 // router.use('/admin', auth.authenticate)
 
 // simple rendering routes
-app.get('/',                                                routes.renderHome)
-app.get('/login',                                           routes.renderLogin)
-app.get('/login/fail',                                      routes.sendFailStatus)
-app.get('/signup',                                          routes.renderSignup)
-app.get('/users/wishlist',                                  routes.renderWishlist)
-app.get('/users/profile',                                   routes.renderProfile)
-app.get('/suggestions/form',                                routes.renderSuggestionsForm)
-app.get('/contact',                                         routes.renderContact)
-app.get('/about',                                           routes.renderAbout)
-app.get('/faq',                                             routes.renderFAQ)
-app.get('/dashboard',                                       routes.renderDashboard)
-app.get('/trails',                                          routes.renderTrails)
-app.get('/trails/:id',                                      routes.renderOneTrail)
-app.get('/trails/completed/:trailID',                       routes.renderCompletedForm)
-app.post('/trails/search',                                  routes.renderSearchResults)
+app.get('/',                                routes.renderHome)
+app.get('/login',                           routes.renderLogin)
+app.get('/login/fail',                      routes.sendFailStatus)
+app.get('/signup',                          routes.renderSignup)
+app.get('/users/wishlist',                  routes.renderWishlist)
+app.get('/users/profile',                   routes.renderProfile)
+app.get('/suggestions/form',                routes.renderSuggestionsForm)
+app.get('/contact',                         routes.renderContact)
+app.get('/about',                           routes.renderAbout)
+app.get('/faq',                             routes.renderFAQ)
+app.get('/trails',                          routes.renderTrails)
+app.get('/trails/:id',                      routes.renderOneTrail)
+app.post('/trails/search',                  routes.renderSearchResults)
 
+app.get('/users/dashboard',                 uc.renderDashboard)
+app.get('/users/trails/completed/:trailID', uc.renderCompletedForm)
 app.post('/users/wishlist/completed/:id',   uc.markTrailCompleted)
-app.post('/users/wishlist/:id',   uc.addTrailToWishlist)
+app.post('/users/wishlist/:id',             uc.addTrailToWishlist)
 
 // user routes
 // app.post('/users', uc.createUser)

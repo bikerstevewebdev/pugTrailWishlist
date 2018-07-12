@@ -430,6 +430,28 @@ section.search_results .wishlist_trail div.trail-info svg.star:hover,
 section.user_wishlist .wishlist_trail div.trail-info svg.star:hover {
   fill: gold;
 }
+section.home div.trail div.trail-info svg.mark_completed,
+section.search_results div.trail div.trail-info svg.mark_completed,
+section.user_wishlist div.trail div.trail-info svg.mark_completed,
+section.home .wishlist_trail div.trail-info svg.mark_completed,
+section.search_results .wishlist_trail div.trail-info svg.mark_completed,
+section.user_wishlist .wishlist_trail div.trail-info svg.mark_completed {
+  width: 1.75rem;
+  height: 1.75rem;
+  position: absolute;
+  top: 1.625rem;
+  right: 4rem;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+}
+section.home div.trail div.trail-info svg.mark_completed:hover,
+section.search_results div.trail div.trail-info svg.mark_completed:hover,
+section.user_wishlist div.trail div.trail-info svg.mark_completed:hover,
+section.home .wishlist_trail div.trail-info svg.mark_completed:hover,
+section.search_results .wishlist_trail div.trail-info svg.mark_completed:hover,
+section.user_wishlist .wishlist_trail div.trail-info svg.mark_completed:hover {
+  fill: forestgreen;
+}
 section.home div.trail div.trail-info h3,
 section.search_results div.trail div.trail-info h3,
 section.user_wishlist div.trail div.trail-info h3,
@@ -549,6 +571,16 @@ section.user_wishlist .wishlist_trail div.trail-info .details .rating svg {
   section.user_wishlist .wishlist_trail div.trail-info svg.star {
     position: absolute;
     right: 1rem;
+    bottom: 1rem;
+    top: unset;
+  }
+  section.home div.trail div.trail-info svg.mark_completed,
+  section.search_results div.trail div.trail-info svg.mark_completed,
+  section.user_wishlist div.trail div.trail-info svg.mark_completed,
+  section.home .wishlist_trail div.trail-info svg.mark_completed,
+  section.search_results .wishlist_trail div.trail-info svg.mark_completed,
+  section.user_wishlist .wishlist_trail div.trail-info svg.mark_completed {
+    position: absolute;
     bottom: 1rem;
     top: unset;
   }

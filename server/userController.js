@@ -1,10 +1,10 @@
 require('dotenv').config()
+// const users = require('express').Router()
 const bcrypt          = require('bcrypt')
     , { SALT_ROUNDS, API_KEY } = process.env
     , db              = require('./db')
     , mysql           = require('mysql')
     , axios           = require('axios')
-
 
 module.exports = {
     createUser: (body, username, password, next) => {
@@ -94,11 +94,47 @@ module.exports = {
             })
         })
     }
+    , renderDashboard: (req, res) => {
+        if(req.user){
+            console.log('renderDash : ', req.user)
+            const { username, user_id, fullname, email, admin_id, wishlist } = req.user
+            let safeUser = {
+                username
+                , user_id
+                , fullname
+                , email
+                , admin_id
+                , wishlist
+            }
+            res.render('dashboard', { user: safeUser })
+        }else{
+            res.status(403).redirect('/')
+        }
+    }
+    , renderCompletedForm: (req, res) => {
+        console.log('Rendering Completed Form, req.params: ', req.params)
+        const { trailID } = req.params
+        db.query(`SELECT * FROM trails WHERE trail_id = ${mysql.escape(trailID)}`, (err, completedTrail) => {
+            if(err) {
+                console.log('Error getting Completed Trail from Trails db Table: ', err)
+            }else{
+                res.render('completed_form', { completedTrail: JSON.parse(JSON.stringify(completedTrail))[0] })
+            }
+        })
+    }
     , markTrailCompleted: (req, res) => {
         console.log('Inside the top of the DocumentCompleted route, req.body: ', req.body)
         const { date_completed, company, rating, time_completed_in, notes, dog_friendly, family_friendly, traffic } = req.body
             , { id } = req.params
             , { user_id } = req.user
-        db.query(`INSERT INTO completed (trail_id, notes, company, date_completed, hiker_rating, seconds_taken, family_friendly, dog_friendly, traffic) VALUES (${mysql.escape(id)}, ${mysql.escape(notes)}, ${mysql.escape(company)}, ${mysql.escape(date_completed)}, ${mysql.escape(rating)}, ${mysql.escape(time_completed_in)}, ${mysql.escape(family_friendly)}, ${mysql.escape(dog_friendly)}, ${mysql.escape(traffic)})`)
+        db.query(`INSERT INTO completed (trail_id, notes, company, date_completed, hiker_rating, seconds_taken, family_friendly, dog_friendly, traffic) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`, [ id, notes, company, date_completed, rating, time_completed_in, family_friendly, dog_friendly, traffic ], (err, dbResponse) => {
+            if(err) {
+                console.log('Insert Into completed ERROR: ', err)
+            }else{
+                res.status(200).send(JSON.parse(JSON.stringify(dbResponse[0][0])))
+            }
+        })
     }
 }
+
+// ${mysql.escape(id)}, ${mysql.escape(notes)}, ${mysql.escape(company)}, ${mysql.escape(date_completed)}, ${mysql.escape(rating)}, ${mysql.escape(time_completed_in)}, ${mysql.escape(family_friendly)}, ${mysql.escape(dog_friendly)}, ${mysql.escape(traffic)}${mysql.escape(id)}, ${mysql.escape(notes)}, ${mysql.escape(company)}, ${mysql.escape(date_completed)}, ${mysql.escape(rating)}, ${mysql.escape(time_completed_in)}, ${mysql.escape(family_friendly)}, ${mysql.escape(dog_friendly)}, ${mysql.escape(traffic)}
