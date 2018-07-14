@@ -2,12 +2,37 @@ require('dotenv').config()
 // const users = require('express').Router()
 const bcrypt          = require('bcrypt')
     , { SALT_ROUNDS, API_KEY } = process.env
-    , db              = require('./db')
+    , db              = require('../db')
     , mysql           = require('mysql')
     , axios           = require('axios')
+    , userRouter      = require('express').Router()
 
-module.exports = {
-    createUser: (body, username, password, next) => {
+userRouter.use('/', (req, res, next) => {
+    if(req.user){
+        console.log(req.user.username, ' is logged in')
+        next()
+    }else{
+        console.log('WARNING: No User Logged In; Need User info for This Route')
+        res.status(403).redirect('/login')
+    }
+})
+
+userRouter.get('/wishlist',                  renderWishlist)
+userRouter.get('/profile',                   renderProfile)
+userRouter.get('/dashboard',                 renderDashboard)
+userRouter.get('/trails/completed/:trailID', renderCompletedForm)
+userRouter.post('/wishlist/completed/:id',   markTrailCompleted)
+userRouter.post('/wishlist/:id',             addTrailToWishlist)
+
+function renderProfile(req, res) {
+    res.render('profile', { user: req.user })
+}
+
+function renderWishlist(req, res) {
+    res.render('wishlist_page', { user: req.user })
+}
+
+function createUser(body, username, password, next) {
         const { fullname, email } = body
         bcrypt.genSalt(SALT_ROUNDS/1, (err, salt) => {
             if(err){
@@ -39,9 +64,9 @@ module.exports = {
                 })
             }
         })
-    },
+    }
 
-    login: (req, res, next) => {
+function login(req, res, next) {
         const { password, username } = req.body
         db.query('SELECT ALL FROM users WHERE username = ?', [username], data => {
             console.log('DB User Data from Login: ', data[0])
@@ -55,7 +80,7 @@ module.exports = {
         })
     }
 
-    , addTrailToWishlist: (req, res) => {
+function addTrailToWishlist(req, res) {
         const { id } = req.body
             , { user_id } = req.user
         axios.get(`https://www.hikingproject.com/data/get-trails-by-id?ids=${id}&key=${API_KEY}`).then(trailData => {
@@ -94,7 +119,7 @@ module.exports = {
             })
         })
     }
-    , renderDashboard: (req, res) => {
+function renderDashboard(req, res) {
         if(req.user){
             console.log('renderDash : ', req.user)
             const { username, user_id, fullname, email, admin_id, wishlist } = req.user
@@ -111,7 +136,7 @@ module.exports = {
             res.status(403).redirect('/')
         }
     }
-    , renderCompletedForm: (req, res) => {
+function renderCompletedForm(req, res) {
         console.log('Rendering Completed Form, req.params: ', req.params)
         const { trailID } = req.params
         db.query(`SELECT * FROM trails WHERE trail_id = ${mysql.escape(trailID)}`, (err, completedTrail) => {
@@ -122,7 +147,7 @@ module.exports = {
             }
         })
     }
-    , markTrailCompleted: (req, res) => {
+function markTrailCompleted(req, res) {
         console.log('Inside the top of the DocumentCompleted route, req.body: ', req.body)
         const { date_completed, company, rating, time_completed_in, notes, dog_friendly, family_friendly, traffic } = req.body
             , { id } = req.params
@@ -135,6 +160,8 @@ module.exports = {
             }
         })
     }
-}
+
+
+module.exports = userRouter
 
 // ${mysql.escape(id)}, ${mysql.escape(notes)}, ${mysql.escape(company)}, ${mysql.escape(date_completed)}, ${mysql.escape(rating)}, ${mysql.escape(time_completed_in)}, ${mysql.escape(family_friendly)}, ${mysql.escape(dog_friendly)}, ${mysql.escape(traffic)}${mysql.escape(id)}, ${mysql.escape(notes)}, ${mysql.escape(company)}, ${mysql.escape(date_completed)}, ${mysql.escape(rating)}, ${mysql.escape(time_completed_in)}, ${mysql.escape(family_friendly)}, ${mysql.escape(dog_friendly)}, ${mysql.escape(traffic)}

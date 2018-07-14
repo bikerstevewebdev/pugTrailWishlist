@@ -95,30 +95,64 @@ $('#random').on('click', e => {
         navigator.geolocation.getCurrentPosition(position => {
             let userLat = position.coords.latitude
             let userLng = position.coords.longitude
-            $.get(`https://www.hikingproject.com/data/get-trails?lat=${userLat}&lon=${userLng}&maxDistance=10&key=${API_KEY}`, function( data ) {
-                console.log(data)
-                $.each(data.trails, (i, trail) => {
-                    let noImg = !trail.imgMedium.length
-                    let img = noImg ?  '/static/images/no-image.jpg' : trail.imgMedium
-                    let bgPosition = noImg ? 'center' : 'top center'
-                    let bgSize = noImg ? "contain" : "cover"
-                    $('section.trails-list').append(
-                        $("<div class='trail'>")
-                            .append($(`<a href='/trails/${trail.id}'>`)
-                                .append($(`<div class="trail-img" style="background-image: url(${img}); background-position: ${bgPosition}; background-size: ${bgSize}" alt=${trail.name} />`))
-                            )
-                            .append($(`<div class="trail-info">`)
-                                .append($(`<h3>${trail.name}</h3>`))
-                                .append($(`<p class="location">${trail.location}</p>`))
-                                .append($(`<div class="details">`)
-                                    .append($(`<p>${difficulties[trail.difficulty]}</p>`))
-                                    .append($(`<p class="length">${trail.length} miles</p>`))
-                                )
-                            )
-                    )
+            $.ajax({
+                type: 'POST'
+                , url: '/trails/random'
+                , data: JSON.stringify({
+                    userLat
+                    , userLng
                 })
-
+                , contentType: 'application/json'
+                , success: function(data, status) {
+                    console.log('Login Success: ', data, status)
+                    window.location.replace(`/trails/${data.trail_id}`)
+                }
+                , error: function(err){
+                    console.log('Login Error: ', err.responseJSON.message)
+                    alert(err.responseJSON.message)
+                }
             })
+            // $.get(`https://www.hikingproject.com/data/get-trails?lat=${userLat}&lon=${userLng}&maxDistance=10&key=${API_KEY}`, function( data ) {
+            //     console.log(data)
+            //     $.each(data.trails, (i, trail) => {
+            //         let noImg = !trail.imgMedium.length
+            //         let img = noImg ?  '/static/images/no-image.jpg' : trail.imgMedium
+            //         let bgPosition = noImg ? 'center' : 'top center'
+            //         let bgSize = noImg ? "contain" : "cover"
+            //         $('section.trails-list').append(
+            //             $("<div class='trail'>")
+            //                 .append($(`<a href='/trails/${trail.id}'>`)
+            //                     .append($(`<div class="trail-img" style="background-image: url(${img}); background-position: ${bgPosition}; background-size: ${bgSize}" alt=${trail.name} />`))
+            //                 )
+            //                 .append($(`<div class="trail-info">`)
+            //                     .append($(`<h3>${trail.name}</h3>`))
+            //                     .append($(`<p class="location">${trail.location}</p>`))
+            //                     .append($(`<div class="details">`)
+            //                         .append($(`<p>${difficulties[trail.difficulty]}</p>`))
+            //                         .append($(`<p class="length">${trail.length} miles</p>`))
+            //                     )
+            //                 )
+            //         )
+            //     })
+            // })
+        })
+    }else if($('input[name="location"]').val()){
+        $.ajax({
+            type: 'POST'
+            , url: '/trails/random'
+            , data: JSON.stringify({
+                location: $('input[name="location"]').val()
+            })
+            , contentType: 'application/json'
+            , success: function(data, status) {
+                console.log('Login Success: ', data, status)
+                window.location.replace(`/trails/${data.trail_id}`)
+            }
+            , error: function(err){
+                console.log('Login Error: ', err.responseJSON.message)
+                alert(err.responseJSON.message)
+                
+            }
         })
     }else{
         alert('Please allow location services or enter a location in the Address field.')

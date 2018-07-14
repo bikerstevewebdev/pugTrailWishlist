@@ -22,14 +22,14 @@ nav.heads
                     li SEARCH
                 a(href='/contact')
                     li CONTACT
-                a(href=user ? '/logout' : '/invite').invite
+                a(href=user ? '/auth/logout' : '/invite').invite
                     li= user ? 'LOGOUT' : 'INVITE'
-                //- a(href='/logout').logout
+                //- a(href='/auth/logout').logout
                 //-     li= user ? 'LOGOUT' : 'INVITE'
     section.login
         if user
             .register
-                a(href='/logout'): button.logout Logout 
+                a(href='/auth/logout'): button.logout Logout 
                 a(href='/users/profile').profile_pic
                     if user.profile_pic
                         .user_pic(style={'background-image': `url(${user.profile_pic})`, "background-position": "center", "background-size": "cover"})
@@ -38,7 +38,7 @@ nav.heads
                     button #{user.username}
         else
             .register
-                a(href='/login'): button.login Login
+                a(href='/auth/login'): button.login Login
                 a(href='/signup'): button.signup Signup
         .burger_container
             svg#menu_trigger.real_hamburger( xmlns="http://www.w3.org/2000/svg", xlink="http://www.w3.org/1999/xlink", version="1.1", x="0px", y="0px", viewBox="0 0 462.994 462.994" )
@@ -52,7 +52,7 @@ nav.heads
                     li SEARCH
                 a(href='/contact')
                     li CONTACT
-                //- a(href='/LOGOUT').invite
+                //- a(href='/auth/logout').invite
                 //-     li INVITE
-                a(href='/logout').logout
+                a(href='/auth/logout').logout
                     li LOGOUT

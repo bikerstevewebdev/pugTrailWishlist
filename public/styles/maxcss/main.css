@@ -169,7 +169,7 @@ button {
 }
 .heads .ham_container .ham.open ul.ham_menu {
   border: 1px solid #eee;
-  height: 12rem;
+  height: 15rem;
   width: 8rem;
 }
 .heads .ham_container .ham.open ul.ham_menu a:hover {
@@ -285,7 +285,7 @@ button {
   }
   .heads section.login .burger_container.open ul.burger_menu {
     border: 1px solid #eee;
-    height: 12rem;
+    height: 15rem;
     width: 8rem;
   }
   .heads section.login .burger_container.open ul.burger_menu a:hover {

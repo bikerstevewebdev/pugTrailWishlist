@@ -8,7 +8,7 @@ $(document).ready( function(){
         console.log('Username', $username.val(), 'Password', $password.val())
         $.ajax({
             type: 'POST'
-            , url: '/login'
+            , url: '/auth/login'
             // , processData: false
             , data: JSON.stringify({
                 username: $username.val()

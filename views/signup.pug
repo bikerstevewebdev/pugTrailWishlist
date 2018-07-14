@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    form#signup(method='post', action='/signup')
+    form#signup(method='post', action='/auth/signup')
         h2 Signup to Keep Track of Your Trail Activity
         input.signup.username(type="text", placeholder="Username", name="username", required)
         input.signup.fullname(type="text", placeholder="Fullname", name="fullname", required)
