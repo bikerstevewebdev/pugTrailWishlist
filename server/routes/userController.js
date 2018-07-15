@@ -20,6 +20,7 @@ userRouter.use('/', (req, res, next) => {
 userRouter.get('/wishlist',                  renderWishlist)
 userRouter.get('/profile',                   renderProfile)
 userRouter.get('/dashboard',                 renderDashboard)
+userRouter.get('/completed',                 renderCompleted)
 userRouter.get('/trails/completed/:trailID', renderCompletedForm)
 userRouter.post('/wishlist/completed/:id',   markTrailCompleted)
 userRouter.post('/wishlist/:id',             addTrailToWishlist)
@@ -119,22 +120,29 @@ function addTrailToWishlist(req, res) {
             })
         })
     }
+
+function renderCompleted (req, res) {
+    const { user } = req
+    res.render('completed_page', { user })
+}
+
 function renderDashboard(req, res) {
-        if(req.user){
-            console.log('renderDash : ', req.user)
-            const { username, user_id, fullname, email, admin_id, wishlist } = req.user
-            let safeUser = {
-                username
-                , user_id
-                , fullname
-                , email
-                , admin_id
-                , wishlist
-            }
-            res.render('dashboard', { user: safeUser })
-        }else{
-            res.status(403).redirect('/')
-        }
+        // if(req.user){
+            // console.log('renderDash : ', req.user)
+            // const { username, user_id, fullname, email, admin_id, wishlist } = req.user
+            // let safeUser = {
+            //     username
+            //     , user_id
+            //     , fullname
+            //     , email
+            //     , admin_id
+            //     , wishlist
+            // }
+            // res.render('dashboard', { user: safeUser })
+            res.render('dashboard', { user: req.user })
+        // }else{
+        //     res.status(403).redirect('/')
+        // }
     }
 function renderCompletedForm(req, res) {
         console.log('Rendering Completed Form, req.params: ', req.params)
@@ -152,7 +160,19 @@ function markTrailCompleted(req, res) {
         const { date_completed, company, rating, time_completed_in, notes, dog_friendly, family_friendly, traffic } = req.body
             , { id } = req.params
             , { user_id } = req.user
-        db.query(`INSERT INTO completed (trail_id, notes, company, date_completed, hiker_rating, seconds_taken, family_friendly, dog_friendly, traffic) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);`, [ id, notes, company, date_completed, rating, time_completed_in, family_friendly, dog_friendly, traffic ], (err, dbResponse) => {
+        let insertObj = {
+            trail_id: id
+            , user_id
+            , notes
+            , company
+            , date_completed
+            , hiker_rating: rating
+            , seconds_taken: time_completed_in
+            , family_friendly
+            , dog_friendly
+            , traffic
+        }
+        db.query(`UPDATE completed SET ?;`, insertObj, (err, dbResponse) => {
             if(err) {
                 console.log('Insert Into completed ERROR: ', err)
             }else{

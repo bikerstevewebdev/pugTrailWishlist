@@ -2,6 +2,7 @@ const authRouter    = require('express').Router()
     , passport      = require('passport')
     , LocalStrategy = require('passport-local')
     , db            = require('../db')
+    , bcrypt        = require('bcrypt')
 // using local strategy for custom login handling
 passport.use(new LocalStrategy(
     { passReqToCallback: true }
@@ -44,12 +45,19 @@ passport.deserializeUser((user, done) => {
             console.log('Error inside the DESERIALIZE DB Call: ', err)
             done(null, false);
         }else{
-            let userObj = {
-                ...user
-                , wishlist: JSON.parse(JSON.stringify(trails))
-            }
-            delete userObj.password
-            done(null, userObj);
+            db.query('SELECT c.*, t.name, t.img_sq_small, t.img_medium FROM completed c JOIN trails t on t.trail_id = c.trail_id WHERE t.trail_id IN (SELECT c.trail_id FROM completed c WHERE user_id = ?);', [user.user_id], (err, completed_trails) => {
+                if(err){
+                    console.log('Error fetching User\'s completed trails: ', err)
+                }else{
+                    let userObj = {
+                        ...user
+                        , wishlist: JSON.parse(JSON.stringify(trails))
+                        , completed: JSON.parse(JSON.stringify(completed_trails))
+                    }
+                    delete userObj.password
+                    done(null, userObj);
+                }
+            })
         }
     })
 })

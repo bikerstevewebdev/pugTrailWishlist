@@ -3,6 +3,7 @@ const gulp      = require('gulp')
     , minifyCSS = require('gulp-csso')
     , watchLess = require('gulp-watch-less')
     , plumber = require('gulp-plumber')
+require('events').EventEmitter.prototype._maxListeners = 100;
 
 gulp.task('less', function(){
     return watchLess('public/styles/less/*.less')

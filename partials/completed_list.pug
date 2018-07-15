@@ -1,0 +1,6 @@
+section.completed_list
+    h2 Your Journey Log
+    each completedTrail in user.completed
+        .completed_trail
+        p= completedTrail.name
+        .trail_teaser(style={"background-image": completedTrail.img_sq_small, "background-size": "cover", "background-position": "top center"})

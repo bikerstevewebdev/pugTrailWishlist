@@ -1,20 +1,33 @@
 @import (reference) '../imports/variables';
 
 section.profile{
-    .flex(@width: 300px; @fd: column);
-    min-height: 75vh;
+    margin-bottom: auto;
+    font-size: 2rem;
+    .flex(@width: 75%; @fd: column);
+    min-height: 50vh;
+    background-color: #d3d3d3;
+    padding: 2rem;
+    .user_header{
+        .flex(@jc: space-around);
+        margin-bottom: 2rem;
+    }
     #profile_pic{
-        width: 100px;
-        height: 100px;
+        width: 200px;
+        height: 200px;
         background-position: center;
         background-size: cover;
     }
     .main_user_info{
-        .flex(@jc: space-between);
+        .flex(column; @jc: space-between);
         min-height: 20vh;
         .user_info{
             .flex(@fd: column);
         }
+    }
+    button{
+        .fake_div_btn();
+        line-height: 1em;
+        margin: 1rem auto;
     }
     form#edit_profile{
         .flex(@fd: column);
@@ -42,7 +55,7 @@ section.profile{
         right: 0;
         bottom: 0;
         background-color: #676161a6;
-        .ease();
+        .ease(@time: 0.4s);
         .s3_upload{
             opacity: 0;
             position: absolute;
@@ -60,7 +73,7 @@ section.profile{
             }
             width: 300px;
             height: 300px;
-            .ease();
+            .ease(@time: 0.4s);
         }
         &.visible{
             opacity: 1;

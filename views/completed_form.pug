@@ -3,7 +3,7 @@ extends layout
 block content
     section.completed_form
         style
-            include ../public/styles/css/completed.css
+            include ../public/styles/css/completed_form.css
         form#completed_form
             h1(id=completedTrail.trail_id) How Was Your Journey at #{completedTrail.name}?
             img(src=completedTrail.img_medium, alt=completedTrail.name)
