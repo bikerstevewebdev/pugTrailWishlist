@@ -19,6 +19,7 @@ section.profile .user_header {
   margin-bottom: 2rem;
 }
 section.profile #profile_pic {
+  cursor: pointer;
   width: 200px;
   height: 200px;
   background-position: center;
@@ -80,6 +81,9 @@ section.profile form#edit_profile .form_group.profile_pic {
   justify-content: center;
   align-items: center;
   width: 100%;
+}
+section.profile form#edit_profile #form_pic_edit {
+  width: auto;
 }
 section.profile section#upload_pic {
   z-index: -1;

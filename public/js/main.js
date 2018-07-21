@@ -8,7 +8,7 @@ const difficulties = {
     , dblack: 'Extremely Difficult'
 }
 //GET RID OF YOUR DANG KEY BEFORE YOU COMMIT
-var API_KEY = 'NOPE GO GET YOUR OWN'
+// var API_KEY = 'NOPE GO GET OWN'
 ///////////
 ///////////
 

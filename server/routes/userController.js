@@ -21,6 +21,7 @@ userRouter.get('/wishlist',                  renderWishlist)
 userRouter.get('/profile',                   renderProfile)
 userRouter.get('/dashboard',                 renderDashboard)
 userRouter.get('/completed',                 renderCompleted)
+userRouter.get('/journey/:id',               renderJourney)
 userRouter.get('/trails/completed/:trailID', renderCompletedForm)
 userRouter.post('/wishlist/completed/:id',   markTrailCompleted)
 userRouter.post('/wishlist/:id',             addTrailToWishlist)
@@ -31,6 +32,22 @@ function renderProfile(req, res) {
 
 function renderWishlist(req, res) {
     res.render('wishlist_page', { user: req.user })
+}
+
+function renderJourney(req, res) {
+    const { user } = req
+        , { id } = req.params
+    if(user.completed.find(v => v.completed_id === id/1)){
+        db.query('SELECT c.*, t.trail_id, t.img_medium, t.name FROM completed c JOIN trails t ON t.trail_id = c.trail_id WHERE c.completed_id = ?', [id/1], (err, journeyInfo) => {
+            if(err){
+                console.log(`ERROR Fetching data for Journey with ID ${id}: `,err)
+            }else{
+                res.render('journey', { journalEntry: JSON.parse(JSON.stringify(journeyInfo[0])), user })
+            }
+        })
+    }else{
+        res.status(401).redirect('/login')
+    }
 }
 
 function createUser(body, username, password, next) {
@@ -67,59 +84,59 @@ function createUser(body, username, password, next) {
         })
     }
 
-function login(req, res, next) {
-        const { password, username } = req.body
-        db.query('SELECT ALL FROM users WHERE username = ?', [username], data => {
-            console.log('DB User Data from Login: ', data[0])
-            bcrypt.compare(password, data[0].password, valid => {
-                if(valid){
-                    res.render('dashboard', { user: req.session.user, userInfo: data })
-                }else{
-                    req.flash('Incorrect Password')
-                }
-            })
-        })
-    }
+// function login(req, res) {
+//         const { password, username } = req.body
+//         db.query('SELECT ALL FROM users WHERE username = ?', [username], data => {
+//             console.log('DB User Data from Login: ', data[0])
+//             bcrypt.compare(password, data[0].password, valid => {
+//                 if(valid){
+//                     res.render('dashboard', { user: req.session.user, userInfo: data })
+//                 }else{
+//                     req.flash('Incorrect Password')
+//                 }
+//             })
+//         })
+//     }
 
 function addTrailToWishlist(req, res) {
-        const { id } = req.body
-            , { user_id } = req.user
-        axios.get(`https://www.hikingproject.com/data/get-trails-by-id?ids=${id}&key=${API_KEY}`).then(trailData => {
-            let trail = trailData.data.trails[0]
-            db.query(`SELECT * FROM trails WHERE api_id = ${id};`, (err, existingTrail) => {
-                if(err){
-                    console.log('DB search for existing trail Error: ', err)
-                }else if(JSON.parse(JSON.stringify(existingTrail))[0]){
-                    console.log("Existing Trail Found: ", existingTrail)
-                    db.query(`INSERT INTO wishlist (user_id, trail_id, api_trail_id) VALUES (${mysql.escape(user_id)}, ${mysql.escape(existingTrail[0].trail_id)}, ${mysql.escape(id/1)});`, (err, sqlRes) => {
-                        if(err){
-                            console.log('ADD To Wishlist SQL Error: ', err)
-                            res.sendStatus(500)
-                        }else{
-                            console.log('New User Wishlist:', sqlRes)
-                            res.status(200).send()
-                        }
-                    })
-                }else{
-                    db.query(`INSERT INTO trails (api_id, name, description, location, stars, star_votes, difficulty, length, img_sq_small, img_medium, url, ascent, descent, highest, lowest, longitude, latitude) VALUES (${mysql.escape(trail.id)}, ${mysql.escape(trail.name)}, ${mysql.escape(trail.summary)}, ${mysql.escape(trail.location)}, ${mysql.escape(trail.stars)}, ${mysql.escape(trail.starVotes)}, ${mysql.escape(trail.difficulty)}, ${mysql.escape(trail.length)}, ${mysql.escape(trail.imgSqSmall)}, ${mysql.escape(trail.imgMedium)}, ${mysql.escape(trail.url)}, ${mysql.escape(trail.ascent)}, ${mysql.escape(trail.descent)}, ${mysql.escape(trail.high)}, ${mysql.escape(trail.low)}, ${mysql.escape(trail.longitude)}, ${mysql.escape(trail.latitude)}); SELECT * FROM trails WHERE api_id = ${mysql.escape(id)};`, (err, createdTrail) => {
-                        if(err){
-                            console.log('DB Created Trail Error: ', err)
-                        }else{
-                            console.log('DB Created Trail Success Response: ', createdTrail)
-                            db.query(`INSERT INTO wishlist (user_id, trail_id, api_trail_id) VALUES (${mysql.escape(user_id)}, ${mysql.escape(JSON.parse(JSON.stringify(createdTrail))[1][0].trail_id)}, ${mysql.escape(id/1)});`, (err, wishlistAddResponse) => {
-                                if(err){
-                                    console.log('Insert new Wishlist Error: ', err)
-                                }else{
-                                    console.log('SUCCESS! WE HAVE A NEW WISHLIST TRAIL:', wishlistAddResponse)
-                                    res.sendStatus(200)
-                                }
-                            })
-                        }
-                    })
-                }
-            })
+    const { id } = req.body
+        , { user_id } = req.user
+    axios.get(`https://www.hikingproject.com/data/get-trails-by-id?ids=${id}&key=${API_KEY}`).then(trailData => {
+        let trail = trailData.data.trails[0]
+        db.query(`SELECT * FROM trails WHERE api_id = ${id};`, (err, existingTrail) => {
+            if(err){
+                console.log('DB search for existing trail Error: ', err)
+            }else if(JSON.parse(JSON.stringify(existingTrail))[0]){
+                console.log("Existing Trail Found: ", existingTrail)
+                db.query(`INSERT INTO wishlist (user_id, trail_id, api_trail_id) VALUES (${mysql.escape(user_id)}, ${mysql.escape(existingTrail[0].trail_id)}, ${mysql.escape(id/1)});`, (err, sqlRes) => {
+                    if(err){
+                        console.log('ADD To Wishlist SQL Error: ', err)
+                        res.sendStatus(500)
+                    }else{
+                        console.log('New User Wishlist:', sqlRes)
+                        res.status(200).send()
+                    }
+                })
+            }else{
+                db.query(`INSERT INTO trails (api_id, name, description, location, stars, star_votes, difficulty, length, img_sq_small, img_medium, url, ascent, descent, highest, lowest, longitude, latitude) VALUES (${mysql.escape(trail.id)}, ${mysql.escape(trail.name)}, ${mysql.escape(trail.summary)}, ${mysql.escape(trail.location)}, ${mysql.escape(trail.stars)}, ${mysql.escape(trail.starVotes)}, ${mysql.escape(trail.difficulty)}, ${mysql.escape(trail.length)}, ${mysql.escape(trail.imgSqSmall)}, ${mysql.escape(trail.imgMedium)}, ${mysql.escape(trail.url)}, ${mysql.escape(trail.ascent)}, ${mysql.escape(trail.descent)}, ${mysql.escape(trail.high)}, ${mysql.escape(trail.low)}, ${mysql.escape(trail.longitude)}, ${mysql.escape(trail.latitude)}); SELECT * FROM trails WHERE api_id = ${mysql.escape(id)};`, (err, createdTrail) => {
+                    if(err){
+                        console.log('DB Created Trail Error: ', err)
+                    }else{
+                        console.log('DB Created Trail Success Response: ', createdTrail)
+                        db.query(`INSERT INTO wishlist (user_id, trail_id, api_trail_id) VALUES (${mysql.escape(user_id)}, ${mysql.escape(JSON.parse(JSON.stringify(createdTrail))[1][0].trail_id)}, ${mysql.escape(id/1)});`, (err, wishlistAddResponse) => {
+                            if(err){
+                                console.log('Insert new Wishlist Error: ', err)
+                            }else{
+                                console.log('SUCCESS! WE HAVE A NEW WISHLIST TRAIL:', wishlistAddResponse)
+                                res.sendStatus(200)
+                            }
+                        })
+                    }
+                })
+            }
         })
-    }
+    })
+}
 
 function renderCompleted (req, res) {
     const { user } = req
@@ -127,27 +144,12 @@ function renderCompleted (req, res) {
 }
 
 function renderDashboard(req, res) {
-        // if(req.user){
-            // console.log('renderDash : ', req.user)
-            // const { username, user_id, fullname, email, admin_id, wishlist } = req.user
-            // let safeUser = {
-            //     username
-            //     , user_id
-            //     , fullname
-            //     , email
-            //     , admin_id
-            //     , wishlist
-            // }
-            // res.render('dashboard', { user: safeUser })
-            res.render('dashboard', { user: req.user })
-        // }else{
-        //     res.status(403).redirect('/')
-        // }
+    res.render('dashboard', { user: req.user })
     }
 function renderCompletedForm(req, res) {
         console.log('Rendering Completed Form, req.params: ', req.params)
         const { trailID } = req.params
-        db.query(`SELECT * FROM trails WHERE trail_id = ${mysql.escape(trailID)}`, (err, completedTrail) => {
+        db.query(`SELECT * FROM trails WHERE api_id = ${mysql.escape(trailID/1)}`, (err, completedTrail) => {
             if(err) {
                 console.log('Error getting Completed Trail from Trails db Table: ', err)
             }else{
@@ -159,24 +161,23 @@ function markTrailCompleted(req, res) {
         console.log('Inside the top of the DocumentCompleted route, req.body: ', req.body)
         const { date_completed, company, rating, time_completed_in, notes, dog_friendly, family_friendly, traffic } = req.body
             , { id } = req.params
-            , { user_id } = req.user
-        let insertObj = {
-            trail_id: id
-            , user_id
-            , notes
-            , company
-            , date_completed
-            , hiker_rating: rating
-            , seconds_taken: time_completed_in
-            , family_friendly
-            , dog_friendly
-            , traffic
-        }
-        db.query(`UPDATE completed SET ?;`, insertObj, (err, dbResponse) => {
+            , { user } = req
+            , { user_id } = user
+        // let insertObj = {trail_id: id, user_id, notes, company, date_completed, hiker_rating: rating, seconds_taken: time_completed_in, family_friendly, dog_friendly, traffic}
+        // db.query('INSERT INTO completed SET ?', insertObj, function(err, dbResponse){
+        db.query('INSERT INTO completed SET trail_id = ?, user_id = ?, notes = ?, company = ?, date_completed = ?, hiker_rating = ?, seconds_taken = ?, family_friendly = ?, dog_friendly = ?, traffic = ?;', [id/1, user_id, notes, company, date_completed, rating, time_completed_in, family_friendly, dog_friendly, traffic], function(err, dbResponse){
             if(err) {
                 console.log('Insert Into completed ERROR: ', err)
             }else{
-                res.status(200).send(JSON.parse(JSON.stringify(dbResponse[0][0])))
+                console.log(dbResponse)
+                db.query('UPDATE wishlist SET completed = 1 WHERE user_id = ? AND trail_id = ?', [user.user_id, id], (err, markCompleteRes) => {
+                    if(err){
+                        console.log(`ERROR Marking Trail ${id} Completed: `, err)
+                    }else{
+                        console.log(markCompleteRes)
+                        res.status(200).send(JSON.parse(JSON.stringify({ msg1: dbResponse.message, msg2: markCompleteRes.message })))
+                    }
+                })
             }
         })
     }

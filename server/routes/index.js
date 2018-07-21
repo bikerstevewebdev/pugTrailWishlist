@@ -117,10 +117,11 @@ function renderSearchResults(req, res) {
 
 function sendRandom(req, res) {
     const { userLat, userLng, location } = req.body
-    if(userLat & userLng){
-        axios.get(`https://www.hikingproject.com/data/get-trails?lat=${userLat}&lon=${userLng}&maxResults=1&key=${API_KEY}`).then(randomTrail => {
-            res.status(200).send({ trail_id: randomTrail.data.trails[0].id })
-        }).catch(err => {
+    if(userLat && userLng){
+        axios.get(`https://www.hikingproject.com/data/get-trails?lat=${userLat}&lon=${userLng}&maxResults=10&key=${API_KEY}`).then(trailsResponse => {
+            let randomTrail = trailsResponse.data.trails[~~(Math.random() * (trailsResponse.data.trails.length + 1))]
+            res.status(200).send({ trail_id: randomTrail.id })
+    }).catch(err => {
             console.log('Error fetching random trail: ', err)
             res.status(500).send(err)
         })
@@ -133,12 +134,15 @@ function sendRandom(req, res) {
         }).then(googleRes => {
             let googleLat = googleRes.data.results[0].geometry.location.lat/1
             let googleLng = googleRes.data.results[0].geometry.location.lng/1
-            axios.get(`https://www.hikingproject.com/data/get-trails?lat=${googleLat}&lon=${googleLng}&maxResults=1&key=${API_KEY}`).then(randomTrail => {
-                res.status(200).send({ trail_id: randomTrail.data.trails[0].id })
+            axios.get(`https://www.hikingproject.com/data/get-trails?lat=${googleLat}&lon=${googleLng}&maxResults=10&key=${API_KEY}`).then(trailsResponse => {
+                let randomTrail = trailsResponse.data.trails[~~(Math.random() * (trailsResponse.data.trails.length + 1))]
+                res.status(200).send({ trail_id: randomTrail.id })
             }).catch(err => {
                 console.log('Error fetching random trail: ', err)
                 res.status(500).send(err)
             })
+        }).catch(err => {
+            console.log('Error fetching Google Lat and Lng', err)
         })
     }
 }

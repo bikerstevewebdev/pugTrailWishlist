@@ -3,6 +3,7 @@ const authRouter    = require('express').Router()
     , LocalStrategy = require('passport-local')
     , db            = require('../db')
     , bcrypt        = require('bcrypt')
+    , uc            = require('./userController')
 // using local strategy for custom login handling
 passport.use(new LocalStrategy(
     { passReqToCallback: true }
@@ -40,7 +41,7 @@ passport.serializeUser((user, done) => {
 // Adds created userObj w/trails wishlist to req.user, including DB user object properties
 passport.deserializeUser((user, done) => {
     console.log('deSERIALIZING')
-    db.query('SELECT * FROM trails WHERE trail_id IN (SELECT trail_id FROM wishlist WHERE user_id = ?)', [user.user_id], (err, trails) => {
+    db.query('SELECT * FROM trails WHERE trail_id IN (SELECT trail_id FROM wishlist WHERE user_id = ? AND completed = 0)', [user.user_id], (err, trails) => {
         if(err){
             console.log('Error inside the DESERIALIZE DB Call: ', err)
             done(null, false);

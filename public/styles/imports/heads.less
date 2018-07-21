@@ -32,6 +32,19 @@
         position: absolute;
         left: 37.5%;
     }
+    
+    a.profile_pic::before, a.profile_pic::after {
+        content: "";
+        height: 100%;
+        background-color: #fff;
+        width: 1px;
+        position: absolute;
+        left: -5px;
+    }
+    a.profile_pic::after {
+        left: unset;
+        right: 0px;
+    }
     .register{
         display: flex;
         justify-content: space-between;
@@ -40,6 +53,7 @@
             .ease(@time: 0.2s);
         }
         .profile_pic{
+            position: relative;
             .flex(@jc: space-around; @width: auto);
             margin: 0 0.25rem;
             svg{

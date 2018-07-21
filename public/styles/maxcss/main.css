@@ -37,6 +37,19 @@ button {
 .heads .home_link:hover h2 {
   color: #967635;
 }
+.heads a.profile_pic::before,
+.heads a.profile_pic::after {
+  content: "";
+  height: 100%;
+  background-color: #fff;
+  width: 1px;
+  position: absolute;
+  left: -5px;
+}
+.heads a.profile_pic::after {
+  left: unset;
+  right: 0px;
+}
 .heads .register {
   display: flex;
   justify-content: space-between;
@@ -46,6 +59,7 @@ button {
   transition: all 0.2s ease-in-out;
 }
 .heads .register .profile_pic {
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

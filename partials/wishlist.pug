@@ -23,5 +23,5 @@ section.user_wishlist
                             .rating Rating: 
                                 each star in stars
                                     include ../public/images/rating_star.svg
-                        a(href=`/users/trails/completed/${trail.trail_id}`): svg(id=trail.id, xmlns="http://www.w3.org/2000/svg", xlink="http://www.w3.org/1999/xlink", version="1.1", class="mark_completed", x="0px", y="0px", viewBox="0 0 47 47" )
+                        a(href=`/users/trails/completed/${trail.api_id}`): svg(id=trail.id, xmlns="http://www.w3.org/2000/svg", xlink="http://www.w3.org/1999/xlink", version="1.1", class="mark_completed", x="0px", y="0px", viewBox="0 0 47 47" )
                             include ../public/images/completed-tasks.svg

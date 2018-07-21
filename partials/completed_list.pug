@@ -1,6 +1,7 @@
 section.completed_list
     h2 Your Journey Log
     each completedTrail in user.completed
+        - console.log(completedTrail)
         .completed_trail
-        p= completedTrail.name
-        .trail_teaser(style={"background-image": completedTrail.img_sq_small, "background-size": "cover", "background-position": "top center"})
+            p= completedTrail.name
+            a(href=`/journey/${completedTrail.completed_id}`): .trail_teaser(style={"background-image": `url(${completedTrail.img_sq_small})`, "background-size": "cover", "background-position": "top center"})

@@ -7,3 +7,17 @@ section.completed_list {
   background-color: lightgray;
   min-height: 75vh;
 }
+section.completed_list * {
+  margin: 1rem;
+}
+section.completed_list .completed_trail {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+section.completed_list .trail_teaser {
+  width: 100px;
+  height: 100px;
+}

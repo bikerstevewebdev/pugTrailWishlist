@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    style include 
+    section.journey_view
+        .journey_head
+            h1(id=journalEntry.trail_id) How Was Your Journey at #{journalEntry.name}?
+            img(src=journalEntry.img_medium, alt=journalEntry.name)
+        .journey_details
+            p Date of Journey: #{new Date(journalEntry.date_completed)}
+            p You Rated it as: #{journalEntry.hiker_rating}
+            p Companions on the Journey: #{journalEntry.company}
+            p Completed In
+            p.family_friendly You said it #{journalEntry.family_friendly ? : 'was ' : 'was not '}
+            .dog_friendly
+            p You said it #{journalEntry.dog_friendly ? : 'was ' : 'was not '} dog friendly.
+            p Memorable Notes/Useful Tips You Provided: #{journalEntry.notes}
+            p Traffic Volume You Suggested: #{journalEntry.traffic}

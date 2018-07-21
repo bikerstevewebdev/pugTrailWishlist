@@ -1,6 +1,6 @@
 $('#completed_form').on('submit', e => {
     e.preventDefault()
-    let completion_time = ($('#hours').val()*60*60) + ($('#hours').val()*60)
+    let completion_time = ($('#hours').val()*60*60) + ($('#minutes').val()*60)
     let familyFriendly = $('#ff_yes').prop('checked') ? true : false
     let dogFriendly = $('#df_yes').prop('checked') ? true : false
     let date_completed = new Date($('#date_completed').val()).getTime()
