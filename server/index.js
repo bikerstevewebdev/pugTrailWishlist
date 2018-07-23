@@ -32,7 +32,7 @@ const app = express()
 // setting the static files (for references to the static folder) to point to the public folder
 app.use('/static', express.static('public', { redirect: true}))
 // express' version of body-parser to parse the data from post's and place onto req.body 
-app.use(express.json())
+app.use(express.json({ limit: '5mb'}))
 // fixes some POST usage with jQuery for some reason.......????...
 app.use(express.urlencoded({ extended: false }))
 

@@ -3,7 +3,7 @@ section.user_wishlist
         h1 No Trails Yet? Search for some new goals!
         a(href='/suggestions/form').no_wishlist: button Search for Trails
     else
-        h1 Your Trails #{user.username}
+        h1 Soon to be Yours #{user.username}
         section.trails_list
             each trail in user.wishlist
                 .wishlist_trail
@@ -12,7 +12,7 @@ section.user_wishlist
                         let img = noImg ?  '/static/images/no-image.jpg' : trail.img_medium
                         let bgPosition = noImg ? 'center' : 'top center'
                         let bgSize = noImg ? "contain" : "cover"
-                    a(href=`/trails/${trail.id}`): .trail-img(style={"background-image": "url(" + img + ")", "background-position": bgPosition, "background-size": bgSize}, alt=trail.name)
+                    a(href=`/trails/${trail.api_id}`): .trail-img(style={"background-image": "url(" + img + ")", "background-position": bgPosition, "background-size": bgSize}, alt=trail.name)
                     .trail-info
                         h3= trail.name
                         p.location= trail.location
@@ -23,5 +23,9 @@ section.user_wishlist
                             .rating Rating: 
                                 each star in stars
                                     include ../public/images/rating_star.svg
-                        a(href=`/users/trails/completed/${trail.api_id}`): svg(id=trail.id, xmlns="http://www.w3.org/2000/svg", xlink="http://www.w3.org/1999/xlink", version="1.1", class="mark_completed", x="0px", y="0px", viewBox="0 0 47 47" )
-                            include ../public/images/completed-tasks.svg
+                        .action_container(id=trail.trail_id)
+                            svg(class="recycle_trail", id=`delete_${trail.trail_id}`, xmlns="http://www.w3.org/2000/svg", xlink="http://www.w3.org/1999/xlink", version="1.1", x="0px", y="0px", viewBox="0 0 479.999 479.999")
+                                include ../public/images/recycle-bin.svg
+                            a(href=`/users/trails/completed/${trail.api_id}`): svg(xmlns="http://www.w3.org/2000/svg", xlink="http://www.w3.org/1999/xlink", version="1.1", class="mark_completed", x="0px", y="0px", viewBox="0 0 47 47" )
+                                include ../public/images/completed-tasks.svg
+        script(src="/static/js/wishlist.js", type="application/javascript")

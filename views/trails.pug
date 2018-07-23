@@ -28,11 +28,12 @@ block content
                 p= 'Highest Point: ' + trail.high
                 p= 'Lowest Point: ' + trail.low
                 p= 'Trail\'s Condition: ' + trail.conditionStatus
-                - let condDate = new Date(trail.conditionDate)
-                - let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-                - let month = months[condDate.getMonth()]
-                - let day = condDate.getDay()
-                - let year = condDate.getFullYear()
+                -
+                    let condDate = new Date(trail.conditionDate)
+                    , months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                    , month = months[condDate.getMonth()]
+                    , day = condDate.getDay()
+                    , year = condDate.getFullYear()
                 p= trail.conditionDetails + ' as of ' + month + ' ' + day + ' ' + year
         #map
             //- - var trailObj = Object.assign({}, trail)

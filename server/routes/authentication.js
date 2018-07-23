@@ -41,22 +41,28 @@ passport.serializeUser((user, done) => {
 // Adds created userObj w/trails wishlist to req.user, including DB user object properties
 passport.deserializeUser((user, done) => {
     console.log('deSERIALIZING')
-    db.query('SELECT * FROM trails WHERE trail_id IN (SELECT trail_id FROM wishlist WHERE user_id = ? AND completed = 0)', [user.user_id], (err, trails) => {
-        if(err){
-            console.log('Error inside the DESERIALIZE DB Call: ', err)
-            done(null, false);
+    db.query('SELECT * FROM users WHERE user_id = ?', [user.user_id], (userGrabErr, dbUser) => {
+        if(userGrabErr){
+            console.log('Error Grabbing User: ', userGrabErr)
         }else{
-            db.query('SELECT c.*, t.name, t.img_sq_small, t.img_medium FROM completed c JOIN trails t on t.trail_id = c.trail_id WHERE t.trail_id IN (SELECT c.trail_id FROM completed c WHERE user_id = ?);', [user.user_id], (err, completed_trails) => {
-                if(err){
-                    console.log('Error fetching User\'s completed trails: ', err)
+            db.query('SELECT * FROM trails WHERE trail_id IN (SELECT trail_id FROM wishlist WHERE user_id = ? AND completed = 0)', [user.user_id], (trailsErr, trails) => {
+                if(trailsErr){
+                    console.log('Error inside the DESERIALIZE DB Call: ', trailsErr)
+                    done(null, false);
                 }else{
-                    let userObj = {
-                        ...user
-                        , wishlist: JSON.parse(JSON.stringify(trails))
-                        , completed: JSON.parse(JSON.stringify(completed_trails))
-                    }
-                    delete userObj.password
-                    done(null, userObj);
+                    db.query('SELECT c.*, t.name, t.img_sq_small, t.img_medium FROM completed c JOIN trails t on t.trail_id = c.trail_id WHERE t.trail_id IN (SELECT c.trail_id FROM completed c WHERE user_id = ?);', [user.user_id], (compTrailsErr, completed_trails) => {
+                        if(compTrailsErr){
+                            console.log('Error fetching User\'s completed trails: ', compTrailsErr)
+                        }else{
+                            let userObj = {
+                                ...dbUser[0]
+                                , wishlist: JSON.parse(JSON.stringify(trails))
+                                , completed: JSON.parse(JSON.stringify(completed_trails))
+                            }
+                            delete userObj.password
+                            done(null, userObj);
+                        }
+                    })
                 }
             })
         }

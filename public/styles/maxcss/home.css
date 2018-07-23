@@ -430,6 +430,51 @@ section.search_results .wishlist_trail div.trail-info svg.star:hover,
 section.user_wishlist .wishlist_trail div.trail-info svg.star:hover {
   fill: gold;
 }
+section.home div.trail div.trail-info svg.recycle_trail,
+section.search_results div.trail div.trail-info svg.recycle_trail,
+section.user_wishlist div.trail div.trail-info svg.recycle_trail,
+section.home .wishlist_trail div.trail-info svg.recycle_trail,
+section.search_results .wishlist_trail div.trail-info svg.recycle_trail,
+section.user_wishlist .wishlist_trail div.trail-info svg.recycle_trail {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  position: absolute;
+  right: 5.25rem;
+  top: 1.95rem;
+}
+section.home div.trail div.trail-info svg.recycle_trail path,
+section.search_results div.trail div.trail-info svg.recycle_trail path,
+section.user_wishlist div.trail div.trail-info svg.recycle_trail path,
+section.home .wishlist_trail div.trail-info svg.recycle_trail path,
+section.search_results .wishlist_trail div.trail-info svg.recycle_trail path,
+section.user_wishlist .wishlist_trail div.trail-info svg.recycle_trail path {
+  transition: all 0.25s ease-in-out;
+}
+section.home div.trail div.trail-info svg.recycle_trail:hover .bin,
+section.search_results div.trail div.trail-info svg.recycle_trail:hover .bin,
+section.user_wishlist div.trail div.trail-info svg.recycle_trail:hover .bin,
+section.home .wishlist_trail div.trail-info svg.recycle_trail:hover .bin,
+section.search_results .wishlist_trail div.trail-info svg.recycle_trail:hover .bin,
+section.user_wishlist .wishlist_trail div.trail-info svg.recycle_trail:hover .bin {
+  fill: #0707e4b0;
+}
+section.home div.trail div.trail-info svg.recycle_trail:hover .inner_wheel,
+section.search_results div.trail div.trail-info svg.recycle_trail:hover .inner_wheel,
+section.user_wishlist div.trail div.trail-info svg.recycle_trail:hover .inner_wheel,
+section.home .wishlist_trail div.trail-info svg.recycle_trail:hover .inner_wheel,
+section.search_results .wishlist_trail div.trail-info svg.recycle_trail:hover .inner_wheel,
+section.user_wishlist .wishlist_trail div.trail-info svg.recycle_trail:hover .inner_wheel {
+  fill: red;
+}
+section.home div.trail div.trail-info svg.recycle_trail:hover .recycle_arrow,
+section.search_results div.trail div.trail-info svg.recycle_trail:hover .recycle_arrow,
+section.user_wishlist div.trail div.trail-info svg.recycle_trail:hover .recycle_arrow,
+section.home .wishlist_trail div.trail-info svg.recycle_trail:hover .recycle_arrow,
+section.search_results .wishlist_trail div.trail-info svg.recycle_trail:hover .recycle_arrow,
+section.user_wishlist .wishlist_trail div.trail-info svg.recycle_trail:hover .recycle_arrow {
+  fill: forestgreen;
+}
 section.home div.trail div.trail-info svg.mark_completed,
 section.search_results div.trail div.trail-info svg.mark_completed,
 section.user_wishlist div.trail div.trail-info svg.mark_completed,
@@ -580,9 +625,18 @@ section.user_wishlist .wishlist_trail div.trail-info .details .rating svg {
   section.home .wishlist_trail div.trail-info svg.mark_completed,
   section.search_results .wishlist_trail div.trail-info svg.mark_completed,
   section.user_wishlist .wishlist_trail div.trail-info svg.mark_completed {
-    position: absolute;
     bottom: 1rem;
     top: unset;
+  }
+  section.home div.trail div.trail-info svg.recycle_trail,
+  section.search_results div.trail div.trail-info svg.recycle_trail,
+  section.user_wishlist div.trail div.trail-info svg.recycle_trail,
+  section.home .wishlist_trail div.trail-info svg.recycle_trail,
+  section.search_results .wishlist_trail div.trail-info svg.recycle_trail,
+  section.user_wishlist .wishlist_trail div.trail-info svg.recycle_trail {
+    top: unset;
+    bottom: 2rem;
+    right: 5.25rem;
   }
   section.home div.trail div.trail-info .details,
   section.search_results div.trail div.trail-info .details,

@@ -6,6 +6,8 @@ const bcrypt          = require('bcrypt')
     , mysql           = require('mysql')
     , axios           = require('axios')
     , userRouter      = require('express').Router()
+    , moment          = require('moment')
+    , s3Controller    = require('../awsS3')
 
 userRouter.use('/', (req, res, next) => {
     if(req.user){
@@ -25,6 +27,8 @@ userRouter.get('/journey/:id',               renderJourney)
 userRouter.get('/trails/completed/:trailID', renderCompletedForm)
 userRouter.post('/wishlist/completed/:id',   markTrailCompleted)
 userRouter.post('/wishlist/:id',             addTrailToWishlist)
+userRouter.delete('/wishlist/:id',           removeTrailFromWishlist)
+userRouter.post('/profile/pictures',         s3Controller.uploadPhoto)
 
 function renderProfile(req, res) {
     res.render('profile', { user: req.user })
@@ -42,7 +46,10 @@ function renderJourney(req, res) {
             if(err){
                 console.log(`ERROR Fetching data for Journey with ID ${id}: `,err)
             }else{
-                res.render('journey', { journalEntry: JSON.parse(JSON.stringify(journeyInfo[0])), user })
+                let jsonnedJE = JSON.parse(JSON.stringify(journeyInfo[0]))
+                    , momentoDate = moment(jsonnedJE.date_completed).format('dddd, MMMM Do, YYYY')
+                    , dateFreindlyJE = { ...jsonnedJE, date_completed: momentoDate }
+                res.render('journey', { journalEntry: dateFreindlyJE, user })
             }
         })
     }else{
@@ -135,6 +142,20 @@ function addTrailToWishlist(req, res) {
                 })
             }
         })
+    })
+}
+
+function removeTrailFromWishlist(req, res){
+    const { id } = req.params
+        , { user } = req
+    console.log('Removing Trail with ID of : ', id)
+    db.query('DELETE FROM wishlist WHERE user_id = ? AND trail_id = ?', [user.user_id, id], (err, dbResponse) => {
+        if(err){
+            console.log('Error removing trail from user\'s wishlist')
+        }else{
+            console.log('Trail successfully removed')
+            res.sendStatus(200)
+        }
     })
 }
 

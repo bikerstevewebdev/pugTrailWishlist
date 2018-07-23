@@ -17,6 +17,7 @@ section.profile{
         height: 200px;
         background-position: center;
         background-size: cover;
+        border-radius: 50%;
     }
     .main_user_info{
         .flex(column; @jc: space-between);
@@ -59,6 +60,19 @@ section.profile{
         right: 0;
         bottom: 0;
         background-color: #676161a6;
+        img.file-preview{
+            height: 0;
+            margin-bottom: 5rem;
+            width: 100%;
+            opacity: 0;
+            .ease();
+            &.file_present{
+                margin-bottom:0;
+                opacity: 1;
+                height: auto;
+                max-height: 150px;
+            }
+        }
         .ease(@time: 0.4s);
         .s3_upload{
             opacity: 0;

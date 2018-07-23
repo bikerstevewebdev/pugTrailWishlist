@@ -24,6 +24,7 @@ section.profile #profile_pic {
   height: 200px;
   background-position: center;
   background-size: cover;
+  border-radius: 50%;
 }
 section.profile .main_user_info {
   display: flex;
@@ -95,6 +96,19 @@ section.profile section#upload_pic {
   bottom: 0;
   background-color: #676161a6;
   transition: all 0.4s ease-in-out;
+}
+section.profile section#upload_pic img.file-preview {
+  height: 0;
+  margin-bottom: 5rem;
+  width: 100%;
+  opacity: 0;
+  transition: all 0.25s ease-in-out;
+}
+section.profile section#upload_pic img.file-preview.file_present {
+  margin-bottom: 0;
+  opacity: 1;
+  height: auto;
+  max-height: 150px;
 }
 section.profile section#upload_pic .s3_upload {
   opacity: 0;

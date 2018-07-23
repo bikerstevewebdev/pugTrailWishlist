@@ -44,6 +44,28 @@ section.home, section.search_results, section.user_wishlist{
                     fill: gold;
                 }
             }
+            svg.recycle_trail{
+                width: 2rem;
+                height: 2rem;
+                cursor: pointer;
+                position: absolute;
+                right: 5.25rem;
+                top: 1.95rem;
+                path{
+                    .ease();
+                }
+                &:hover{
+                    .bin{
+                        fill: #0707e4b0;
+                    }
+                    .inner_wheel{
+                        fill: red;
+                    }
+                    .recycle_arrow{
+                        fill: forestgreen;
+                    }
+                }
+            }
             svg.mark_completed{
                 width: 1.75rem;
                 height: 1.75rem;
@@ -119,9 +141,13 @@ section.home, section.search_results, section.user_wishlist{
                     top: unset;
                 }
                 svg.mark_completed{
-                    position: absolute;
                     bottom: 1rem;
                     top: unset;
+                }
+                svg.recycle_trail{
+                    top: unset;
+                    bottom: 2rem;
+                    right: 5.25rem;
                 }
                 .details{
                     flex-direction: column;

@@ -39,8 +39,11 @@ block content
         section#upload_pic
             .s3_upload
                 .input_container
-                    label Upload File
-                    input(type="file")
+                    img(src='', alt="Upload Preview", class="file-preview")  
+                    .s3_container
+                        label(for="file-input")
+                        input#file-input(type="file")
+                    button#visible_s3_btn Upload
                 button#close_s3 Cancel Upload
-
         script(src="/static/js/profile.js", type="application/javascript", async, defer)
+        script(src="/static/js/s3Logic/profile_pic.js", type="application/javascript", async, defer)

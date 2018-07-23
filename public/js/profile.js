@@ -35,7 +35,7 @@ $('#upload_pic').on('click', (e) => {
     $('#upload_pic').removeClass('visible')
 })
 $('.s3_upload').on('click', e => {
-        e.preventDefault()
+        // e.preventDefault()
         e.stopPropagation()
     }
 )
