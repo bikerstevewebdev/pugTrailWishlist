@@ -29,13 +29,11 @@ block content
             .form_group.email
                 label Email
                 input(type="email", name="email", value=user.email)
-            .form_group.email
-                label Email
-                input(type="email", name="email", value=user.email)
             .form_group.profile_pic
                 label Profile Picture URL
                 input(type="text", name="profile_pic", value=user.profile_pic, placeholder="http://www.example.pic.com/some_cool_pic_of_you")
             button#form_pic_edit Upload From Computer
+            input(type="submit", value="Update Profile")
         section#upload_pic
             .s3_upload
                 .input_container

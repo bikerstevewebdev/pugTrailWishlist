@@ -28,6 +28,7 @@ userRouter.get('/trails/completed/:trailID', renderCompletedForm)
 userRouter.post('/wishlist/completed/:id',   markTrailCompleted)
 userRouter.post('/wishlist/:id',             addTrailToWishlist)
 userRouter.delete('/wishlist/:id',           removeTrailFromWishlist)
+userRouter.post('/profile',                  updateProfile)
 userRouter.post('/profile/pictures',         s3Controller.uploadPhoto)
 
 function renderProfile(req, res) {
@@ -199,6 +200,20 @@ function markTrailCompleted(req, res) {
                         res.status(200).send(JSON.parse(JSON.stringify({ msg1: dbResponse.message, msg2: markCompleteRes.message })))
                     }
                 })
+            }
+        })
+    }
+
+    function updateProfile(req, res) {
+        console.log('Hey uh you are editing the profile so yeah hey there')
+        const { user } = req
+        const { username, fullname, email, profile_pic } = req.body
+        db.query(`UPDATE users SET username = ?, fullname = ?, email = ?, profile_pic = ?`, [username, fullname, email, profile_pic], (err, dbResponse) => {
+            if(err){
+                console.log('Error updating user profile: ', err)
+            }else{
+                console.log('success updating profile!')
+                res.sendStatus(200)
             }
         })
     }

@@ -7,17 +7,14 @@ $(document).ready( function(){
         console.log('Event Object: ', e)
         console.log('Username', $username.val(), 'Password', $password.val())
         $.ajax({
-            type: 'POST'
+              type: 'POST'
             , url: '/auth/login'
-            // , processData: false
             , data: JSON.stringify({
                 username: $username.val()
                 , password: $password.val()
             })
             , contentType: 'application/json'
             , success: function(data, status) {
-                // alert("Data: " + data + "\nStatus: " + status)
-                // $.get('/users/dashboard')
                 console.log('Login Success: ', data, status)
                 window.location.replace('/users/dashboard')
             }
