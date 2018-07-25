@@ -28,4 +28,9 @@ section.user_wishlist
                                 include ../public/images/recycle-bin.svg
                             a(href=`/users/trails/completed/${trail.api_id}`): svg(xmlns="http://www.w3.org/2000/svg", xlink="http://www.w3.org/1999/xlink", version="1.1", class="mark_completed", x="0px", y="0px", viewBox="0 0 47 47" )
                                 include ../public/images/completed-tasks.svg
+        .confirm_delete_modal
+            .confirm_delete_container
+                h2 Are you sure you want to remove this trail from your wishlist?
+                button#confirm_delete Remove It
+                button#dont_delete NO Dont Remove
         script(src="/static/js/wishlist.js", type="application/javascript")

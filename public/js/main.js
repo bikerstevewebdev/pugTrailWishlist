@@ -67,7 +67,7 @@ $(document).ready(() => {
 $('.star').on('click', e => {
     e.preventDefault()
     let $starId = e.target.id/1
-    console.log($starId)
+    console.log($starId, e.target)
     $.ajax({
         type: 'post'
         , url: `/users/wishlist/${$starId}`

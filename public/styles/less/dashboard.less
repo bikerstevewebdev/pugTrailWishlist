@@ -24,6 +24,59 @@ section.dashboard, section.wishlist_page{
                 }
             }
         }
+        .confirm_delete_modal{
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            opacity: 0;
+            background-color: #000000ab;
+            z-index: -5;
+            .ease();
+            .confirm_delete_container{
+                .flex(@fd: column; @jc: space-evenly);
+                position: fixed;
+                z-index: -10;
+                opacity: 0;
+                background-color: #ededed;
+                top: 0;
+                left: ~"calc(50vw - 13.5rem)";
+                width: 27rem;
+                height: 27rem;
+                padding: 1rem;
+                button{
+                    .fake_div_btn();
+                    font-size: 1em;
+                    line-height: 1.25em;
+                    padding: 0;
+                }
+                #confirm_delete{
+                    background-color: red;
+                    color: #111;
+                    &:hover{
+                        background-color: #111;
+                        color: red;
+                    }
+                }
+                #dont_delete{
+                    background-color: green;
+                    color: #ededed;
+                    &:hover{
+                        background-color: #eee;
+                        color: green;
+                    }
+                }
+            }
+            &.open{
+                opacity: 1;
+                z-index: 10;
+                .confirm_delete_container{
+                    opacity: 1;
+                    top: ~"calc(50vh - 13.5rem)";
+                }
+            }
+        }
     }
     @media @ipadMax{
         section.user_wishlist{

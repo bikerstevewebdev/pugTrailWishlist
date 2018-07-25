@@ -1,0 +1,73 @@
+extends layout
+
+block content
+    section.completed_form
+        style
+            include ../public/styles/css/completed_form.css
+        form#journey_edit_form
+            h1(id=journey.trail_id) How Was Your Journey at #{journey.name}?
+            img(src=journey.img_medium, alt=journey.name)
+            .form_group
+                -
+                    let tempDate =  new Date(journey.date_completed)
+                        , tempYear = tempDate.getFullYear()
+                        , tempMonth = tempDate.getUTCMonth() + 1
+                        , tempDay = tempDate.getDate()/1
+                    if(tempMonth < 10){
+                        tempMonth = '0' + tempMonth
+                    }
+                    if(tempDay < 10){
+                        tempDay = '0' + tempDay
+                    }
+                label Date of Journey:
+                input#date_completed(type="date", value=('' + tempYear + '-' + tempMonth + '-' + tempDay))
+            .form_group
+                label Rating:
+                    span.rating_star.one_star: include ../public/images/one_star.svg
+                    span.rating_star.two_stars: include ../public/images/two_stars.svg
+                    span.rating_star.three_stars: include ../public/images/three_stars.svg
+                    span.rating_star.four_stars: include ../public/images/rating_star.svg
+                    span.rating_star.five_stars: include ../public/images/rating_star.svg        
+                input(name="rating", value=journey.hiker_rating, type="range", min="1", max="5")#user_rating
+            .form_group
+                label Companions on the Journey
+                input(type="text", placeholder="Separate Fullnames with Commas")#company
+            .form_group.time_completed
+                label Completed In
+                .completed_time_container
+                    -
+                        let minutesTaken = journey.seconds_taken/60
+                            , hoursTaken = minutesTaken%60
+                            , remainingMinutes = minutesTaken - (hoursTaken * 60)
+                    input(type="number" min="0", max="10000", name="hours", value=hoursTaken)#hours
+                    label(for="hours") hours
+                    span :
+                    input(type="number", min="0", max="59", name="minutes", value=remainingMinutes)#minutes
+                    label(for="minutes") mins
+            .form_group.family_friendly
+                p Was it Family Friendly?
+                .family_friendly_container
+                    label Yes
+                    input(type="radio", name="family_friendly", checked=journey.family_friendly, value="yes")#ff_yes
+                    label No
+                    input(type="radio", name="family_friendly", checked=!journey.family_friendly, value="no")
+            .form_group.dog_friendly
+                p Dog Friendly?
+                .dog_friendly_container
+                    label Yes
+                    input(type="radio", name="dog_friendly", checked=journey.dog_friendly, value="yes")#df_yes
+                    label No
+                    input(type="radio", name="dog_friendly", checked=!journey.dog_friendly, value="no")
+            .form_group.notes
+                label Memorable Notes/Useful Tips
+                textarea(maxlength="500", placeholder="Notes about the journey...", rows="5", value=journey.notes, columns="40")#trip_notes
+            .form_group
+                label(for="traffic") Traffic Volume
+                select(type="select", value=journey.traffic)#traffic
+                    option(value="remote") Remote
+                    option(value="light") Lightly Trafficked
+                    option(value="moderate") Moderately Trafficked
+                    option(value="high") Highly Trafficked
+                    option(value="popular") Very Popular
+            input(type="submit", value="Document Journey")
+    script(src='/static/js/edit_journey.js')

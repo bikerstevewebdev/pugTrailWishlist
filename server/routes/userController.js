@@ -22,8 +22,9 @@ userRouter.use('/', (req, res, next) => {
 userRouter.get('/wishlist',                  renderWishlist)
 userRouter.get('/profile',                   renderProfile)
 userRouter.get('/dashboard',                 renderDashboard)
-userRouter.get('/completed',                 renderCompleted)
-userRouter.get('/journey/:id',               renderJourney)
+userRouter.get('/journeys/edit/:id',         renderEditJourney)
+userRouter.get('/journeys',                  renderJourneys)
+userRouter.get('/journeys/:id',              renderJourney)
 userRouter.get('/trails/completed/:trailID', renderCompletedForm)
 userRouter.post('/wishlist/completed/:id',   markTrailCompleted)
 userRouter.post('/wishlist/:id',             addTrailToWishlist)
@@ -107,7 +108,7 @@ function createUser(body, username, password, next) {
 //     }
 
 function addTrailToWishlist(req, res) {
-    const { id } = req.body
+    const { id } = req.params
         , { user_id } = req.user
     axios.get(`https://www.hikingproject.com/data/get-trails-by-id?ids=${id}&key=${API_KEY}`).then(trailData => {
         let trail = trailData.data.trails[0]
@@ -143,6 +144,8 @@ function addTrailToWishlist(req, res) {
                 })
             }
         })
+    }).catch(err => {
+        console.log('Error requesting info from Trail API for Wishlist Add: ', err)
     })
 }
 
@@ -160,9 +163,9 @@ function removeTrailFromWishlist(req, res){
     })
 }
 
-function renderCompleted (req, res) {
+function renderJourneys (req, res) {
     const { user } = req
-    res.render('completed_page', { user })
+    res.render('journeys', { user })
 }
 
 function renderDashboard(req, res) {
@@ -208,12 +211,25 @@ function markTrailCompleted(req, res) {
         console.log('Hey uh you are editing the profile so yeah hey there')
         const { user } = req
         const { username, fullname, email, profile_pic } = req.body
-        db.query(`UPDATE users SET username = ?, fullname = ?, email = ?, profile_pic = ?`, [username, fullname, email, profile_pic], (err, dbResponse) => {
+        db.query(`UPDATE users SET username = ?, fullname = ?, email = ?, profile_pic = ? WHERE user_id = ?`, [username, fullname, email, profile_pic, user.user_id], (err, dbResponse) => {
             if(err){
                 console.log('Error updating user profile: ', err)
             }else{
                 console.log('success updating profile!')
                 res.sendStatus(200)
+            }
+        })
+    }
+
+    function renderEditJourney(req, res) {
+        const { id } = req.params
+            , { user } = req
+        db.query('SELECT c.*, t.img_medium, t.name FROM completed c JOIN trails t ON t.trail_id = c.trail_id WHERE user_id = ? AND completed_id = ?', [user.user_id, id], (err, dbResponse) => {
+            if(err){
+                console.log('Error fetching completed trail data: ', err)
+                res.sendStatus(500)
+            }else{
+                res.render('edit_journey', { journey: JSON.parse(JSON.stringify(dbResponse[0])) })
             }
         })
     }
